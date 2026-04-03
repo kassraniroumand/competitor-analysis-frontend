@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lightbulb, Search, SlidersHorizontal, Sparkles, Trash2, RotateCcw, ExternalLink, X } from "lucide-react";
+import { Lightbulb, Search, SlidersHorizontal, Sparkles, Trash2, RotateCcw, ExternalLink, X, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -143,8 +143,11 @@ export default function IdeasPage() {
                         <ScoreBadge score={report.opportunityScore} />
                       )}
                       <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <ExternalLink className="h-3.5 w-3.5" />
+                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => navigate(`/ideas/${report.id}`)}>
+                          <ExternalLink className="h-3.5 w-3.5" /> Details
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => navigate(`/ideas/${report.id}/competitors`)}>
+                          <Users className="h-3.5 w-3.5" /> Competitors
                         </Button>
                         <Button variant="ghost" size="icon" className="h-8 w-8">
                           <RotateCcw className="h-3.5 w-3.5" />
