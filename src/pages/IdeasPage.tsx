@@ -115,47 +115,44 @@ export default function IdeasPage() {
 
         {/* Reports List */}
         {filteredReports.length > 0 ? (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredReports.map((report) => (
               <Card
                 key={report.id}
-                className="hover:shadow-md transition-shadow cursor-pointer group"
+                className="hover:shadow-lg transition-all cursor-pointer group flex flex-col"
                 onClick={() => navigate(`/ideas/${report.id}`)}
               >
-                <CardContent className="p-5">
-                  <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-                    <div className="flex-1 min-w-0 space-y-2">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                          {report.title}
-                        </h3>
-                        <StatusBadge status={report.status} />
-                      </div>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{report.description}</p>
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                        <span>Created {report.createdAt}</span>
-                        <span>·</span>
-                        <Badge variant="secondary" className="text-xs font-normal">{report.category}</Badge>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 shrink-0">
-                      {report.status === 'completed' && (
-                        <ScoreBadge score={report.opportunityScore} />
-                      )}
-                      <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => navigate(`/ideas/${report.id}`)}>
-                          <ExternalLink className="h-3.5 w-3.5" /> Details
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => navigate(`/ideas/${report.id}/competitors`)}>
-                          <Users className="h-3.5 w-3.5" /> Competitors
-                        </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <RotateCcw className="h-3.5 w-3.5" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </Button>
-                      </div>
+                <CardContent className="p-5 flex flex-col flex-1 space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <StatusBadge status={report.status} />
+                    {report.status === 'completed' && (
+                      <ScoreBadge score={report.opportunityScore} />
+                    )}
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                      {report.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{report.description}</p>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge variant="secondary" className="text-xs font-normal">{report.category}</Badge>
+                    <span className="text-xs text-muted-foreground ml-auto">{report.createdAt}</span>
+                  </div>
+                  <div className="flex gap-2 pt-1 border-t" onClick={(e) => e.stopPropagation()}>
+                    <Button variant="outline" size="sm" className="flex-1 text-xs gap-1.5 h-8" onClick={() => navigate(`/ideas/${report.id}`)}>
+                      <ExternalLink className="h-3 w-3" /> Details
+                    </Button>
+                    <Button variant="outline" size="sm" className="flex-1 text-xs gap-1.5 h-8" onClick={() => navigate(`/ideas/${report.id}/competitors`)}>
+                      <Users className="h-3 w-3" /> Competitors
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive shrink-0">
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
                     </div>
                   </div>
                 </CardContent>
