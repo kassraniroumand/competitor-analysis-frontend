@@ -119,10 +119,12 @@ export default function IdeasPage() {
             {filteredReports.map((report) => (
               <Card
                 key={report.id}
-                className="hover:shadow-lg transition-all cursor-pointer group flex flex-col"
-                onClick={() => navigate(`/ideas/${report.id}`)}
+                className="hover:shadow-lg transition-all group flex flex-col overflow-hidden"
               >
-                <CardContent className="p-5 flex flex-col flex-1 space-y-3">
+                <div
+                  className="p-5 flex flex-col flex-1 space-y-3 cursor-pointer"
+                  onClick={() => navigate(`/ideas/${report.id}`)}
+                >
                   <div className="flex items-center justify-between gap-2">
                     <StatusBadge status={report.status} />
                     {report.status === 'completed' && (
@@ -139,18 +141,21 @@ export default function IdeasPage() {
                     <Badge variant="secondary" className="text-xs font-normal">{report.category}</Badge>
                     <span className="text-xs text-muted-foreground ml-auto">{report.createdAt}</span>
                   </div>
-                  <div className="flex gap-2 pt-1 border-t" onClick={(e) => e.stopPropagation()}>
-                    <Button variant="outline" size="sm" className="flex-1 text-xs gap-1.5 h-8" onClick={() => navigate(`/ideas/${report.id}`)}>
-                      <ExternalLink className="h-3 w-3" /> Details
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1 text-xs gap-1.5 h-8" onClick={() => navigate(`/ideas/${report.id}/competitors`)}>
-                      <Users className="h-3 w-3" /> Competitors
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive shrink-0">
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </Button>
-                  </div>
-                </CardContent>
+                </div>
+                <div className="grid grid-cols-2 border-t">
+                  <button
+                    className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors border-r"
+                    onClick={() => navigate(`/ideas/${report.id}`)}
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" /> View Details
+                  </button>
+                  <button
+                    className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
+                    onClick={() => navigate(`/ideas/${report.id}/competitors`)}
+                  >
+                    <Users className="h-3.5 w-3.5" /> Competitors
+                  </button>
+                </div>
               </Card>
             ))}
           </div>
