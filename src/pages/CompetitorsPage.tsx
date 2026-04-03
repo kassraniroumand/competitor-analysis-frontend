@@ -251,11 +251,11 @@ export default function CompetitorsPage() {
                 {/* Strengths & Weaknesses */}
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div>
-                    <p className="font-medium mb-1.5 flex items-center gap-1 text-emerald-600">
+                    <p className="font-medium mb-1.5 flex items-center gap-1 text-primary">
                       <Star className="h-3 w-3" /> Strengths
                     </p>
                     <ul className="space-y-0.5 text-muted-foreground">
-                      {comp.strengths.slice(0, 2).map((s) => <li key={s} className="flex items-start gap-1"><span className="text-emerald-500 mt-0.5">•</span> {s}</li>)}
+                      {comp.strengths.slice(0, 2).map((s) => <li key={s} className="flex items-start gap-1"><span className="text-primary mt-0.5">•</span> {s}</li>)}
                     </ul>
                   </div>
                   <div>
