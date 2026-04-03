@@ -152,6 +152,7 @@ export default function IdeasPage() {
                   </div>
                 </CardContent>
               </Card>
+            ))}
           </div>
         ) : (
           <Card className="p-12">
