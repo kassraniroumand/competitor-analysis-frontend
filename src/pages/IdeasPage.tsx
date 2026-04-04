@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lightbulb, Search, SlidersHorizontal, Sparkles, Trash2, RotateCcw, ExternalLink, X, Users } from "lucide-react";
+import { Lightbulb, Search, SlidersHorizontal, Sparkles, Trash2, RotateCcw, ExternalLink, X, Users, CheckCircle2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
