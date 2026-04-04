@@ -233,9 +233,9 @@ export default function IdeasPage() {
               </div>
               <h3 className="text-lg font-semibold text-foreground">No idea reports yet</h3>
               <p className="text-sm text-muted-foreground max-w-sm">
-                Submit your first startup idea above and get a comprehensive validation report.
+                Submit your first startup idea and get a comprehensive validation report.
               </p>
-              <Button className="gap-2 mt-2">
+              <Button className="gap-2 mt-2" onClick={() => setDialogOpen(true)}>
                 <Sparkles className="h-4 w-4" />
                 Analyze your first idea
               </Button>
