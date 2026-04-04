@@ -143,30 +143,38 @@ export default function IdeasPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-4 border-t">
-                  <button
-                    className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors border-r"
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="rounded-none border-r text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
                     onClick={() => navigate(`/ideas/${report.id}`)}
                   >
                     <ExternalLink className="h-3.5 w-3.5" /> Details
-                  </button>
-                  <button
-                    className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors border-r"
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="rounded-none border-r text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
                     onClick={() => navigate(`/competitors?idea=${report.id}`)}
                   >
                     <Users className="h-3.5 w-3.5" /> Competitors
-                  </button>
-                  <button
-                    className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors border-r"
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="rounded-none border-r text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
                     onClick={() => navigate(`/validation?idea=${report.id}`)}
                   >
                     <CheckCircle2 className="h-3.5 w-3.5" /> Validation
-                  </button>
-                  <button
-                    className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="rounded-none text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
                     onClick={() => navigate(`/pain-points?idea=${report.id}`)}
                   >
                     <AlertTriangle className="h-3.5 w-3.5" /> Pain Points
-                  </button>
+                  </Button>
                 </div>
               </Card>
             ))}

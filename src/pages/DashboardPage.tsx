@@ -203,7 +203,7 @@ export default function DashboardPage() {
                   <action.icon className="h-4 w-4 shrink-0" />
                   {action.label}
                   <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100" />
-                </button>
+                </Button>
               ))}
             </CardContent>
           </Card>
