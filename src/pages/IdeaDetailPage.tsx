@@ -6,6 +6,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
@@ -115,13 +116,8 @@ export default function IdeaDetailPage() {
                 <div key={item.label} className="flex items-center gap-3">
                   <item.icon className="h-4 w-4 text-muted-foreground shrink-0" />
                   <span className="text-sm text-foreground w-28 shrink-0">{item.label}</span>
-                  <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-1000 ${
-                        item.score >= 75 ? 'bg-success' : item.score >= 50 ? 'bg-warning' : 'bg-destructive'
-                      }`}
-                      style={{ width: `${item.score}%` }}
-                    />
+                  <div className="flex-1">
+                    <Progress value={item.score} className="h-2" />
                   </div>
                   <ScoreBadge score={item.score} />
                 </div>

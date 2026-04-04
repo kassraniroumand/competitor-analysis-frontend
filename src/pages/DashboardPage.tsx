@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { MetricCard } from "@/components/shared/MetricCard";
@@ -112,21 +113,22 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="space-y-2">
               {alerts.map((alert, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-3 rounded-lg bg-accent/50 px-4 py-2.5 text-sm"
-                >
-                  {alert.type === "processing" && (
-                    <Clock className="h-4 w-4 text-amber-500 shrink-0" />
-                  )}
-                  {alert.type === "insight" && (
-                    <Trophy className="h-4 w-4 text-primary shrink-0" />
-                  )}
-                  {alert.type === "competitor" && (
-                    <Users className="h-4 w-4 text-muted-foreground shrink-0" />
-                  )}
-                  <span className="text-foreground">{alert.message}</span>
-                </div>
+                <Alert key={i} variant="default" className="bg-accent/50 border-accent">
+                  <div className="flex items-center gap-3">
+                    {alert.type === "processing" && (
+                      <Clock className="h-4 w-4 text-warning shrink-0" />
+                    )}
+                    {alert.type === "insight" && (
+                      <Trophy className="h-4 w-4 text-primary shrink-0" />
+                    )}
+                    {alert.type === "competitor" && (
+                      <Users className="h-4 w-4 text-muted-foreground shrink-0" />
+                    )}
+                    <AlertDescription className="text-foreground">
+                      {alert.message}
+                    </AlertDescription>
+                  </div>
+                </Alert>
               ))}
             </CardContent>
           </Card>
