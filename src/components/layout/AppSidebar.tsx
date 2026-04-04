@@ -1,4 +1,4 @@
-import { Lightbulb, Users, FileText, Settings, CheckCircle2, AlertTriangle } from "lucide-react";
+import { LayoutDashboard, Lightbulb, Users, FileText, Settings, CheckCircle2, AlertTriangle } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -13,7 +13,8 @@ import {
 } from "@/components/ui/sidebar";
 
 const navItems = [
-  { title: "Ideas", url: "/", icon: Lightbulb },
+  { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Ideas", url: "/ideas", icon: Lightbulb },
   { title: "Validation", url: "/validation", icon: CheckCircle2 },
   { title: "Pain Points", url: "/pain-points", icon: AlertTriangle },
   { title: "Competitors", url: "/competitors", icon: Users },
