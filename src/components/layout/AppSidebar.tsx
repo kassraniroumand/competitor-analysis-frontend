@@ -1,4 +1,4 @@
-import { Lightbulb, Users, FileText, Settings } from "lucide-react";
+import { Lightbulb, Users, FileText, Settings, CheckCircle2, AlertTriangle } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
