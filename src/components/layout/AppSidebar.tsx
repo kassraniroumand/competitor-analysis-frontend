@@ -14,6 +14,8 @@ import {
 
 const navItems = [
   { title: "Ideas", url: "/", icon: Lightbulb },
+  { title: "Validation", url: "/validation", icon: CheckCircle2 },
+  { title: "Pain Points", url: "/pain-points", icon: AlertTriangle },
   { title: "Competitors", url: "/competitors", icon: Users },
   { title: "Reports", url: "/reports/1", icon: FileText },
   { title: "Settings", url: "/settings", icon: Settings },
