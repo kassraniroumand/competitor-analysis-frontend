@@ -47,6 +47,14 @@ export default function IdeasPage() {
       return 0;
     });
 
+  const handleSubmit = () => {
+    toast.success("Idea submitted for analysis!", {
+      description: ideaText.length > 80 ? ideaText.slice(0, 80) + "…" : ideaText,
+    });
+    setIdeaText("");
+    setDialogOpen(false);
+  };
+
   const handleClear = () => {
     setIdeaText("");
   };
