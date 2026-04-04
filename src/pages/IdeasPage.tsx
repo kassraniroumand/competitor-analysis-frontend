@@ -123,7 +123,7 @@ export default function IdeasPage() {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button className="gap-2" disabled={!ideaText.trim()}>
+                <Button className="gap-2" disabled={!ideaText.trim()} onClick={handleSubmit}>
                   <Sparkles className="h-4 w-4" />
                   Analyze Idea
                 </Button>
