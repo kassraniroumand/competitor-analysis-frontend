@@ -1,12 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lightbulb, Search, SlidersHorizontal, Sparkles, Trash2, RotateCcw, ExternalLink, X, Users, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Lightbulb, Search, SlidersHorizontal, Sparkles, ExternalLink, X, Users, CheckCircle2, AlertTriangle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatusBadge } from "@/components/shared/StatusBadge";
@@ -19,6 +30,7 @@ export default function IdeasPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const filteredReports = mockReports
     .filter((r) => {
@@ -34,48 +46,82 @@ export default function IdeasPage() {
       return 0;
     });
 
+  const handleClear = () => {
+    setIdeaText("");
+  };
+
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-8">
         <PageHeader
           title="Ideas"
           subtitle="Submit a startup idea and review previous analysis reports"
-        />
-
-        {/* New Idea Input */}
-        <Card className="border-2 border-dashed border-primary/20 bg-accent/30">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Sparkles className="h-5 w-5 text-primary" />
-              Analyze a New Idea
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Textarea
-              placeholder="Example: AI tool that helps restaurants forecast inventory and reduce food waste"
-              className="min-h-[100px] resize-none bg-card text-sm"
-              value={ideaText}
-              onChange={(e) => setIdeaText(e.target.value)}
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <Input placeholder="Target audience (optional)" className="bg-card text-sm" />
-              <Input placeholder="Market / Industry (optional)" className="bg-card text-sm" />
-              <Input placeholder="Geography (optional)" className="bg-card text-sm" />
-              <Input placeholder="Business model (optional)" className="bg-card text-sm" />
-              <Input placeholder="Keywords (optional)" className="bg-card text-sm" />
-            </div>
-            <div className="flex gap-2">
+        >
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
               <Button className="gap-2">
-                <Sparkles className="h-4 w-4" />
-                Analyze Idea
+                <Plus className="h-4 w-4" />
+                New Analysis
               </Button>
-              <Button variant="outline" onClick={() => setIdeaText("")}>
-                <X className="h-4 w-4 mr-1" />
-                Clear
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[600px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2 text-lg">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  Analyze a New Idea
+                </DialogTitle>
+                <DialogDescription>
+                  Describe your startup idea and we'll generate a comprehensive validation report with competitor analysis.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <Label htmlFor="idea">Your Idea</Label>
+                  <Textarea
+                    id="idea"
+                    placeholder="Example: AI tool that helps restaurants forecast inventory and reduce food waste"
+                    className="min-h-[100px] resize-none text-sm"
+                    value={ideaText}
+                    onChange={(e) => setIdeaText(e.target.value)}
+                  />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="audience">Target Audience</Label>
+                    <Input id="audience" placeholder="e.g. Restaurant owners" className="text-sm" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="market">Market / Industry</Label>
+                    <Input id="market" placeholder="e.g. FoodTech" className="text-sm" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="geography">Geography</Label>
+                    <Input id="geography" placeholder="e.g. North America" className="text-sm" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="model">Business Model</Label>
+                    <Input id="model" placeholder="e.g. SaaS subscription" className="text-sm" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="keywords">Keywords</Label>
+                  <Input id="keywords" placeholder="e.g. AI, inventory, food waste (comma-separated)" className="text-sm" />
+                </div>
+              </div>
+              <DialogFooter className="gap-2 sm:gap-0">
+                <DialogClose asChild>
+                  <Button variant="outline" onClick={handleClear}>
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <Button className="gap-2" disabled={!ideaText.trim()}>
+                  <Sparkles className="h-4 w-4" />
+                  Analyze Idea
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </PageHeader>
 
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-3">
