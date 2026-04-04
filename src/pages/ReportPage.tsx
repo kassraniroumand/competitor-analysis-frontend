@@ -96,9 +96,7 @@ export default function ReportPage() {
                 <div key={item.subject} className="flex items-center justify-between text-sm">
                   <span className="text-foreground font-medium">{item.subject}</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
-                      <div className={`h-full rounded-full ${item.score >= 75 ? 'bg-success' : item.score >= 50 ? 'bg-warning' : 'bg-destructive'}`} style={{ width: `${item.score}%` }} />
-                    </div>
+                    <Progress value={item.score} className="w-24 h-2" />
                     <span className="text-muted-foreground w-8 text-right">{item.score}</span>
                   </div>
                 </div>

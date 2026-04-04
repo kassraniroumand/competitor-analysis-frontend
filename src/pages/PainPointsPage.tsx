@@ -21,17 +21,17 @@ import {
 } from "recharts";
 
 const severityColor: Record<string, string> = {
-  Critical: 'text-red-600 bg-red-50 border-red-200',
-  High: 'text-orange-600 bg-orange-50 border-orange-200',
-  Medium: 'text-yellow-600 bg-yellow-50 border-yellow-200',
-  Low: 'text-green-600 bg-green-50 border-green-200',
+  Critical: 'text-destructive bg-destructive/10 border-destructive/20',
+  High: 'text-warning bg-warning/10 border-warning/20',
+  Medium: 'text-muted-foreground bg-muted border-border',
+  Low: 'text-success bg-success/10 border-success/20',
 };
 
 const severityBarColor: Record<string, string> = {
-  Critical: 'hsl(0, 72%, 51%)',
-  High: 'hsl(25, 95%, 53%)',
-  Medium: 'hsl(45, 93%, 47%)',
-  Low: 'hsl(142, 71%, 45%)',
+  Critical: 'hsl(var(--destructive))',
+  High: 'hsl(var(--warning))',
+  Medium: 'hsl(var(--muted-foreground))',
+  Low: 'hsl(var(--success))',
 };
 
 export default function PainPointsPage() {
