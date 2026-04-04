@@ -17,9 +17,10 @@ import { CompetitorCard } from "@/components/competitors/CompetitorCard";
 import { mockCompetitors, mockReports } from "@/data/mock-data";
 
 export default function CompetitorsPage() {
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
-  const [ideaFilter, setIdeaFilter] = useState("all");
+  const [ideaFilter, setIdeaFilter] = useState(searchParams.get("idea") || "all");
 
   // Get ideas that have competitors
   const ideasWithCompetitors = useMemo(() => {
