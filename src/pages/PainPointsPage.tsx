@@ -79,6 +79,7 @@ export default function PainPointsPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+        <IdeaBreadcrumb currentPage="Pain Points" />
         <PageHeader
           title="Pain Points"
           subtitle="User complaints, workarounds, and feature requests across your ideas"
