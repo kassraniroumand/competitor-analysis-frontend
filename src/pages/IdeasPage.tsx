@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lightbulb, Search, SlidersHorizontal, Sparkles, ExternalLink, X, Users, CheckCircle2, AlertTriangle, Plus } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -45,6 +46,14 @@ export default function IdeasPage() {
       if (sortBy === "lowest") return a.opportunityScore - b.opportunityScore;
       return 0;
     });
+
+  const handleSubmit = () => {
+    toast.success("Idea submitted for analysis!", {
+      description: ideaText.length > 80 ? ideaText.slice(0, 80) + "…" : ideaText,
+    });
+    setIdeaText("");
+    setDialogOpen(false);
+  };
 
   const handleClear = () => {
     setIdeaText("");
@@ -114,7 +123,7 @@ export default function IdeasPage() {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button className="gap-2" disabled={!ideaText.trim()}>
+                <Button className="gap-2" disabled={!ideaText.trim()} onClick={handleSubmit}>
                   <Sparkles className="h-4 w-4" />
                   Analyze Idea
                 </Button>
