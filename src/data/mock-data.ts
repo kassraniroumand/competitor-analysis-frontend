@@ -16,6 +16,7 @@ export interface IdeaReport {
 
 export interface Competitor {
   id: string;
+  ideaId: string;
   name: string;
   logo: string;
   website: string;
