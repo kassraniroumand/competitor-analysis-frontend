@@ -4,6 +4,7 @@ import {
   Star, BarChart3, Target
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScoreBadge } from "@/components/shared/ScoreBadge";
 import { Competitor } from "@/data/mock-data";
@@ -98,17 +99,21 @@ export function CompetitorCard({ competitor: comp }: CompetitorCardProps) {
 
       {/* Card Actions */}
       <div className="grid grid-cols-2 border-t">
-        <button
-          className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors border-r"
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-none border-r text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
           onClick={() => navigate(`/competitors/${comp.id}`)}
         >
           <ExternalLink className="h-3.5 w-3.5" /> View Details
-        </button>
-        <button
-          className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-none text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
         >
           <ArrowRightLeft className="h-3.5 w-3.5" /> Compare
-        </button>
+        </Button>
       </div>
     </Card>
   );
