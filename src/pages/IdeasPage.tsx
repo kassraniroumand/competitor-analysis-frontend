@@ -68,8 +68,8 @@ export default function IdeasPage() {
         >
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="gap-2">
-                <Plus className="h-4 w-4" />
+              <Button size="lg" className="gap-2 text-base px-6 shadow-md">
+                <Plus className="h-5 w-5" />
                 New Analysis
               </Button>
             </DialogTrigger>
