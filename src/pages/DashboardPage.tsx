@@ -191,9 +191,7 @@ export default function DashboardPage() {
             <CardContent className="space-y-2">
               {[
                 { label: "Analyze New Idea", icon: Sparkles, to: "/ideas" },
-                { label: "View Competitors", icon: Users, to: "/competitors" },
-                { label: "Validation Data", icon: TrendingUp, to: "/validation" },
-                { label: "Pain Points", icon: AlertTriangle, to: "/pain-points" },
+                { label: "Browse All Ideas", icon: Lightbulb, to: "/ideas" },
                 { label: "View Reports", icon: FileText, to: "/reports/1" },
               ].map((action) => (
                 <button
