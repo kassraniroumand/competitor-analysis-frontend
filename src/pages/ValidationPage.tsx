@@ -47,6 +47,7 @@ export default function ValidationPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+        <IdeaBreadcrumb currentPage="Validation" />
         <PageHeader
           title="Validation"
           subtitle="Search demand, market signals, and validation verdicts for your ideas"

@@ -35,7 +35,8 @@ const severityBarColor: Record<string, string> = {
 };
 
 export default function PainPointsPage() {
-  const [ideaFilter, setIdeaFilter] = useState("all");
+  const [searchParams] = useSearchParams();
+  const [ideaFilter, setIdeaFilter] = useState(searchParams.get("idea") || "all");
   const [severityFilter, setSeverityFilter] = useState("all");
 
   const ideasWithPainPoints = useMemo(() => {
