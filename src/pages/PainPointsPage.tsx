@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 import {
   AlertTriangle, MessageSquareQuote, Lightbulb, Wrench, Sparkles,
   BarChart3, Filter, Flame, ArrowUpRight
@@ -34,7 +35,8 @@ const severityBarColor: Record<string, string> = {
 };
 
 export default function PainPointsPage() {
-  const [ideaFilter, setIdeaFilter] = useState("all");
+  const [searchParams] = useSearchParams();
+  const [ideaFilter, setIdeaFilter] = useState(searchParams.get("idea") || "all");
   const [severityFilter, setSeverityFilter] = useState("all");
 
   const ideasWithPainPoints = useMemo(() => {
@@ -77,6 +79,7 @@ export default function PainPointsPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+        <IdeaBreadcrumb currentPage="Pain Points" />
         <PageHeader
           title="Pain Points"
           subtitle="User complaints, workarounds, and feature requests across your ideas"

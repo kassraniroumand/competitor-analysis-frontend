@@ -151,7 +151,7 @@ export default function IdeasPage() {
                   </button>
                   <button
                     className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors border-r"
-                    onClick={() => navigate(`/ideas/${report.id}/competitors`)}
+                    onClick={() => navigate(`/competitors?idea=${report.id}`)}
                   >
                     <Users className="h-3.5 w-3.5" /> Competitors
                   </button>

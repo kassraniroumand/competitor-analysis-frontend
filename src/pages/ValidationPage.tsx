@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 import {
   Search, TrendingUp, TrendingDown, Minus, BarChart3, Globe, MessageCircle,
   CheckCircle2, Lightbulb, ArrowUpRight, Target, Layers, Sparkles
@@ -20,7 +21,8 @@ import {
 } from "recharts";
 
 export default function ValidationPage() {
-  const [ideaFilter, setIdeaFilter] = useState("all");
+  const [searchParams] = useSearchParams();
+  const [ideaFilter, setIdeaFilter] = useState(searchParams.get("idea") || "all");
 
   const ideasWithValidation = useMemo(() => {
     const ids = mockValidation.map((v) => v.ideaId);
@@ -45,6 +47,7 @@ export default function ValidationPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+        <IdeaBreadcrumb currentPage="Validation" />
         <PageHeader
           title="Validation"
           subtitle="Search demand, market signals, and validation verdicts for your ideas"

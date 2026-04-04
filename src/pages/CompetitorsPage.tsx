@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 import {
   Search, Users, TrendingUp, ArrowRightLeft, Layers, Zap, Lightbulb
 } from "lucide-react";
@@ -16,9 +17,10 @@ import { CompetitorCard } from "@/components/competitors/CompetitorCard";
 import { mockCompetitors, mockReports } from "@/data/mock-data";
 
 export default function CompetitorsPage() {
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
-  const [ideaFilter, setIdeaFilter] = useState("all");
+  const [ideaFilter, setIdeaFilter] = useState(searchParams.get("idea") || "all");
 
   // Get ideas that have competitors
   const ideasWithCompetitors = useMemo(() => {
@@ -52,6 +54,7 @@ export default function CompetitorsPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+        <IdeaBreadcrumb currentPage="Competitors" />
         {/* Header */}
         <PageHeader
           title="Competitors"
