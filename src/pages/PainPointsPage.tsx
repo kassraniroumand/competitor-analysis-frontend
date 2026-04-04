@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 import {
   AlertTriangle, MessageSquareQuote, Lightbulb, Wrench, Sparkles,
   BarChart3, Filter, Flame, ArrowUpRight

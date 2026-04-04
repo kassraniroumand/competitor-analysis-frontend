@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 import {
   Search, Users, TrendingUp, ArrowRightLeft, Layers, Zap, Lightbulb
 } from "lucide-react";
