@@ -21,7 +21,8 @@ import {
 } from "recharts";
 
 export default function ValidationPage() {
-  const [ideaFilter, setIdeaFilter] = useState("all");
+  const [searchParams] = useSearchParams();
+  const [ideaFilter, setIdeaFilter] = useState(searchParams.get("idea") || "all");
 
   const ideasWithValidation = useMemo(() => {
     const ids = mockValidation.map((v) => v.ideaId);
