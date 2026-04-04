@@ -37,7 +37,7 @@ export default function ValidationPage() {
   );
 
   const TrendIcon = ({ trend }: { trend: string }) => {
-    if (trend === "up") return <TrendingUp className="h-3.5 w-3.5 text-green-600" />;
+    if (trend === "up") return <TrendingUp className="h-3.5 w-3.5 text-primary" />;
     if (trend === "down") return <TrendingDown className="h-3.5 w-3.5 text-destructive" />;
     return <Minus className="h-3.5 w-3.5 text-muted-foreground" />;
   };
