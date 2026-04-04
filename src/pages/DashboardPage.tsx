@@ -194,10 +194,11 @@ export default function DashboardPage() {
                 { label: "Browse All Ideas", icon: Lightbulb, to: "/ideas" },
                 { label: "View Reports", icon: FileText, to: "/reports/1" },
               ].map((action) => (
-                <button
+                <Button
                   key={action.label}
+                  variant="ghost"
+                  className="w-full justify-start gap-3 text-sm font-medium text-muted-foreground"
                   onClick={() => navigate(action.to)}
-                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
                 >
                   <action.icon className="h-4 w-4 shrink-0" />
                   {action.label}
