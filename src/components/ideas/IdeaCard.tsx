@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { StatusBadge } from "@/components/shared/StatusBadge";
@@ -18,21 +18,8 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
 
   return (
     <Card className="group relative overflow-hidden transition-all duration-200 hover:shadow-md hover:border-primary/20 flex flex-col">
-      {/* Score accent bar */}
-      {report.status === "completed" && (
-        <div
-          className={`absolute top-0 left-0 right-0 h-1 ${
-            report.opportunityScore >= 75
-              ? "gradient-score-high"
-              : report.opportunityScore >= 50
-              ? "gradient-score-moderate"
-              : "gradient-score-low"
-          }`}
-        />
-      )}
-
       <CardHeader
-        className="p-5 pb-0 cursor-pointer space-y-3"
+        className="cursor-pointer space-y-3 pb-3"
         onClick={() => onQuickView?.(report)}
       >
         <div className="flex items-center justify-between">
@@ -42,17 +29,17 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
           )}
         </div>
         <div className="space-y-1.5">
-          <h3 className="font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+          <CardTitle className="text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors">
             {report.title}
-          </h3>
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+          </CardTitle>
+          <CardDescription className="line-clamp-2 leading-relaxed">
             {report.description}
-          </p>
+          </CardDescription>
         </div>
       </CardHeader>
 
       <CardContent
-        className="p-5 pt-3 flex-1 space-y-3 cursor-pointer"
+        className="flex-1 space-y-3 cursor-pointer pt-0"
         onClick={() => onQuickView?.(report)}
       >
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
