@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Lightbulb, Search, SlidersHorizontal, Sparkles, LayoutGrid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -67,17 +67,15 @@ export default function IdeasPage() {
             { label: "Processing", value: stats.processing, accent: false },
             { label: "Avg. Score", value: stats.avgScore, accent: true },
           ].map((stat) => (
-            <Card key={stat.label} className="p-4 flex flex-col gap-1">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                {stat.label}
-              </span>
-              <span
-                className={`text-2xl font-bold ${
-                  stat.accent ? "text-primary" : "text-foreground"
-                }`}
-              >
-                {stat.value}
-              </span>
+            <Card key={stat.label}>
+              <CardContent className="p-4">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  {stat.label}
+                </p>
+                <p className={`text-2xl font-bold mt-1 ${stat.accent ? "text-primary" : "text-foreground"}`}>
+                  {stat.value}
+                </p>
+              </CardContent>
             </Card>
           ))}
         </div>
@@ -134,26 +132,28 @@ export default function IdeasPage() {
             ))}
           </div>
         ) : (
-          <Card className="p-16">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent">
-                <Lightbulb className="h-8 w-8 text-accent-foreground" />
+          <Card>
+            <CardContent className="p-16">
+              <div className="flex flex-col items-center text-center space-y-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent">
+                  <Lightbulb className="h-8 w-8 text-accent-foreground" />
+                </div>
+                <div className="space-y-1.5">
+                  <CardTitle className="text-lg">No ideas found</CardTitle>
+                  <p className="text-sm text-muted-foreground max-w-sm">
+                    {searchQuery || statusFilter !== "all"
+                      ? "Try adjusting your search or filters."
+                      : "Submit your first startup idea and get a comprehensive validation report."}
+                  </p>
+                </div>
+                {!searchQuery && statusFilter === "all" && (
+                  <Button className="gap-2 mt-2" onClick={() => setDialogOpen(true)}>
+                    <Sparkles className="h-4 w-4" />
+                    Analyze your first idea
+                  </Button>
+                )}
               </div>
-              <div className="space-y-1.5">
-                <h3 className="text-lg font-semibold text-foreground">No ideas found</h3>
-                <p className="text-sm text-muted-foreground max-w-sm">
-                  {searchQuery || statusFilter !== "all"
-                    ? "Try adjusting your search or filters."
-                    : "Submit your first startup idea and get a comprehensive validation report."}
-                </p>
-              </div>
-              {!searchQuery && statusFilter === "all" && (
-                <Button className="gap-2 mt-2" onClick={() => setDialogOpen(true)}>
-                  <Sparkles className="h-4 w-4" />
-                  Analyze your first idea
-                </Button>
-              )}
-            </div>
+            </CardContent>
           </Card>
         )}
 
