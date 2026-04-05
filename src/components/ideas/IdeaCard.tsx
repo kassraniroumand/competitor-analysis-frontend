@@ -93,10 +93,10 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
           variant="ghost"
           size="sm"
           className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5"
-          onClick={() => navigate(`/ideas/${report.id}`)}
+          onClick={() => onQuickView?.(report)}
         >
-          <ExternalLink className="h-3.5 w-3.5" />
-          <span className="hidden xl:inline">Details</span>
+          <Eye className="h-3.5 w-3.5" />
+          <span className="hidden xl:inline">Preview</span>
         </Button>
         <Button
           variant="ghost"
