@@ -1,143 +1,91 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Lightbulb, Search, SlidersHorizontal, Sparkles, ExternalLink, X, Users, CheckCircle2, AlertTriangle, Plus } from "lucide-react";
-import { toast } from "sonner";
+import { useState, useMemo } from "react";
+import { Lightbulb, Search, SlidersHorizontal, Sparkles, LayoutGrid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { StatusBadge } from "@/components/shared/StatusBadge";
-import { ScoreBadge } from "@/components/shared/ScoreBadge";
+import { IdeaCard } from "@/components/ideas/IdeaCard";
+import { NewAnalysisDialog } from "@/components/ideas/NewAnalysisDialog";
 import { mockReports } from "@/data/mock-data";
 
 export default function IdeasPage() {
-  const navigate = useNavigate();
-  const [ideaText, setIdeaText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const filteredReports = mockReports
-    .filter((r) => {
-      if (searchQuery && !r.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-      if (statusFilter !== "all" && r.status !== statusFilter) return false;
-      return true;
-    })
-    .sort((a, b) => {
-      if (sortBy === "newest") return b.createdAt.localeCompare(a.createdAt);
-      if (sortBy === "oldest") return a.createdAt.localeCompare(b.createdAt);
-      if (sortBy === "highest") return b.opportunityScore - a.opportunityScore;
-      if (sortBy === "lowest") return a.opportunityScore - b.opportunityScore;
-      return 0;
-    });
+  const filteredReports = useMemo(() => {
+    return mockReports
+      .filter((r) => {
+        if (searchQuery && !r.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+        if (statusFilter !== "all" && r.status !== statusFilter) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        if (sortBy === "newest") return b.createdAt.localeCompare(a.createdAt);
+        if (sortBy === "oldest") return a.createdAt.localeCompare(b.createdAt);
+        if (sortBy === "highest") return b.opportunityScore - a.opportunityScore;
+        if (sortBy === "lowest") return a.opportunityScore - b.opportunityScore;
+        return 0;
+      });
+  }, [searchQuery, statusFilter, sortBy]);
 
-  const handleSubmit = () => {
-    toast.success("Idea submitted for analysis!", {
-      description: ideaText.length > 80 ? ideaText.slice(0, 80) + "…" : ideaText,
-    });
-    setIdeaText("");
-    setDialogOpen(false);
-  };
-
-  const handleClear = () => {
-    setIdeaText("");
-  };
+  const stats = useMemo(() => {
+    const completed = mockReports.filter((r) => r.status === "completed");
+    const avgScore = completed.length
+      ? Math.round(completed.reduce((sum, r) => sum + r.opportunityScore, 0) / completed.length)
+      : 0;
+    return {
+      total: mockReports.length,
+      completed: completed.length,
+      processing: mockReports.filter((r) => r.status === "processing").length,
+      avgScore,
+    };
+  }, []);
 
   return (
     <AppLayout>
-      <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-8">
+      <div className="p-6 lg:p-8 max-w-6xl mx-auto space-y-8">
         <PageHeader
           title="Ideas"
-          subtitle="Submit a startup idea and review previous analysis reports"
+          subtitle="Submit startup ideas and explore validation reports"
         >
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button size="lg" className="gap-2 text-base px-6 shadow-md">
-                <Plus className="h-5 w-5" />
-                New Analysis
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px]">
-              <DialogHeader>
-                <DialogTitle className="flex items-center gap-2 text-lg">
-                  <Sparkles className="h-5 w-5 text-primary" />
-                  Analyze a New Idea
-                </DialogTitle>
-                <DialogDescription>
-                  Describe your startup idea and we'll generate a comprehensive validation report with competitor analysis.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <Label htmlFor="idea">Your Idea</Label>
-                  <Textarea
-                    id="idea"
-                    placeholder="Example: AI tool that helps restaurants forecast inventory and reduce food waste"
-                    className="min-h-[100px] resize-none text-sm"
-                    value={ideaText}
-                    onChange={(e) => setIdeaText(e.target.value)}
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="audience">Target Audience</Label>
-                    <Input id="audience" placeholder="e.g. Restaurant owners" className="text-sm" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="market">Market / Industry</Label>
-                    <Input id="market" placeholder="e.g. FoodTech" className="text-sm" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="geography">Geography</Label>
-                    <Input id="geography" placeholder="e.g. North America" className="text-sm" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="model">Business Model</Label>
-                    <Input id="model" placeholder="e.g. SaaS subscription" className="text-sm" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="keywords">Keywords</Label>
-                  <Input id="keywords" placeholder="e.g. AI, inventory, food waste (comma-separated)" className="text-sm" />
-                </div>
-              </div>
-              <DialogFooter className="gap-2 sm:gap-0">
-                <DialogClose asChild>
-                  <Button variant="outline" onClick={handleClear}>
-                    Cancel
-                  </Button>
-                </DialogClose>
-                <Button className="gap-2" disabled={!ideaText.trim()} onClick={handleSubmit}>
-                  <Sparkles className="h-4 w-4" />
-                  Analyze Idea
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <NewAnalysisDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </PageHeader>
+
+        {/* Summary Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { label: "Total Ideas", value: stats.total, accent: false },
+            { label: "Completed", value: stats.completed, accent: false },
+            { label: "Processing", value: stats.processing, accent: false },
+            { label: "Avg. Score", value: stats.avgScore, accent: true },
+          ].map((stat) => (
+            <Card key={stat.label} className="p-4 flex flex-col gap-1">
+              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                {stat.label}
+              </span>
+              <span
+                className={`text-2xl font-bold ${
+                  stat.accent ? "text-primary" : "text-foreground"
+                }`}
+              >
+                {stat.value}
+              </span>
+            </Card>
+          ))}
+        </div>
 
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Search reports…"
+              placeholder="Search ideas…"
               className="pl-9 text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -168,86 +116,41 @@ export default function IdeasPage() {
           </Select>
         </div>
 
-        {/* Reports List */}
+        {/* Results count */}
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            Showing <span className="font-medium text-foreground">{filteredReports.length}</span>{" "}
+            {filteredReports.length === 1 ? "idea" : "ideas"}
+          </p>
+        </div>
+
+        {/* Reports Grid */}
         {filteredReports.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredReports.map((report) => (
-              <Card
-                key={report.id}
-                className="hover:shadow-lg transition-all group flex flex-col overflow-hidden"
-              >
-                <div
-                  className="p-5 flex flex-col flex-1 space-y-3 cursor-pointer"
-                  onClick={() => navigate(`/ideas/${report.id}`)}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <StatusBadge status={report.status} />
-                    {report.status === 'completed' && (
-                      <ScoreBadge score={report.opportunityScore} />
-                    )}
-                  </div>
-                  <div className="space-y-1.5 flex-1">
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-                      {report.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{report.description}</p>
-                  </div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <Badge variant="secondary" className="text-xs font-normal">{report.category}</Badge>
-                    <span className="text-xs text-muted-foreground ml-auto">{report.createdAt}</span>
-                  </div>
-                </div>
-                <div className="grid grid-cols-4 border-t">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="rounded-none border-r text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
-                    onClick={() => navigate(`/ideas/${report.id}`)}
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" /> Details
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="rounded-none border-r text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
-                    onClick={() => navigate(`/competitors?idea=${report.id}`)}
-                  >
-                    <Users className="h-3.5 w-3.5" /> Competitors
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="rounded-none border-r text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
-                    onClick={() => navigate(`/validation?idea=${report.id}`)}
-                  >
-                    <CheckCircle2 className="h-3.5 w-3.5" /> Validation
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="rounded-none text-xs text-muted-foreground hover:text-primary h-auto py-2.5"
-                    onClick={() => navigate(`/pain-points?idea=${report.id}`)}
-                  >
-                    <AlertTriangle className="h-3.5 w-3.5" /> Pain Points
-                  </Button>
-                </div>
-              </Card>
+              <IdeaCard key={report.id} report={report} />
             ))}
           </div>
         ) : (
-          <Card className="p-12">
-            <div className="flex flex-col items-center text-center space-y-3">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent">
-                <Lightbulb className="h-7 w-7 text-accent-foreground" />
+          <Card className="p-16">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent">
+                <Lightbulb className="h-8 w-8 text-accent-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground">No idea reports yet</h3>
-              <p className="text-sm text-muted-foreground max-w-sm">
-                Submit your first startup idea and get a comprehensive validation report.
-              </p>
-              <Button className="gap-2 mt-2" onClick={() => setDialogOpen(true)}>
-                <Sparkles className="h-4 w-4" />
-                Analyze your first idea
-              </Button>
+              <div className="space-y-1.5">
+                <h3 className="text-lg font-semibold text-foreground">No ideas found</h3>
+                <p className="text-sm text-muted-foreground max-w-sm">
+                  {searchQuery || statusFilter !== "all"
+                    ? "Try adjusting your search or filters."
+                    : "Submit your first startup idea and get a comprehensive validation report."}
+                </p>
+              </div>
+              {!searchQuery && statusFilter === "all" && (
+                <Button className="gap-2 mt-2" onClick={() => setDialogOpen(true)}>
+                  <Sparkles className="h-4 w-4" />
+                  Analyze your first idea
+                </Button>
+              )}
             </div>
           </Card>
         )}
