@@ -67,17 +67,15 @@ export default function IdeasPage() {
             { label: "Processing", value: stats.processing, accent: false },
             { label: "Avg. Score", value: stats.avgScore, accent: true },
           ].map((stat) => (
-            <Card key={stat.label} className="p-4 flex flex-col gap-1">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                {stat.label}
-              </span>
-              <span
-                className={`text-2xl font-bold ${
-                  stat.accent ? "text-primary" : "text-foreground"
-                }`}
-              >
-                {stat.value}
-              </span>
+            <Card key={stat.label}>
+              <CardContent className="p-4">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  {stat.label}
+                </p>
+                <p className={`text-2xl font-bold mt-1 ${stat.accent ? "text-primary" : "text-foreground"}`}>
+                  {stat.value}
+                </p>
+              </CardContent>
             </Card>
           ))}
         </div>
