@@ -20,11 +20,11 @@ import {
   Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis
 } from "recharts";
 
-const severityColor: Record<string, string> = {
-  Critical: 'text-destructive bg-destructive/10 border-destructive/20',
-  High: 'text-warning bg-warning/10 border-warning/20',
-  Medium: 'text-muted-foreground bg-muted border-border',
-  Low: 'text-success bg-success/10 border-success/20',
+const severityVariant: Record<string, "destructive" | "warning" | "secondary" | "success"> = {
+  Critical: "destructive",
+  High: "warning",
+  Medium: "secondary",
+  Low: "success",
 };
 
 const severityBarColor: Record<string, string> = {
@@ -193,7 +193,7 @@ export default function PainPointsPage() {
                             <h3 className="font-semibold text-foreground text-sm">{pp.point}</h3>
                             <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                               <Badge variant="outline" className="text-[10px]">{pp.category}</Badge>
-                              <Badge className={`text-[10px] border ${severityColor[pp.severity]}`} variant="outline">
+                              <Badge variant={severityVariant[pp.severity] || "secondary"} className="text-[10px]">
                                 {pp.severity}
                               </Badge>
                               <span className="text-[10px] text-muted-foreground">Frequency: {pp.frequency}</span>
