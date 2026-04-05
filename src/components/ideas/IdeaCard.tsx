@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag } from "lucide-react";
+import { Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
