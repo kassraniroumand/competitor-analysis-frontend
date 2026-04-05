@@ -10,7 +10,8 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { IdeaCard } from "@/components/ideas/IdeaCard";
 import { NewAnalysisDialog } from "@/components/ideas/NewAnalysisDialog";
-import { mockReports } from "@/data/mock-data";
+import { IdeaQuickView } from "@/components/ideas/IdeaQuickView";
+import { mockReports, type IdeaReport } from "@/data/mock-data";
 
 export default function IdeasPage() {
   const [searchQuery, setSearchQuery] = useState("");
