@@ -132,26 +132,28 @@ export default function IdeasPage() {
             ))}
           </div>
         ) : (
-          <Card className="p-16">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent">
-                <Lightbulb className="h-8 w-8 text-accent-foreground" />
+          <Card>
+            <CardContent className="p-16">
+              <div className="flex flex-col items-center text-center space-y-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent">
+                  <Lightbulb className="h-8 w-8 text-accent-foreground" />
+                </div>
+                <div className="space-y-1.5">
+                  <CardTitle className="text-lg">No ideas found</CardTitle>
+                  <p className="text-sm text-muted-foreground max-w-sm">
+                    {searchQuery || statusFilter !== "all"
+                      ? "Try adjusting your search or filters."
+                      : "Submit your first startup idea and get a comprehensive validation report."}
+                  </p>
+                </div>
+                {!searchQuery && statusFilter === "all" && (
+                  <Button className="gap-2 mt-2" onClick={() => setDialogOpen(true)}>
+                    <Sparkles className="h-4 w-4" />
+                    Analyze your first idea
+                  </Button>
+                )}
               </div>
-              <div className="space-y-1.5">
-                <h3 className="text-lg font-semibold text-foreground">No ideas found</h3>
-                <p className="text-sm text-muted-foreground max-w-sm">
-                  {searchQuery || statusFilter !== "all"
-                    ? "Try adjusting your search or filters."
-                    : "Submit your first startup idea and get a comprehensive validation report."}
-                </p>
-              </div>
-              {!searchQuery && statusFilter === "all" && (
-                <Button className="gap-2 mt-2" onClick={() => setDialogOpen(true)}>
-                  <Sparkles className="h-4 w-4" />
-                  Analyze your first idea
-                </Button>
-              )}
-            </div>
+            </CardContent>
           </Card>
         )}
 
