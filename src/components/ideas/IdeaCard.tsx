@@ -33,7 +33,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
 
       <div
         className="p-5 cursor-pointer space-y-4"
-        onClick={() => navigate(`/ideas/${report.id}`)}
+        onClick={() => onQuickView?.(report)}
       >
         {/* Top row: status + score */}
         <div className="flex items-center justify-between">
