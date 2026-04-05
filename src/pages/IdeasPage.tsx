@@ -10,13 +10,15 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { IdeaCard } from "@/components/ideas/IdeaCard";
 import { NewAnalysisDialog } from "@/components/ideas/NewAnalysisDialog";
-import { mockReports } from "@/data/mock-data";
+import { IdeaQuickView } from "@/components/ideas/IdeaQuickView";
+import { mockReports, type IdeaReport } from "@/data/mock-data";
 
 export default function IdeasPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [quickViewReport, setQuickViewReport] = useState<IdeaReport | null>(null);
 
   const filteredReports = useMemo(() => {
     return mockReports
@@ -128,7 +130,7 @@ export default function IdeasPage() {
         {filteredReports.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredReports.map((report) => (
-              <IdeaCard key={report.id} report={report} />
+              <IdeaCard key={report.id} report={report} onQuickView={setQuickViewReport} />
             ))}
           </div>
         ) : (
@@ -154,6 +156,12 @@ export default function IdeasPage() {
             </div>
           </Card>
         )}
+
+        <IdeaQuickView
+          report={quickViewReport}
+          open={!!quickViewReport}
+          onOpenChange={(open) => { if (!open) setQuickViewReport(null); }}
+        />
       </div>
     </AppLayout>
   );

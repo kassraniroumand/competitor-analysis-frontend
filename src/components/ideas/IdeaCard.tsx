@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ExternalLink, Users, CheckCircle2, AlertTriangle, ArrowRight, Calendar, Tag } from "lucide-react";
+import { ExternalLink, Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,9 +10,10 @@ import type { IdeaReport } from "@/data/mock-data";
 
 interface IdeaCardProps {
   report: IdeaReport;
+  onQuickView?: (report: IdeaReport) => void;
 }
 
-export function IdeaCard({ report }: IdeaCardProps) {
+export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
   const navigate = useNavigate();
 
   return (
@@ -32,7 +33,7 @@ export function IdeaCard({ report }: IdeaCardProps) {
 
       <div
         className="p-5 cursor-pointer space-y-4"
-        onClick={() => navigate(`/ideas/${report.id}`)}
+        onClick={() => onQuickView?.(report)}
       >
         {/* Top row: status + score */}
         <div className="flex items-center justify-between">
@@ -92,10 +93,10 @@ export function IdeaCard({ report }: IdeaCardProps) {
           variant="ghost"
           size="sm"
           className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5"
-          onClick={() => navigate(`/ideas/${report.id}`)}
+          onClick={() => onQuickView?.(report)}
         >
-          <ExternalLink className="h-3.5 w-3.5" />
-          <span className="hidden xl:inline">Details</span>
+          <Eye className="h-3.5 w-3.5" />
+          <span className="hidden xl:inline">Preview</span>
         </Button>
         <Button
           variant="ghost"
