@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { ExternalLink, Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag } from "lucide-react";
+import { Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { StatusBadge } from "@/components/shared/StatusBadge";
@@ -17,7 +17,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
   const navigate = useNavigate();
 
   return (
-    <Card className="group relative overflow-hidden transition-all duration-200 hover:shadow-md hover:border-primary/20">
+    <Card className="group relative overflow-hidden transition-all duration-200 hover:shadow-md hover:border-primary/20 flex flex-col">
       {/* Score accent bar */}
       {report.status === "completed" && (
         <div
@@ -31,19 +31,16 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
         />
       )}
 
-      <div
-        className="p-5 cursor-pointer space-y-4"
+      <CardHeader
+        className="p-5 pb-0 cursor-pointer space-y-3"
         onClick={() => onQuickView?.(report)}
       >
-        {/* Top row: status + score */}
         <div className="flex items-center justify-between">
           <StatusBadge status={report.status} />
           {report.status === "completed" && (
             <ScoreBadge score={report.opportunityScore} />
           )}
         </div>
-
-        {/* Title & description */}
         <div className="space-y-1.5">
           <h3 className="font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-primary transition-colors">
             {report.title}
@@ -52,8 +49,12 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
             {report.description}
           </p>
         </div>
+      </CardHeader>
 
-        {/* Meta row */}
+      <CardContent
+        className="p-5 pt-3 flex-1 space-y-3 cursor-pointer"
+        onClick={() => onQuickView?.(report)}
+      >
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             <Tag className="h-3 w-3" />
@@ -65,7 +66,6 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
           </span>
         </div>
 
-        {/* Keywords */}
         {report.keywords && report.keywords.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {report.keywords.slice(0, 4).map((kw) => (
@@ -84,48 +84,49 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
             )}
           </div>
         )}
-      </div>
+      </CardContent>
 
-      {/* Action bar */}
       <Separator />
-      <div className="grid grid-cols-4">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5"
-          onClick={() => onQuickView?.(report)}
-        >
-          <Eye className="h-3.5 w-3.5" />
-          <span className="hidden xl:inline">Preview</span>
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
-          onClick={() => navigate(`/competitors?idea=${report.id}`)}
-        >
-          <Users className="h-3.5 w-3.5" />
-          <span className="hidden xl:inline">Competitors</span>
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
-          onClick={() => navigate(`/validation?idea=${report.id}`)}
-        >
-          <CheckCircle2 className="h-3.5 w-3.5" />
-          <span className="hidden xl:inline">Validation</span>
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
-          onClick={() => navigate(`/pain-points?idea=${report.id}`)}
-        >
-          <AlertTriangle className="h-3.5 w-3.5" />
-          <span className="hidden xl:inline">Pains</span>
-        </Button>
-      </div>
+      <CardFooter className="p-0">
+        <div className="grid grid-cols-4 w-full">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5"
+            onClick={() => onQuickView?.(report)}
+          >
+            <Eye className="h-3.5 w-3.5" />
+            <span className="hidden xl:inline">Preview</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
+            onClick={() => navigate(`/competitors?idea=${report.id}`)}
+          >
+            <Users className="h-3.5 w-3.5" />
+            <span className="hidden xl:inline">Competitors</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
+            onClick={() => navigate(`/validation?idea=${report.id}`)}
+          >
+            <CheckCircle2 className="h-3.5 w-3.5" />
+            <span className="hidden xl:inline">Validation</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
+            onClick={() => navigate(`/pain-points?idea=${report.id}`)}
+          >
+            <AlertTriangle className="h-3.5 w-3.5" />
+            <span className="hidden xl:inline">Pains</span>
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 }
