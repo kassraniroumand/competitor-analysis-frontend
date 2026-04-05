@@ -88,11 +88,20 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
 
       <Separator />
       <CardFooter className="p-0">
-        <div className="grid grid-cols-4 w-full">
+        <div className="grid grid-cols-5 w-full">
           <Button
             variant="ghost"
             size="sm"
             className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5"
+            onClick={() => navigate(`/ideas/${report.id}`)}
+          >
+            <FileText className="h-3.5 w-3.5" />
+            <span className="hidden xl:inline">Details</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
             onClick={() => onQuickView?.(report)}
           >
             <Eye className="h-3.5 w-3.5" />
