@@ -18,6 +18,7 @@ export default function IdeasPage() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [quickViewReport, setQuickViewReport] = useState<IdeaReport | null>(null);
 
   const filteredReports = useMemo(() => {
     return mockReports
