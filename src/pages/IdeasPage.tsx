@@ -156,6 +156,12 @@ export default function IdeasPage() {
             </div>
           </Card>
         )}
+
+        <IdeaQuickView
+          report={quickViewReport}
+          open={!!quickViewReport}
+          onOpenChange={(open) => { if (!open) setQuickViewReport(null); }}
+        />
       </div>
     </AppLayout>
   );
