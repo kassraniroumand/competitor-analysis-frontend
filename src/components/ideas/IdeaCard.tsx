@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ExternalLink, Users, CheckCircle2, AlertTriangle, ArrowRight, Calendar, Tag } from "lucide-react";
+import { ExternalLink, Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import type { IdeaReport } from "@/data/mock-data";
 
 interface IdeaCardProps {
   report: IdeaReport;
+  onQuickView?: (report: IdeaReport) => void;
 }
 
 export function IdeaCard({ report }: IdeaCardProps) {
