@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
@@ -13,19 +13,19 @@ interface MetricCardProps {
 export function MetricCard({ title, value, subtitle, icon: Icon, className }: MetricCardProps) {
   return (
     <Card className={cn("animate-fade-in", className)}>
-      <CardContent className="p-5">
-        <div className="flex items-start justify-between">
-          <div className="space-y-1">
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{title}</p>
-            <p className="text-2xl font-bold text-foreground">{value}</p>
-            {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
+      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+        <CardDescription className="text-xs font-medium uppercase tracking-wider">
+          {title}
+        </CardDescription>
+        {Icon && (
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent">
+            <Icon className="h-4 w-4 text-accent-foreground" />
           </div>
-          {Icon && (
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent">
-              <Icon className="h-4 w-4 text-accent-foreground" />
-            </div>
-          )}
-        </div>
+        )}
+      </CardHeader>
+      <CardContent>
+        <CardTitle className="text-2xl">{value}</CardTitle>
+        {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
       </CardContent>
     </Card>
   );

@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
 function getScoreInfo(score: number) {
-  if (score >= 75) return { color: 'text-success', stroke: 'stroke-success', label: 'High Opportunity' };
-  if (score >= 50) return { color: 'text-warning', stroke: 'stroke-warning', label: 'Moderate Opportunity' };
-  return { color: 'text-destructive', stroke: 'stroke-destructive', label: 'Low Opportunity' };
+  if (score >= 75) return { color: 'text-success', strokeColor: 'hsl(var(--success))', trackColor: 'hsl(var(--muted))', label: 'High Opportunity' };
+  if (score >= 50) return { color: 'text-warning', strokeColor: 'hsl(var(--warning))', trackColor: 'hsl(var(--muted))', label: 'Moderate Opportunity' };
+  return { color: 'text-destructive', strokeColor: 'hsl(var(--destructive))', trackColor: 'hsl(var(--muted))', label: 'Low Opportunity' };
 }
 
 export function ScoreGauge({ score, size = 120 }: { score: number; size?: number }) {
@@ -21,7 +21,7 @@ export function ScoreGauge({ score, size = 120 }: { score: number; size?: number
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="hsl(var(--muted))"
+            stroke={info.trackColor}
             strokeWidth="8"
           />
           <circle
@@ -29,7 +29,7 @@ export function ScoreGauge({ score, size = 120 }: { score: number; size?: number
             cy={size / 2}
             r={radius}
             fill="none"
-            className={info.stroke}
+            stroke={info.strokeColor}
             strokeWidth="8"
             strokeLinecap="round"
             strokeDasharray={circumference}

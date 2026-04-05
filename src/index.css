@@ -81,17 +81,3 @@
   }
 }
 
-@layer utilities {
-  .gradient-primary {
-    background: linear-gradient(135deg, hsl(172 66% 30%), hsl(172 50% 40%));
-  }
-  .gradient-score-high {
-    background: linear-gradient(135deg, hsl(142 71% 35%), hsl(142 60% 45%));
-  }
-  .gradient-score-moderate {
-    background: linear-gradient(135deg, hsl(38 92% 50%), hsl(38 80% 55%));
-  }
-  .gradient-score-low {
-    background: linear-gradient(135deg, hsl(0 72% 51%), hsl(0 60% 58%));
-  }
-}
