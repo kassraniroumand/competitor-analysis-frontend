@@ -13,7 +13,7 @@ interface IdeaCardProps {
   onQuickView?: (report: IdeaReport) => void;
 }
 
-export function IdeaCard({ report }: IdeaCardProps) {
+export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
   const navigate = useNavigate();
 
   return (
