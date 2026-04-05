@@ -1,19 +1,21 @@
 import { useState, useMemo } from "react";
-import { Lightbulb, Search, SlidersHorizontal, Sparkles, LayoutGrid, List } from "lucide-react";
+import { Lightbulb, Search, SlidersHorizontal, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { IdeaCard } from "@/components/ideas/IdeaCard";
 import { NewAnalysisDialog } from "@/components/ideas/NewAnalysisDialog";
 import { IdeaQuickView } from "@/components/ideas/IdeaQuickView";
+import { MetricCardSkeleton } from "@/components/skeletons/MetricCardSkeleton";
+import { IdeaCardSkeleton } from "@/components/skeletons/IdeaCardSkeleton";
+import { useLoadingState } from "@/hooks/use-loading";
 import { mockReports, type IdeaReport } from "@/data/mock-data";
 
 export default function IdeasPage() {
+  const isLoading = useLoadingState();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
@@ -61,23 +63,25 @@ export default function IdeasPage() {
 
         {/* Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: "Total Ideas", value: stats.total, accent: false },
-            { label: "Completed", value: stats.completed, accent: false },
-            { label: "Processing", value: stats.processing, accent: false },
-            { label: "Avg. Score", value: stats.avgScore, accent: true },
-          ].map((stat) => (
-            <Card key={stat.label}>
-              <CardContent className="p-4">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  {stat.label}
-                </p>
-                <p className={`text-2xl font-bold mt-1 ${stat.accent ? "text-primary" : "text-foreground"}`}>
-                  {stat.value}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
+            : [
+                { label: "Total Ideas", value: stats.total, accent: false },
+                { label: "Completed", value: stats.completed, accent: false },
+                { label: "Processing", value: stats.processing, accent: false },
+                { label: "Avg. Score", value: stats.avgScore, accent: true },
+              ].map((stat) => (
+                <Card key={stat.label}>
+                  <CardContent className="p-4">
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                      {stat.label}
+                    </p>
+                    <p className={`text-2xl font-bold mt-1 ${stat.accent ? "text-primary" : "text-foreground"}`}>
+                      {stat.value}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
         </div>
 
         {/* Filters */}
@@ -117,15 +121,23 @@ export default function IdeasPage() {
         </div>
 
         {/* Results count */}
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
-            Showing <span className="font-medium text-foreground">{filteredReports.length}</span>{" "}
-            {filteredReports.length === 1 ? "idea" : "ideas"}
-          </p>
-        </div>
+        {!isLoading && (
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              Showing <span className="font-medium text-foreground">{filteredReports.length}</span>{" "}
+              {filteredReports.length === 1 ? "idea" : "ideas"}
+            </p>
+          </div>
+        )}
 
         {/* Reports Grid */}
-        {filteredReports.length > 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <IdeaCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : filteredReports.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredReports.map((report) => (
               <IdeaCard key={report.id} report={report} onQuickView={setQuickViewReport} />
