@@ -276,6 +276,144 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Value Proposition — dark panel + overlapping cards */}
+      <section className="mx-auto max-w-7xl px-6 pb-20 lg:px-10 lg:pb-28">
+        <div className="relative grid gap-0 lg:grid-cols-5">
+          {/* Dark left panel */}
+          <div className="relative z-10 rounded-2xl bg-[hsl(150,30%,20%)] p-10 lg:col-span-2 lg:rounded-r-none">
+            <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
+              Reach the right<br />market,<br />every time.
+            </h2>
+            <p className="mt-6 text-sm leading-relaxed text-white/70">
+              Get insights from exactly the data you need. With deep search analysis,
+              competitor mapping, and AI-powered scoring, validating your idea has never been easier.
+            </p>
+            <div className="mt-10">
+              <p className="text-xs text-white/50">Powered by:</p>
+              <div className="mt-2 flex items-center gap-4">
+                <span className="text-sm font-semibold text-white/80">AI Engine</span>
+                <span className="text-sm font-semibold text-white/80">Market Data</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right — overlapping UI cards */}
+          <div className="relative z-20 -ml-0 lg:-ml-6 lg:col-span-3">
+            <div className="grid gap-4 p-6 sm:grid-cols-2">
+              <Card className="shadow-lg">
+                <CardContent className="p-5">
+                  <h3 className="text-base font-semibold text-foreground">Analyze idea</h3>
+                  <div className="mt-4 space-y-3">
+                    <div>
+                      <span className="text-xs text-muted-foreground">Keywords tracked</span>
+                      <p className="text-xl font-bold text-foreground">24</p>
+                      <div className="mt-1 h-1.5 w-full rounded-full bg-muted">
+                        <div className="h-1.5 rounded-full bg-primary" style={{ width: "72%" }} />
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground">Market fit</span>
+                      <p className="text-lg font-bold text-foreground">Strong</p>
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground">Select category</span>
+                      <div className="mt-1 rounded-md border border-border px-3 py-1.5 text-sm text-foreground">SaaS</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-lg">
+                <CardContent className="p-5">
+                  <h3 className="text-sm font-semibold text-foreground">Competition Level</h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {["Low", "Medium", "High"].map((level) => (
+                      <Badge key={level} variant={level === "Medium" ? "default" : "outline"} className="text-xs">
+                        {level}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  <h3 className="mt-5 text-sm font-semibold text-foreground">Target audience</h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {["Founders", "Product teams", "Indie hackers", "Agencies"].map((audience) => (
+                      <Badge key={audience} variant="outline" className="text-xs">
+                        {audience}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing comparison + features */}
+      <section className="mx-auto max-w-7xl px-6 pb-20 lg:px-10 lg:pb-28">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              On average, teams{" "}
+              <span className="text-primary">save 40+ hours</span> per idea with IdeaProbe
+            </h2>
+            <p className="mt-4 max-w-md text-muted-foreground">
+              Stop spending weeks on manual research: our AI-powered validation keeps time-to-insight low while making sure you get comprehensive analysis.
+            </p>
+          </div>
+          <div>
+            <div className="space-y-0 divide-y divide-border rounded-xl border border-border">
+              <div className="flex items-center justify-between px-5 py-3.5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/10">
+                    <Sparkles className="h-4 w-4 text-primary" />
+                  </div>
+                  <span className="text-sm font-semibold text-foreground">IdeaProbe</span>
+                </div>
+                <span className="text-sm font-bold text-foreground">&lt; 2 min</span>
+              </div>
+              <div className="flex items-center justify-between px-5 py-3.5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
+                    <Search className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">Manual research</span>
+                </div>
+                <span className="text-sm text-muted-foreground">2–4 weeks</span>
+              </div>
+              <div className="flex items-center justify-between px-5 py-3.5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">Hiring a consultant</span>
+                </div>
+                <span className="text-sm text-muted-foreground">4–8 weeks</span>
+              </div>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Time to validate a single startup idea
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom feature columns */}
+        <div className="mt-16 grid gap-8 sm:grid-cols-2">
+          <div>
+            <h3 className="text-sm font-bold text-foreground">Custom analysis</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Didn't find the market segment you were after? No worries — we let you define custom keywords, niches, and target audiences for tailored validation.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-foreground">Deep competitor mapping</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Integrate competitor data from multiple sources — pricing pages, feature lists, review sites — and get a unified competitive landscape view.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section
         id="testimonials"
