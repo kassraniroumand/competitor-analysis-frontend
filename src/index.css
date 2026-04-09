@@ -36,6 +36,10 @@
 
     --radius: 0.625rem;
 
+    /* Hero page tokens */
+    --hero-bg: 45 95% 58%;
+    --hero-fg: 0 0% 8%;
+
     /* Custom tokens */
     --success: 142 71% 35%;
     --success-foreground: 0 0% 100%;
