@@ -212,58 +212,66 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Value prop line + logos */}
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-        <p className="max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-muted-foreground sm:text-3xl">
-          IdeaProbe helps founders{" "}
-          <span className="text-foreground">validate faster</span>, get market
-          insights{" "}
-          <span className="text-foreground">in minutes</span>, and make{" "}
-          <span className="text-foreground">data-driven decisions</span>
-        </p>
+      {/* Checklist + headline section */}
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Validate your startup idea in minutes
+            </h2>
+            <p className="mt-4 max-w-md text-muted-foreground">
+              Run comprehensive market validation using a wide variety of data sources and AI-powered analysis.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {[
+              "Analyze search demand & keyword trends",
+              "Map competitors & pricing strategies",
+              "Surface real user pain points",
+              "Get AI-powered opportunity scoring",
+              "Assess market size & timing",
+              "Generate validation reports instantly",
+              "Track competitor feature gaps",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
+                <span className="text-sm font-medium text-foreground">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <div className="mt-12 flex flex-wrap items-center gap-10 lg:gap-14">
-          {[
-            { icon: Search, name: "MarketScout" },
-            { icon: BarChart3, name: "DataForge" },
-            { icon: Target, name: "LaunchPad" },
-            { icon: TrendingUp, name: "GrowthOS" },
-            { icon: Lightbulb, name: "InnovateCo" },
-            { icon: Zap, name: "VelocityAI" },
-          ].map((brand) => (
-            <div
-              key={brand.name}
-              className="flex items-center gap-2 text-muted-foreground/40"
-            >
-              <brand.icon className="h-5 w-5" />
-              <span className="text-sm font-bold tracking-wide">
-                {brand.name}
-              </span>
+      {/* Feature cards — 2 large */}
+      <section id="features" className="mx-auto max-w-7xl px-6 pb-8 lg:px-10">
+        <div className="grid gap-6 lg:grid-cols-2">
+          {features.slice(0, 2).map((feature) => (
+            <div key={feature.title} className="space-y-5">
+              <div className="flex h-[280px] items-center justify-center rounded-2xl bg-accent/50">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm">
+                  <feature.icon className="h-7 w-7 text-foreground" />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">{feature.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="mx-auto max-w-7xl px-6 pb-20 lg:px-10 lg:pb-28">
+      {/* Feature cards — 3 small */}
+      <section className="mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-10 lg:pb-28">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, i) => (
-            <Card
-              key={feature.title}
-              className="group border border-border bg-card transition-all hover:shadow-lg"
-            >
-              <CardContent className="p-6 lg:p-8">
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                  <feature.icon className="h-5 w-5" />
+          {features.slice(2).map((feature) => (
+            <div key={feature.title} className="space-y-5">
+              <div className="flex h-[220px] items-center justify-center rounded-2xl bg-accent/50">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-background shadow-sm">
+                  <feature.icon className="h-6 w-6 text-foreground" />
                 </div>
-                <h3 className="text-base font-semibold text-foreground">
-                  {feature.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
+              </div>
+              <h3 className="text-base font-semibold text-foreground">{feature.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
+            </div>
           ))}
         </div>
       </section>
