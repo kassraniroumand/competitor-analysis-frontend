@@ -116,38 +116,43 @@ export default function Index() {
 
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="relative overflow-hidden rounded-3xl bg-muted/50 px-8 pb-8 pt-16 lg:px-16 lg:pt-20">
-          <div className="grid items-start gap-12 lg:grid-cols-2">
-            {/* Left */}
-            <div className="max-w-xl">
-              <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-                Take the guesswork out
+        <div className="relative overflow-hidden rounded-3xl bg-muted/50 px-8 pb-10 pt-12 lg:px-16 lg:pb-14 lg:pt-16" style={{ minHeight: 520 }}>
+          <div className="grid items-start gap-8 lg:grid-cols-2">
+            {/* Left — headline top, description + CTAs bottom */}
+            <div className="flex flex-col justify-between h-full min-h-[400px]">
+              <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.5rem]">
+                Take the
+                <br />
+                guesswork out
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                IdeaProbe is a platform for modern founders to swiftly validate
-                startup ideas and find the right market opportunity
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Button
-                  size="lg"
-                  className="rounded-full px-7 text-sm font-medium"
-                  onClick={() => navigate("/ideas")}
-                >
-                  Get started for free
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="rounded-full px-7 text-sm font-medium"
-                  onClick={() => navigate("/ideas")}
-                >
-                  Book a demo
-                </Button>
+
+              <div className="mt-auto">
+                <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+                  IdeaProbe is a platform for modern founders to swiftly validate
+                  startup ideas and find the right market opportunity
+                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <Button
+                    size="lg"
+                    className="rounded-full px-8 text-sm font-medium"
+                    onClick={() => navigate("/ideas")}
+                  >
+                    Get started for free
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="rounded-full px-8 text-sm font-medium"
+                    onClick={() => navigate("/ideas")}
+                  >
+                    Book a demo
+                  </Button>
+                </div>
               </div>
             </div>
 
             {/* Right — floating product cards */}
-            <div className="relative hidden min-h-[380px] lg:block">
+            <div className="relative hidden min-h-[400px] lg:block">
               {/* Main card */}
               <Card className="absolute right-0 top-0 w-[280px] rotate-1 shadow-xl">
                 <CardContent className="p-5">
