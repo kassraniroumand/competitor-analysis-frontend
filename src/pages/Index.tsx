@@ -379,7 +379,7 @@ export default function Index() {
       </section>
 
       {/* Showcase — dark section with monitor mockup */}
-      <section className="min-h-svh bg-[hsl(220,20%,8%)] px-4 py-10 sm:px-6 sm:py-16 lg:px-10 flex items-center">
+      <section className="bg-[hsl(220,20%,8%)] px-4 py-10 sm:px-6 sm:py-16 lg:px-10 lg:py-20 flex items-center">
         <div className="mx-auto w-full max-w-7xl">
           {/* Top — heading & description */}
           <div className="mb-6 lg:mb-14">
