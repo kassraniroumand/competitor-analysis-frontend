@@ -389,21 +389,19 @@ export default function Index() {
               Crafting smarter decisions.
             </p>
 
-            <div className="mt-10 space-y-3">
-              {[
-                "Market Research",
-                "Competitor Analysis",
-                "Opportunity Scoring",
-                "Pain Point Discovery",
-                "Validation Reports",
-              ].map((link) => (
-                <a
-                  key={link}
-                  href="#features"
-                  className="block text-sm text-white/40 transition-colors hover:text-white"
+            <div className="mt-10 space-y-1">
+              {showcaseItems.map((item, i) => (
+                <button
+                  key={item.label}
+                  onClick={() => setActiveShowcase(i)}
+                  className={`block w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
+                    activeShowcase === i
+                      ? "text-white font-semibold bg-white/10"
+                      : "text-white/40 hover:text-white/70"
+                  }`}
                 >
-                  {link}
-                </a>
+                  {item.label}
+                </button>
               ))}
             </div>
           </div>
@@ -413,14 +411,20 @@ export default function Index() {
             <div className="relative">
               {/* Monitor bezel */}
               <div className="overflow-hidden rounded-lg border-[6px] border-[hsl(220,10%,20%)] bg-[hsl(220,10%,15%)] shadow-2xl">
-                <img
-                  src={showcaseScreen}
-                  alt="IdeaProbe platform preview"
-                  className="w-full max-w-[560px]"
-                  loading="lazy"
-                  width={1280}
-                  height={800}
-                />
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeShowcase}
+                    src={showcaseItems[activeShowcase].image}
+                    alt={showcaseItems[activeShowcase].label}
+                    className="w-full max-w-[560px]"
+                    width={1280}
+                    height={800}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                  />
+                </AnimatePresence>
               </div>
               {/* Monitor stand */}
               <div className="mx-auto h-16 w-24 bg-gradient-to-b from-[hsl(220,10%,20%)] to-[hsl(220,10%,14%)]" />
