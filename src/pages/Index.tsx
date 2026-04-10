@@ -363,6 +363,58 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Showcase — dark section with monitor mockup */}
+      <section className="bg-[hsl(220,20%,8%)] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+          {/* Left — text & links */}
+          <div>
+            <h2 className="text-2xl font-bold text-white">IdeaProbe</h2>
+            <p className="mt-2 text-base text-white/50">
+              AI-powered idea validation.<br />
+              Crafting smarter decisions.
+            </p>
+
+            <div className="mt-10 space-y-3">
+              {[
+                "Market Research",
+                "Competitor Analysis",
+                "Opportunity Scoring",
+                "Pain Point Discovery",
+                "Validation Reports",
+              ].map((link) => (
+                <a
+                  key={link}
+                  href="#features"
+                  className="block text-sm text-white/40 transition-colors hover:text-white"
+                >
+                  {link}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — monitor mockup */}
+          <div className="flex items-end justify-center">
+            <div className="relative">
+              {/* Monitor bezel */}
+              <div className="overflow-hidden rounded-lg border-[6px] border-[hsl(220,10%,20%)] bg-[hsl(220,10%,15%)] shadow-2xl">
+                <img
+                  src={showcaseScreen}
+                  alt="IdeaProbe platform preview"
+                  className="w-full max-w-[560px]"
+                  loading="lazy"
+                  width={1280}
+                  height={800}
+                />
+              </div>
+              {/* Monitor stand */}
+              <div className="mx-auto h-16 w-24 bg-gradient-to-b from-[hsl(220,10%,20%)] to-[hsl(220,10%,14%)]" />
+              <div className="mx-auto h-2 w-40 rounded-b-lg bg-[hsl(220,10%,18%)]" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section
         id="testimonials"
