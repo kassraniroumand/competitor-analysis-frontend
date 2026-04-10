@@ -410,19 +410,19 @@ export default function Index() {
           <div className="flex items-end justify-center">
             <div className="relative">
               {/* Monitor bezel */}
-              <div className="overflow-hidden rounded-lg border-[6px] border-[hsl(220,10%,20%)] bg-[hsl(220,10%,15%)] shadow-2xl">
-                <AnimatePresence mode="wait">
+              <div className="relative overflow-hidden rounded-lg border-[6px] border-[hsl(220,10%,20%)] bg-[hsl(220,10%,15%)] shadow-2xl" style={{ aspectRatio: "16/10" }}>
+                <AnimatePresence initial={false}>
                   <motion.img
                     key={activeShowcase}
                     src={showcaseItems[activeShowcase].image}
                     alt={showcaseItems[activeShowcase].label}
-                    className="w-full max-w-[560px]"
+                    className="absolute inset-0 w-full h-full object-cover"
                     width={1280}
                     height={800}
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                   />
                 </AnimatePresence>
               </div>
