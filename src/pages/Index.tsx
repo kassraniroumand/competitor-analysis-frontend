@@ -379,7 +379,7 @@ export default function Index() {
       </section>
 
       {/* Showcase — dark section with monitor mockup */}
-      <section className="bg-[hsl(220,20%,8%)] px-6 py-24 lg:px-10 lg:py-32">
+      <section className="min-h-svh bg-[hsl(220,20%,8%)] px-6 py-24 lg:px-10 lg:py-32 flex items-center">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
           {/* Left — text & links */}
           <div>
