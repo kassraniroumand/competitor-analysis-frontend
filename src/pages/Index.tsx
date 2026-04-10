@@ -226,29 +226,29 @@ export default function Index() {
 
       {/* Value Proposition — dark panel + overlapping cards */}
       <section className="mx-auto max-w-7xl px-6 pb-20 lg:px-10 lg:pb-28">
-        <div className="relative grid gap-0 lg:grid-cols-5">
-          {/* Dark left panel */}
-          <div className="relative z-10 rounded-2xl bg-[hsl(150,30%,20%)] p-10 lg:col-span-2 lg:rounded-r-none">
-            <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
-              Reach the right<br />market,<br />every time.
-            </h2>
-            <p className="mt-6 text-sm leading-relaxed text-white/70">
-              Get insights from exactly the data you need. With deep search analysis,
-              competitor mapping, and AI-powered scoring, validating your idea has never been easier.
-            </p>
-            <div className="mt-10">
-              <p className="text-xs text-white/50">Powered by:</p>
-              <div className="mt-2 flex items-center gap-4">
-                <span className="text-sm font-semibold text-white/80">AI Engine</span>
-                <span className="text-sm font-semibold text-white/80">Market Data</span>
+        <div className="relative overflow-hidden rounded-2xl bg-[hsl(150,30%,20%)] p-10 lg:p-14">
+          <div className="grid items-center gap-8 lg:grid-cols-2">
+            {/* Left — text content */}
+            <div>
+              <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
+                Reach the right<br />market,<br />every time.
+              </h2>
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-white/70">
+                Get insights from exactly the data you need. With deep search analysis,
+                competitor mapping, and AI-powered scoring, validating your idea has never been easier.
+              </p>
+              <div className="mt-10">
+                <p className="text-xs text-white/50">Powered by:</p>
+                <div className="mt-2 flex items-center gap-4">
+                  <span className="text-sm font-semibold text-white/80">AI Engine</span>
+                  <span className="text-sm font-semibold text-white/80">Market Data</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Right — overlapping UI cards */}
-          <div className="relative z-20 -ml-0 lg:-ml-6 lg:col-span-3">
-            <div className="grid gap-4 p-6 sm:grid-cols-2">
-              <Card className="shadow-lg">
+            {/* Right — overlapping cards */}
+            <div className="relative hidden min-h-[380px] lg:block">
+              <Card className="absolute left-0 top-0 w-[260px] rotate-[-2deg] shadow-2xl z-10">
                 <CardContent className="p-5">
                   <h3 className="text-base font-semibold text-foreground">Analyze idea</h3>
                   <div className="mt-4 space-y-3">
@@ -271,7 +271,7 @@ export default function Index() {
                 </CardContent>
               </Card>
 
-              <Card className="shadow-lg">
+              <Card className="absolute right-0 top-10 w-[240px] rotate-[3deg] shadow-2xl z-20">
                 <CardContent className="p-5">
                   <h3 className="text-sm font-semibold text-foreground">Competition Level</h3>
                   <div className="mt-3 flex flex-wrap gap-2">
