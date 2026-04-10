@@ -1,14 +1,28 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Lightbulb, Play, ArrowRight, Search, BarChart3, Target,
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
   ChevronRight, Sparkles, Check,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import showcaseScreen from "@/assets/showcase-screen.jpg";
+import showcaseCompetitors from "@/assets/showcase-competitors.jpg";
+import showcaseScoring from "@/assets/showcase-scoring.jpg";
+import showcasePainpoints from "@/assets/showcase-painpoints.jpg";
+import showcaseReports from "@/assets/showcase-reports.jpg";
+
+const showcaseItems = [
+  { label: "Market Research", image: showcaseScreen },
+  { label: "Competitor Analysis", image: showcaseCompetitors },
+  { label: "Opportunity Scoring", image: showcaseScoring },
+  { label: "Pain Point Discovery", image: showcasePainpoints },
+  { label: "Validation Reports", image: showcaseReports },
+];
 
 const features = [
   {
