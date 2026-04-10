@@ -117,96 +117,44 @@ export default function Index() {
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="relative overflow-hidden rounded-3xl bg-muted/50 px-8 pb-10 pt-12 lg:px-16 lg:pb-14 lg:pt-16" style={{ minHeight: 520 }}>
-          <div className="grid items-start gap-8 lg:grid-cols-2">
-            {/* Left — headline top, description + CTAs bottom */}
-            <div className="flex flex-col justify-between h-full min-h-[400px]">
+          <div className="grid items-center gap-8 lg:grid-cols-2">
+            {/* Left — title, description, CTAs in flex-col */}
+            <div className="flex flex-col gap-6">
               <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.5rem]">
                 Take the
                 <br />
                 guesswork out
               </h1>
-
-              <div className="mt-auto">
-                <p className="max-w-md text-base leading-relaxed text-muted-foreground">
-                  IdeaProbe is a platform for modern founders to swiftly validate
-                  startup ideas and find the right market opportunity
-                </p>
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <Button
-                    size="lg"
-                    className="rounded-full px-8 text-sm font-medium"
-                    onClick={() => navigate("/ideas")}
-                  >
-                    Get started for free
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="rounded-full px-8 text-sm font-medium"
-                    onClick={() => navigate("/ideas")}
-                  >
-                    Book a demo
-                  </Button>
-                </div>
+              <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+                IdeaProbe is a platform for modern founders to swiftly validate
+                startup ideas and find the right market opportunity
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  size="lg"
+                  className="rounded-full px-8 text-sm font-medium"
+                  onClick={() => navigate("/ideas")}
+                >
+                  Get started for free
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full px-8 text-sm font-medium"
+                  onClick={() => navigate("/ideas")}
+                >
+                  Book a demo
+                </Button>
               </div>
             </div>
 
-            {/* Right — floating product cards */}
-            <div className="relative hidden min-h-[400px] lg:block">
-              {/* Main card */}
-              <Card className="absolute right-0 top-0 w-[280px] rotate-1 shadow-xl">
-                <CardContent className="p-5">
-                  <div className="mb-3 flex items-center gap-2">
-                    <div className="h-2.5 w-2.5 rounded-full bg-primary" />
-                    <span className="text-xs font-semibold text-foreground">
-                      Opportunity Score
-                    </span>
-                  </div>
-                  <p className="text-4xl font-bold tracking-tight text-foreground">
-                    87<span className="text-lg text-muted-foreground">/100</span>
-                  </p>
-                  <Separator className="my-4" />
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-muted-foreground">Market Demand</span>
-                      <span className="font-semibold text-foreground">High</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-muted-foreground">Competition</span>
-                      <span className="font-semibold text-foreground">Moderate</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-muted-foreground">Timing</span>
-                      <span className="font-semibold text-foreground">Excellent</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Summary card */}
-              <Card className="absolute left-4 top-24 w-[300px] -rotate-1 shadow-lg">
-                <CardContent className="p-5">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="text-sm font-semibold text-foreground">Summary</span>
-                    <Badge variant="secondary" className="text-[10px] px-1.5 py-0">AI</Badge>
-                  </div>
-                  <p className="text-xs leading-relaxed text-muted-foreground">
-                    Most target users (55%) actively search for a solution in this space.
-                    The market shows strong growth signals with limited direct competition
-                    in the mid-tier segment.
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Small floating badge */}
-              <Card className="absolute bottom-4 right-8 shadow-md">
-                <CardContent className="flex items-center gap-2 p-3">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
-                  <span className="text-xs font-medium text-foreground">
-                    3 competitors tracked
-                  </span>
-                </CardContent>
-              </Card>
+            {/* Right — hero image */}
+            <div className="hidden lg:block">
+              <img
+                src="/hero-dashboard.jpg"
+                alt="IdeaProbe dashboard preview"
+                className="w-full rounded-2xl shadow-2xl"
+              />
             </div>
           </div>
         </div>
