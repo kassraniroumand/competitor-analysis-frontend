@@ -379,57 +379,55 @@ export default function Index() {
       </section>
 
       {/* Showcase — dark section with monitor mockup */}
-      <section className="min-h-svh bg-[hsl(220,20%,8%)] px-6 py-24 lg:px-10 lg:py-32 flex items-center">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-          {/* Left — text & links */}
-          <div>
-            <h2 className="text-2xl font-bold text-white">IdeaProbe</h2>
-            <p className="mt-2 text-base text-white/50">
+      <section className="min-h-svh bg-[hsl(220,20%,8%)] px-6 py-16 lg:px-10 flex items-center">
+        <div className="mx-auto w-full max-w-7xl">
+          {/* Top — heading & description */}
+          <div className="mb-10 lg:mb-14">
+            <h2 className="text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">IdeaProbe</h2>
+            <p className="mt-3 text-lg text-white/50 sm:text-xl">
               AI-powered idea validation.<br />
               Crafting smarter decisions.
             </p>
-
-            <div className="mt-10 space-y-1">
-              {showcaseItems.map((item, i) => (
-                <button
-                  key={item.label}
-                  onClick={() => setActiveShowcase(i)}
-                  className={`block w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
-                    activeShowcase === i
-                      ? "text-white font-semibold bg-white/10"
-                      : "text-white/40 hover:text-white/70"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
           </div>
 
-          {/* Right — monitor mockup */}
-          <div className="flex items-end justify-center">
-            <div className="relative">
-              {/* Monitor bezel */}
-              <div className="relative overflow-hidden rounded-lg border-[6px] border-[hsl(220,10%,20%)] bg-[hsl(220,10%,15%)] shadow-2xl" style={{ aspectRatio: "16/10" }}>
-                <AnimatePresence initial={false}>
-                  <motion.img
-                    key={activeShowcase}
-                    src={showcaseItems[activeShowcase].image}
-                    alt={showcaseItems[activeShowcase].label}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    width={1280}
-                    height={800}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </AnimatePresence>
-              </div>
-              {/* Monitor stand */}
-              <div className="mx-auto h-16 w-24 bg-gradient-to-b from-[hsl(220,10%,20%)] to-[hsl(220,10%,14%)]" />
-              <div className="mx-auto h-2 w-40 rounded-b-lg bg-[hsl(220,10%,18%)]" />
+          {/* Navigation buttons */}
+          <div className="mb-8 flex flex-wrap gap-2">
+            {showcaseItems.map((item, i) => (
+              <button
+                key={item.label}
+                onClick={() => setActiveShowcase(i)}
+                className={`px-5 py-3 rounded-full text-base font-medium transition-all duration-200 ${
+                  activeShowcase === i
+                    ? "text-white bg-white/15 ring-1 ring-white/20"
+                    : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Monitor mockup — full width */}
+          <div className="relative mx-auto max-w-5xl">
+            <div className="relative overflow-hidden rounded-xl border-[6px] border-[hsl(220,10%,20%)] bg-[hsl(220,10%,15%)] shadow-2xl" style={{ aspectRatio: "16/10" }}>
+              <AnimatePresence initial={false}>
+                <motion.img
+                  key={activeShowcase}
+                  src={showcaseItems[activeShowcase].image}
+                  alt={showcaseItems[activeShowcase].label}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  width={1280}
+                  height={800}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </AnimatePresence>
             </div>
+            {/* Monitor stand */}
+            <div className="mx-auto h-12 w-28 bg-gradient-to-b from-[hsl(220,10%,20%)] to-[hsl(220,10%,14%)] lg:h-16 lg:w-32" />
+            <div className="mx-auto h-2 w-44 rounded-b-lg bg-[hsl(220,10%,18%)] lg:w-52" />
           </div>
         </div>
       </section>
