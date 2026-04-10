@@ -78,6 +78,7 @@ const testimonials = [
 
 export default function Index() {
   const navigate = useNavigate();
+  const [activeShowcase, setActiveShowcase] = useState(0);
 
   return (
     <div className="min-h-screen bg-background">
