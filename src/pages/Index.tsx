@@ -131,48 +131,35 @@ export default function Index() {
       </header>
 
       {/* Hero */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="relative overflow-hidden rounded-3xl bg-muted/50 px-8 pb-10 pt-12 lg:px-16 lg:pb-14 lg:pt-16" style={{ minHeight: 520 }}>
-          <div className="grid items-center gap-8 lg:grid-cols-2">
-            {/* Left — title, description, CTAs in flex-col */}
-            <div className="flex flex-col gap-6">
-              <h1 className="text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.5rem]">
-                Take the
-                <br />
-                guesswork out
-              </h1>
-              <p className="max-w-md text-base leading-relaxed text-muted-foreground">
-                IdeaProbe is a platform for modern founders to swiftly validate
-                startup ideas and find the right market opportunity
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <Button
-                  size="lg"
-                  className="rounded-full px-8 text-sm font-medium"
-                  onClick={() => navigate("/ideas")}
-                >
-                  Get started for free
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="rounded-full px-8 text-sm font-medium"
-                  onClick={() => navigate("/ideas")}
-                >
-                  Book a demo
-                </Button>
-              </div>
-            </div>
-
-            {/* Right — hero image */}
-            <div className="hidden lg:block">
-              <img
-                src="/hero-dashboard.jpg"
-                alt="IdeaProbe dashboard preview"
-                className="w-full rounded-2xl shadow-2xl"
-              />
-            </div>
+      <section className="flex flex-col items-center justify-center px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28">
+        <div className="mb-8">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary shadow-lg sm:h-20 sm:w-20 sm:rounded-3xl">
+            <Lightbulb className="h-8 w-8 text-primary-foreground sm:h-10 sm:w-10" />
           </div>
+        </div>
+        <h1 className="max-w-3xl text-center text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-7xl">
+          Validate your startup ideas with confidence.
+        </h1>
+        <p className="mt-5 max-w-xl text-center text-base text-muted-foreground sm:text-lg">
+          AI-powered market research, competitor analysis, and opportunity scoring — what used to take weeks, now takes minutes.
+        </p>
+        <div className="mt-8 flex items-center gap-3">
+          <Button
+            size="lg"
+            className="rounded-full bg-foreground px-8 text-sm font-semibold text-background hover:bg-foreground/90"
+            onClick={() => navigate("/ideas")}
+          >
+            Get started for free
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="rounded-full px-8 text-sm font-semibold"
+            onClick={() => navigate("/ideas")}
+          >
+            See how it works
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
         </div>
       </section>
 
