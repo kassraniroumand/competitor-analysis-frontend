@@ -365,56 +365,40 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Showcase — dark section with monitor mockup */}
-      <section className="bg-[hsl(220,20%,8%)] px-4 py-10 sm:px-6 sm:py-16 lg:px-10 lg:py-20 flex items-center">
-        <div className="mx-auto w-full max-w-7xl">
-          {/* Top — heading & description */}
-          <div className="mb-6 lg:mb-14">
-            <h2 className="text-3xl font-extrabold text-white sm:text-5xl lg:text-6xl">IdeaProbe</h2>
-            <p className="mt-2 text-sm text-white/50 sm:text-xl sm:mt-3">
-              AI-powered idea validation.<br />
-              Crafting smarter decisions.
-            </p>
+      {/* Showcase — side-by-side layout */}
+      <section className="bg-muted/30 px-6 py-16 sm:py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+          {/* Left — image with rounded corners */}
+          <div className="relative overflow-hidden rounded-2xl bg-muted shadow-2xl" style={{ aspectRatio: "4/3" }}>
+            <AnimatePresence initial={false}>
+              <motion.img
+                key={activeShowcase}
+                src={showcaseItems[activeShowcase].image}
+                alt={showcaseItems[activeShowcase].label}
+                className="absolute inset-0 h-full w-full object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </AnimatePresence>
           </div>
 
-          {/* Navigation buttons — horizontal scroll on mobile */}
-          <div className="mb-5 lg:mb-8 flex gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible sm:pb-0">
+          {/* Right — text list */}
+          <div className="space-y-2 lg:space-y-3">
             {showcaseItems.map((item, i) => (
               <button
                 key={item.label}
                 onClick={() => setActiveShowcase(i)}
-                className={`shrink-0 px-4 py-2 sm:px-5 sm:py-3 rounded-full text-sm sm:text-base font-medium transition-all duration-200 ${
+                className={`block w-full text-left text-2xl font-semibold transition-all duration-200 sm:text-3xl lg:text-4xl ${
                   activeShowcase === i
-                    ? "text-white bg-white/15 ring-1 ring-white/20"
-                    : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                    ? "text-foreground"
+                    : "text-muted-foreground/40 hover:text-muted-foreground/60"
                 }`}
               >
                 {item.label}
               </button>
             ))}
-          </div>
-
-          {/* Monitor mockup — full width */}
-          <div className="relative mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-lg sm:rounded-xl border-4 sm:border-[6px] border-[hsl(220,10%,20%)] bg-[hsl(220,10%,15%)] shadow-2xl" style={{ aspectRatio: "16/10" }}>
-              <AnimatePresence initial={false}>
-                <motion.img
-                  key={activeShowcase}
-                  src={showcaseItems[activeShowcase].image}
-                  alt={showcaseItems[activeShowcase].label}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  width={1280}
-                  height={800}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </AnimatePresence>
-            </div>
-            {/* Monitor stand */}
-            <div className="mx-auto h-8 w-20 bg-gradient-to-b from-[hsl(220,10%,20%)] to-[hsl(220,10%,14%)] sm:h-12 sm:w-28 lg:h-16 lg:w-32" />
-            <div className="mx-auto h-1.5 w-32 rounded-b-lg bg-[hsl(220,10%,18%)] sm:h-2 sm:w-44 lg:w-52" />
           </div>
         </div>
       </section>
