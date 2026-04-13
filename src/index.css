@@ -85,3 +85,10 @@
   }
 }
 
+.use-cases-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.use-cases-swiper .swiper-slide {
+  height: auto;
+}
