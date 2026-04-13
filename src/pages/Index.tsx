@@ -738,31 +738,38 @@ export default function Index() {
         </div>
 
         <div className="mt-10 px-6 lg:px-10">
-          <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory">
+          <Swiper
+            modules={[FreeMode]}
+            spaceBetween={20}
+            slidesPerView="auto"
+            freeMode={true}
+            className="testimonials-swiper"
+          >
             {testimonials.map((t) => (
-              <div
-                key={t.author}
-                className="min-w-[300px] max-w-[320px] shrink-0 snap-start flex flex-col justify-between rounded-xl bg-secondary p-6"
-                style={{ minHeight: "360px" }}
-              >
-                <div>
-                  <p className="text-sm font-bold text-foreground">{t.company}</p>
-                  <p className="mt-auto pt-16 text-sm leading-relaxed text-foreground">
-                    "{t.quote}"
-                  </p>
-                </div>
-                <div className="mt-8 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground">
-                    {t.author.split(" ").map(n => n[0]).join("")}
-                  </div>
+              <SwiperSlide key={t.author} style={{ width: "320px" }}>
+                <div
+                  className="flex flex-col justify-between rounded-xl bg-secondary p-6 h-full"
+                  style={{ minHeight: "360px" }}
+                >
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{t.author}</p>
-                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                    <p className="text-sm font-bold text-foreground">{t.company}</p>
+                    <p className="mt-auto pt-16 text-sm leading-relaxed text-foreground">
+                      "{t.quote}"
+                    </p>
+                  </div>
+                  <div className="mt-8 flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground">
+                      {t.author.split(" ").map(n => n[0]).join("")}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{t.author}</p>
+                      <p className="text-xs text-muted-foreground">{t.role}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </section>
 
