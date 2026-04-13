@@ -117,14 +117,6 @@ export default function HeroCanvas() {
         </Swiper>
       </div>
 
-      {/* Bottom toolbar */}
-      <div className="flex items-center justify-center gap-2 pb-3">
-        {[Plus, Settings, BarChart3, LayoutGrid, MoreHorizontal].map((Icon, i) => (
-          <div key={i} className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground shadow-sm">
-            <Icon className="h-4 w-4" />
-          </div>
-        ))}
-      </div>
 
       {/* Bottom tabs */}
       <div className="border-t border-border py-3 overflow-x-auto">
