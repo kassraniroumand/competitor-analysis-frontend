@@ -542,7 +542,11 @@ export default function Index() {
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
             {/* Left — preview */}
             <div className="relative min-h-[400px] lg:min-h-[500px]">
-              <div className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg">
+              <div
+                className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg cursor-grab"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 <AnimatePresence initial={false}>
                   <motion.img
                     key={activeShowcase}
