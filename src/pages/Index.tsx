@@ -130,36 +130,50 @@ export default function Index() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="flex flex-col items-center justify-center px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28">
-        <div className="mb-8">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary shadow-lg sm:h-20 sm:w-20 sm:rounded-3xl">
-            <Lightbulb className="h-8 w-8 text-primary-foreground sm:h-10 sm:w-10" />
+      {/* Hero + Showcase */}
+      <section className="bg-[hsl(220,20%,10%)] px-6 pt-16 pb-10 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-20 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          {/* Brand + subtitle */}
+          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            IdeaProbe
+          </h1>
+          <p className="mt-3 text-base text-white/60 sm:text-lg leading-relaxed">
+            AI-powered idea validation.<br />
+            Crafting smarter decisions.
+          </p>
+
+          {/* Pill tabs */}
+          <div className="mt-10 flex flex-wrap gap-2">
+            {showcaseItems.map((item, i) => (
+              <button
+                key={item.label}
+                onClick={() => setActiveShowcase(i)}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                  activeShowcase === i
+                    ? "bg-white text-[hsl(220,20%,10%)]"
+                    : "text-white/50 hover:text-white/80"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
-        </div>
-        <h1 className="max-w-3xl text-center text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-7xl">
-          Validate your startup ideas with confidence.
-        </h1>
-        <p className="mt-5 max-w-xl text-center text-base text-muted-foreground sm:text-lg">
-          AI-powered market research, competitor analysis, and opportunity scoring — what used to take weeks, now takes minutes.
-        </p>
-        <div className="mt-8 flex items-center gap-3">
-          <Button
-            size="lg"
-            className="rounded-full bg-foreground px-8 text-sm font-semibold text-background hover:bg-foreground/90"
-            onClick={() => navigate("/ideas")}
-          >
-            Get started for free
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full px-8 text-sm font-semibold"
-            onClick={() => navigate("/ideas")}
-          >
-            See how it works
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Button>
+
+          {/* Dashboard image */}
+          <div className="relative mt-10 overflow-hidden rounded-xl shadow-2xl" style={{ aspectRatio: "16/10" }}>
+            <AnimatePresence initial={false}>
+              <motion.img
+                key={activeShowcase}
+                src={showcaseItems[activeShowcase].image}
+                alt={showcaseItems[activeShowcase].label}
+                className="absolute inset-0 h-full w-full object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </AnimatePresence>
+          </div>
         </div>
       </section>
 
@@ -365,43 +379,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Showcase — side-by-side layout */}
-      <section className="bg-muted/30 px-6 py-16 sm:py-20 lg:px-10 lg:py-28">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-          {/* Left — image with rounded corners */}
-          <div className="relative overflow-hidden rounded-2xl bg-muted shadow-2xl" style={{ aspectRatio: "4/3" }}>
-            <AnimatePresence initial={false}>
-              <motion.img
-                key={activeShowcase}
-                src={showcaseItems[activeShowcase].image}
-                alt={showcaseItems[activeShowcase].label}
-                className="absolute inset-0 h-full w-full object-cover"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </AnimatePresence>
-          </div>
-
-          {/* Right — text list */}
-          <div className="space-y-2 lg:space-y-3">
-            {showcaseItems.map((item, i) => (
-              <button
-                key={item.label}
-                onClick={() => setActiveShowcase(i)}
-                className={`block w-full text-left text-2xl font-semibold transition-all duration-200 sm:text-3xl lg:text-4xl ${
-                  activeShowcase === i
-                    ? "text-foreground"
-                    : "text-muted-foreground/40 hover:text-muted-foreground/60"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials */}
       <section
