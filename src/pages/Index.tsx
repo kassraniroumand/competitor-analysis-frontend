@@ -325,24 +325,14 @@ export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const dragStartX = useRef<number | null>(null);
+  const handleShowcaseSwipe = useCallback((offsetX: number) => {
+    if (Math.abs(offsetX) < 50) return;
 
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    dragStartX.current = e.clientX;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
-  }, []);
-
-  const handlePointerUp = useCallback((e: React.PointerEvent) => {
-    if (dragStartX.current === null) return;
-    const diff = dragStartX.current - e.clientX;
-    if (Math.abs(diff) > 50) {
-      setActiveShowcase(prev =>
-        diff > 0
-          ? Math.min(prev + 1, showcaseItems.length - 1)
-          : Math.max(prev - 1, 0)
-      );
-    }
-    dragStartX.current = null;
+    setActiveShowcase((prev) =>
+      offsetX < 0
+        ? Math.min(prev + 1, showcaseItems.length - 1)
+        : Math.max(prev - 1, 0)
+    );
   }, []);
 
   return (
@@ -543,24 +533,27 @@ export default function Index() {
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
             {/* Left — preview */}
             <div className="relative min-h-[400px] lg:min-h-[500px]">
-              <div
-                className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg cursor-grab touch-none"
-                onPointerDown={handlePointerDown}
-                onPointerUp={handlePointerUp}
+              <motion.div
+                className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg cursor-grab select-none touch-pan-y active:cursor-grabbing"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.08}
+                onDragEnd={(_, info) => handleShowcaseSwipe(info.offset.x)}
               >
-                <AnimatePresence initial={false}>
+                <AnimatePresence initial={false} mode="wait">
                   <motion.img
                     key={activeShowcase}
                     src={showcaseItems[activeShowcase].image}
                     alt={showcaseItems[activeShowcase].label}
                     className="absolute inset-0 h-full w-full object-cover"
+                    draggable={false}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   />
                 </AnimatePresence>
-              </div>
+              </motion.div>
 
               {/* Step indicator */}
               <div className="absolute bottom-0 left-0 flex items-center gap-2">
