@@ -683,7 +683,7 @@ export default function Index() {
           <Swiper
             modules={[FreeMode]}
             spaceBetween={20}
-            slidesPerView="auto"
+            slidesPerView={1.25}
             freeMode={true}
             breakpoints={{
               1024: {
@@ -694,7 +694,7 @@ export default function Index() {
             className="use-cases-swiper"
           >
 {/* Card 1 */}
-            <SwiperSlide style={{ width: "85%" }} className="lg:!w-auto">
+            <SwiperSlide>
               <Card className="h-full flex flex-col overflow-hidden">
                 <CardHeader className="pb-2">
                   <CardDescription className="text-xs font-medium uppercase tracking-wider">Market Analysis</CardDescription>
@@ -726,7 +726,7 @@ export default function Index() {
             </SwiperSlide>
 
 {/* Card 2 */}
-            <SwiperSlide style={{ width: "85%" }} className="lg:!w-auto">
+            <SwiperSlide>
               <Card className="h-full flex flex-col overflow-hidden">
                 <CardHeader className="pb-2">
                   <CardDescription className="text-xs font-medium uppercase tracking-wider">Competitor Intel</CardDescription>
