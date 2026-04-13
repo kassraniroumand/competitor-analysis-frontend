@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import {
@@ -325,6 +325,24 @@ export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      setActiveShowcase(prev =>
+        diff > 0
+          ? Math.min(prev + 1, showcaseItems.length - 1)
+          : Math.max(prev - 1, 0)
+      );
+    }
+    touchStartX.current = null;
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -524,7 +542,11 @@ export default function Index() {
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
             {/* Left — preview */}
             <div className="relative min-h-[400px] lg:min-h-[500px]">
-              <div className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg">
+              <div
+                className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg cursor-grab"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 <AnimatePresence initial={false}>
                   <motion.img
                     key={activeShowcase}
