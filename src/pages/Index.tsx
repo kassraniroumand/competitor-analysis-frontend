@@ -13,11 +13,15 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import HeroCanvas from "@/components/HeroCanvas";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
+import { FreeMode, Navigation, Pagination } from "swiper/modules";
 // @ts-ignore
 import "swiper/css";
 // @ts-ignore
 import "swiper/css/free-mode";
+// @ts-ignore
+import "swiper/css/navigation";
+// @ts-ignore
+import "swiper/css/pagination";
 import showcaseScreen from "@/assets/showcase-screen.jpg";
 import showcaseCompetitors from "@/assets/showcase-competitors.jpg";
 import showcaseScoring from "@/assets/showcase-scoring.jpg";
@@ -681,10 +685,12 @@ export default function Index() {
         {/* Preview cards — horizontal scroll on mobile showing ~1.2 cards */}
         <div className="mt-10 -mx-6 px-6 lg:mx-0 lg:px-0">
           <Swiper
-            modules={[FreeMode]}
+            modules={[FreeMode, Navigation, Pagination]}
             spaceBetween={20}
             slidesPerView={1.25}
             freeMode={true}
+            navigation={true}
+            pagination={{ clickable: true }}
             breakpoints={{
               1024: {
                 slidesPerView: 2,
