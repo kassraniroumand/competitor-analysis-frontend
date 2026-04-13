@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import {
   Lightbulb, Play, ArrowRight, Search, BarChart3, Target,
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
