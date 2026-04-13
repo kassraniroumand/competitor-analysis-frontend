@@ -689,7 +689,10 @@ export default function Index() {
             spaceBetween={20}
             slidesPerView={1.25}
             freeMode={true}
-            navigation={true}
+            navigation={{
+              prevEl: ".usecases-prev",
+              nextEl: ".usecases-next",
+            }}
             pagination={{ clickable: true }}
             breakpoints={{
               1024: {
