@@ -57,10 +57,7 @@ export default function HeroCanvas() {
     <div className="relative overflow-hidden rounded-xl bg-[hsl(0,0%,96%)] shadow-2xl ring-1 ring-border">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-2.5">
-        <div className="flex items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
-          <LayoutGrid className="h-3.5 w-3.5" />
-          Dashboard
-        </div>
+        <div />
         <div className="flex items-center gap-1">
           <div className="flex -space-x-1.5">
             {["bg-blue-600", "bg-amber-500", "bg-emerald-500", "bg-purple-500"].map((c, i) => (
