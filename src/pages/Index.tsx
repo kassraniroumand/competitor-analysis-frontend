@@ -172,7 +172,7 @@ function MoreFeaturesSection() {
           </div>
 
           {/* Right — Decorative collage */}
-          <div className="relative hidden lg:block overflow-hidden">
+          <div className="relative overflow-hidden min-h-[300px] lg:min-h-0">
             <div className="absolute inset-0 p-8">
               {/* Scattered UI cards to mimic the reference collage */}
               <div className="relative h-full w-full">
