@@ -700,24 +700,26 @@ export default function Index() {
               </Card>
             </SwiperSlide>
 
-            {/* Card 2 */}
+{/* Card 2 */}
             <SwiperSlide style={{ width: "85%" }} className="lg:!w-auto">
-              <div className="overflow-hidden rounded-xl bg-secondary" style={{ aspectRatio: "4/3" }}>
-                <div className="flex h-full flex-col justify-between p-6 lg:p-8">
-                  <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Competitor Intel</p>
-                    <div className="mt-6 space-y-3">
-                      {["Pricing strategy comparison", "Feature gap analysis", "Market positioning map", "Customer sentiment overview"].map((item) => (
-                        <div key={item} className="flex items-center gap-3 rounded-lg bg-background px-4 py-3 shadow-sm">
-                          <Check className="h-4 w-4 text-primary" />
-                          <span className="text-sm text-foreground">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+              <Card className="h-full flex flex-col overflow-hidden">
+                <CardHeader className="pb-2">
+                  <CardDescription className="text-xs font-medium uppercase tracking-wider">Competitor Intel</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <div className="space-y-3">
+                    {["Pricing strategy comparison", "Feature gap analysis", "Market positioning map", "Customer sentiment overview"].map((item) => (
+                      <div key={item} className="flex items-center gap-3 rounded-lg bg-secondary px-4 py-3">
+                        <Check className="h-4 w-4 text-primary" />
+                        <span className="text-sm text-foreground">{item}</span>
+                      </div>
+                    ))}
                   </div>
-                  <p className="mt-6 text-lg font-bold text-foreground">Deep competitive landscape.</p>
-                </div>
-              </div>
+                </CardContent>
+                <CardFooter>
+                  <p className="text-lg font-bold text-foreground">Deep competitive landscape.</p>
+                </CardFooter>
+              </Card>
             </SwiperSlide>
           </Swiper>
         </div>
