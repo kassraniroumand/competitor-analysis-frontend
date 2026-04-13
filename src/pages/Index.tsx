@@ -515,18 +515,40 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
-          <span className="text-xs text-muted-foreground">
-            © 2026 IdeaProbe
-          </span>
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-xs text-muted-foreground hover:text-foreground">
-              Terms of Service
-            </a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-foreground">
-              Privacy Policy
-            </a>
+      <footer className="border-t border-border bg-secondary/50">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr_0.8fr]">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-2">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
+                  <Lightbulb className="h-3.5 w-3.5 text-primary-foreground" />
+                </div>
+                <span className="text-base font-bold text-foreground">IdeaProbe</span>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">IdeaProbe Inc.</p>
+            </div>
+
+            {/* Product */}
+            <div className="space-y-4">
+              {["Getting Started", "AI Validation", "Pricing", "Competitor Analysis", "IdeaProbe vs. Manual", "Solutions", "Integrations", "API", "Templates"].map((link) => (
+                <a key={link} href="#" className="block text-sm text-foreground hover:text-muted-foreground transition-colors">{link}</a>
+              ))}
+            </div>
+
+            {/* Company */}
+            <div className="space-y-4">
+              {["Join our Community", "Academy", "Become an Affiliate", "Partner Network", "Enterprise", "IdeaProbe Studio", "Privacy Policy", "Terms of Service", "Careers", "Contact Us"].map((link) => (
+                <a key={link} href="#" className="block text-sm text-foreground hover:text-muted-foreground transition-colors">{link}</a>
+              ))}
+            </div>
+
+            {/* Social */}
+            <div className="space-y-4">
+              {["Instagram", "Twitter", "LinkedIn", "YouTube"].map((link) => (
+                <a key={link} href="#" className="block text-sm text-foreground hover:text-muted-foreground transition-colors">{link}</a>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
