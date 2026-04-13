@@ -58,14 +58,6 @@ export default function HeroCanvas() {
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-2.5">
         <div />
-        <div className="flex items-center gap-1">
-          <div className="flex -space-x-1.5">
-            {["bg-blue-600", "bg-amber-500", "bg-emerald-500", "bg-purple-500"].map((c, i) => (
-              <div key={i} className={`h-6 w-6 rounded-full ${c} ring-2 ring-[hsl(0,0%,96%)]`} />
-            ))}
-          </div>
-          <span className="ml-2 text-xs text-muted-foreground">Share</span>
-        </div>
       </div>
 
       {/* Main Swiper Canvas */}
