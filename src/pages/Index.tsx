@@ -123,11 +123,10 @@ export default function Index() {
               Testimonials
             </a>
             <button
-              className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              onClick={() => navigate("/ideas")}
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              onClick={() => navigate("/pricing")}
             >
-              <Play className="h-3.5 w-3.5" />
-              Watch demo
+              Pricing
             </button>
           </nav>
 
