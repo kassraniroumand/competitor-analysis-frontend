@@ -119,7 +119,7 @@ export default function HeroCanvas() {
 
 
       {/* Bottom tabs */}
-      <div className="border-t border-border py-3 overflow-x-auto">
+      <div className="border-t border-border py-6 overflow-x-auto">
         <div className="flex items-center gap-4 px-4">
           {tabs.map((tab, i) => (
             <button
