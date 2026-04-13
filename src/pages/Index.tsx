@@ -279,35 +279,48 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Feature cards — 2 large */}
-      <section id="features" className="mx-auto max-w-7xl px-6 pb-8 lg:px-10">
-        <div className="grid gap-6 lg:grid-cols-2">
-          {features.slice(0, 2).map((feature) => (
-            <div key={feature.title} className="space-y-5">
-              <div className="flex h-[280px] items-center justify-center rounded-2xl bg-accent/50">
+      {/* Features section */}
+      <section id="features" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+        {/* Header row */}
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Built for serious business.
+          </h2>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground lg:text-right">
+            IdeaProbe is designed for professional teams. Our platform brings deep market analysis, competitor intelligence, and AI-powered scoring.
+          </p>
+        </div>
+        <Separator className="my-8 bg-border" />
+
+        {/* Two large feature cards */}
+        <div className="grid gap-px lg:grid-cols-2">
+          {features.slice(0, 2).map((feature, idx) => (
+            <div key={feature.title} className={`space-y-4 py-8 ${idx === 0 ? "lg:pr-10 lg:border-r lg:border-border" : "lg:pl-10"}`}>
+              <div className="flex items-center gap-2.5">
+                <feature.icon className="h-5 w-5 text-foreground" />
+                <h3 className="text-base font-bold text-foreground">{feature.title}</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">{feature.description}</p>
+              <div className="mt-4 flex h-[320px] items-center justify-center overflow-hidden rounded-xl bg-secondary">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm">
                   <feature.icon className="h-7 w-7 text-foreground" />
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-foreground">{feature.title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
             </div>
           ))}
         </div>
-      </section>
 
-      {/* Feature cards — 3 small */}
-      <section className="mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-10 lg:pb-28">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <Separator className="my-8 bg-border" />
+
+        {/* Bottom 4 small features */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {features.slice(2).map((feature) => (
-            <div key={feature.title} className="space-y-5">
-              <div className="flex h-[220px] items-center justify-center rounded-2xl bg-accent/50">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-background shadow-sm">
-                  <feature.icon className="h-6 w-6 text-foreground" />
-                </div>
+            <div key={feature.title} className="space-y-2.5">
+              <div className="flex items-center gap-2">
+                <feature.icon className="h-4 w-4 text-foreground" />
+                <h3 className="text-sm font-bold text-foreground">{feature.title}</h3>
               </div>
-              <h3 className="text-base font-semibold text-foreground">{feature.title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
+              <p className="text-xs leading-relaxed text-muted-foreground">{feature.description}</p>
             </div>
           ))}
         </div>
