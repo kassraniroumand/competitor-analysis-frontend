@@ -158,15 +158,9 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Right — dashboard screenshot, bleeding right */}
+          {/* Right — interactive canvas, bleeding right */}
           <div className="relative lg:-mr-10 xl:-mr-20">
-            <div className="overflow-hidden rounded-xl bg-muted shadow-2xl ring-1 ring-border">
-              <img
-                src={showcaseItems[0].image}
-                alt="IdeaProbe dashboard"
-                className="h-full w-full object-cover"
-              />
-            </div>
+            <HeroCanvas />
           </div>
         </div>
       </section>
