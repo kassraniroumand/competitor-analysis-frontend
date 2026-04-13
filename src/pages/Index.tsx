@@ -142,11 +142,11 @@ function MoreFeaturesSection() {
                   >
                     <div className="flex items-center gap-3">
                       {isOpen ? (
-                        <Minus className="h-4 w-4 shrink-0 text-background/60" />
+                        <Minus className="h-4 w-4 shrink-0 text-black" />
                       ) : (
                         <Plus className="h-4 w-4 shrink-0 text-background/60" />
                       )}
-                      <span className={cn("text-base font-semibold transition-colors", isOpen ? "text-white" : "text-background/60")}>
+                      <span className={cn("text-base font-semibold transition-colors", isOpen ? "text-black" : "text-background/60")}>
                         {item.title}
                       </span>
                     </div>
@@ -159,7 +159,7 @@ function MoreFeaturesSection() {
                           transition={{ duration: 0.25, ease: "easeInOut" }}
                           className="overflow-hidden"
                         >
-                          <p className="mt-3 pl-7 text-sm leading-relaxed text-background/70">
+                          <p className="mt-3 pl-7 text-sm leading-relaxed text-black/70">
                             {item.description}
                           </p>
                         </motion.div>
