@@ -262,74 +262,52 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Value Proposition — dark panel + overlapping cards */}
-      <section className="mx-auto max-w-7xl px-6 pb-20 lg:px-10 lg:pb-28">
-        <div className="relative overflow-hidden rounded-2xl bg-[hsl(150,30%,20%)] p-10 lg:p-14">
-          <div className="grid items-center gap-8 lg:grid-cols-2">
-            {/* Left — text content */}
-            <div>
-              <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
-                Reach the right<br />market,<br />every time.
-              </h2>
-              <p className="mt-6 max-w-md text-sm leading-relaxed text-white/70">
-                Get insights from exactly the data you need. With deep search analysis,
-                competitor mapping, and AI-powered scoring, validating your idea has never been easier.
-              </p>
-              <div className="mt-10">
-                <p className="text-xs text-white/50">Powered by:</p>
-                <div className="mt-2 flex items-center gap-4">
-                  <span className="text-sm font-semibold text-white/80">AI Engine</span>
-                  <span className="text-sm font-semibold text-white/80">Market Data</span>
-                </div>
+      {/* Dark Showcase Section */}
+      <section className="bg-[hsl(220,15%,10%)] px-6 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          {/* Header */}
+          <h2 className="text-4xl font-extrabold text-white lg:text-5xl">IdeaProbe</h2>
+          <p className="mt-3 text-sm leading-relaxed text-white/50">
+            AI-powered idea validation.<br />Crafting smarter decisions.
+          </p>
+
+          {/* Tabs */}
+          <div className="mt-10 flex flex-wrap gap-2">
+            {showcaseItems.map((item, i) => (
+              <button
+                key={item.label}
+                onClick={() => setActiveShowcase(i)}
+                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+                  activeShowcase === i
+                    ? "bg-white text-[hsl(220,15%,10%)]"
+                    : "text-white/40 hover:text-white/70"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Monitor frame with dashboard image */}
+          <div className="mt-10 flex justify-center">
+            <div className="w-full max-w-4xl">
+              <div className="relative overflow-hidden rounded-t-xl border border-white/10 bg-white shadow-2xl" style={{ aspectRatio: "16/10" }}>
+                <AnimatePresence initial={false}>
+                  <motion.img
+                    key={activeShowcase}
+                    src={showcaseItems[activeShowcase].image}
+                    alt={showcaseItems[activeShowcase].label}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </AnimatePresence>
               </div>
-            </div>
-
-            {/* Right — overlapping cards */}
-            <div className="relative hidden min-h-[380px] lg:block">
-              <Card className="absolute left-0 top-0 w-[260px] rotate-[-2deg] shadow-2xl z-10">
-                <CardContent className="p-5">
-                  <h3 className="text-base font-semibold text-foreground">Analyze idea</h3>
-                  <div className="mt-4 space-y-3">
-                    <div>
-                      <span className="text-xs text-muted-foreground">Keywords tracked</span>
-                      <p className="text-xl font-bold text-foreground">24</p>
-                      <div className="mt-1 h-1.5 w-full rounded-full bg-muted">
-                        <div className="h-1.5 rounded-full bg-primary" style={{ width: "72%" }} />
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-xs text-muted-foreground">Market fit</span>
-                      <p className="text-lg font-bold text-foreground">Strong</p>
-                    </div>
-                    <div>
-                      <span className="text-xs text-muted-foreground">Select category</span>
-                      <div className="mt-1 rounded-md border border-border px-3 py-1.5 text-sm text-foreground">SaaS</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="absolute right-0 top-10 w-[240px] rotate-[3deg] shadow-2xl z-20">
-                <CardContent className="p-5">
-                  <h3 className="text-sm font-semibold text-foreground">Competition Level</h3>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {["Low", "Medium", "High"].map((level) => (
-                      <Badge key={level} variant={level === "Medium" ? "default" : "outline"} className="text-xs">
-                        {level}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  <h3 className="mt-5 text-sm font-semibold text-foreground">Target audience</h3>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {["Founders", "Product teams", "Indie hackers", "Agencies"].map((audience) => (
-                      <Badge key={audience} variant="outline" className="text-xs">
-                        {audience}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Monitor stand */}
+              <div className="mx-auto h-5 w-24 rounded-b-lg bg-[hsl(220,10%,25%)]" />
+              <div className="mx-auto h-1.5 w-36 rounded-b-md bg-[hsl(220,10%,20%)]" />
             </div>
           </div>
         </div>
