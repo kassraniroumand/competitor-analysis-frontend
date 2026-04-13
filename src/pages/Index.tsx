@@ -675,12 +675,24 @@ export default function Index() {
 
       {/* Templates / Use cases showcase */}
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-0 lg:py-0">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-lg">
-          Hundreds of insights from real market data
-        </h2>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Choose from AI-powered research across competitors, pain points, and market trends. Or define your own custom analysis to generate tailored validation reports.
-        </p>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-lg">
+              Hundreds of insights from real market data
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              Choose from AI-powered research across competitors, pain points, and market trends. Or define your own custom analysis to generate tailored validation reports.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button className="usecases-prev flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
+              <ChevronRight className="h-4 w-4 rotate-180" />
+            </button>
+            <button className="usecases-next flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
 
         {/* Preview cards — horizontal scroll on mobile showing ~1.2 cards */}
         <div className="mt-10 -mx-6 px-6 lg:mx-0 lg:px-0">
@@ -758,20 +770,10 @@ export default function Index() {
           </Swiper>
         </div>
 
-        {/* Bottom label + nav */}
-        <div className="mt-8 flex items-end justify-between">
-          <div>
-            <h3 className="text-sm font-bold text-foreground">Startup teams</h3>
-            <p className="mt-1 text-xs text-muted-foreground">Idea validation, market sizing, and competitor mapping.</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="usecases-prev flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
-              <ChevronRight className="h-4 w-4 rotate-180" />
-            </button>
-            <button className="usecases-next flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+        {/* Bottom label */}
+        <div className="mt-8">
+          <h3 className="text-sm font-bold text-foreground">Startup teams</h3>
+          <p className="mt-1 text-xs text-muted-foreground">Idea validation, market sizing, and competitor mapping.</p>
         </div>
       </section>
 
