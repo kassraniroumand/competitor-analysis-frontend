@@ -122,20 +122,22 @@ export default function HeroCanvas() {
       </div>
 
       {/* Bottom tabs */}
-      <div className="flex items-center gap-4 border-t border-border px-4 py-3 overflow-hidden">
-        {tabs.map((tab, i) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(i)}
-            className={`whitespace-nowrap text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
-              i === activeTab
-                ? "text-foreground underline underline-offset-4 decoration-2"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
+      <div className="border-t border-border px-4 py-3 overflow-x-auto">
+        <div className="flex items-center gap-4">
+          {tabs.map((tab, i) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(i)}
+              className={`whitespace-nowrap text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
+                i === activeTab
+                  ? "text-foreground underline underline-offset-4 decoration-2"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
