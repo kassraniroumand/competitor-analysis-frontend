@@ -133,6 +133,7 @@ const trustedLogos = [
 export default function PricingPage() {
   const navigate = useNavigate();
   const [annual, setAnnual] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -169,7 +170,7 @@ export default function PricingPage() {
             </span>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-3 md:flex">
             <Button
               variant="ghost"
               size="sm"
@@ -186,8 +187,81 @@ export default function PricingPage() {
               Try for free
             </Button>
           </div>
+
+          {/* Mobile burger */}
+          <button
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </header>
+
+      {/* Full-screen mobile menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[60] bg-black/40 md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="fixed inset-y-0 right-0 z-[70] flex w-full flex-col bg-background px-6 py-5 md:hidden"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                    <Lightbulb className="h-4 w-4 text-primary-foreground" />
+                  </div>
+                  <span className="text-lg font-bold tracking-tight text-foreground">IdeaProbe</span>
+                </div>
+                <button
+                  className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <nav className="mt-10 flex flex-col gap-1">
+                <button
+                  className="rounded-lg px-3 py-3 text-left text-base font-medium text-foreground transition-colors hover:bg-muted"
+                  onClick={() => { setMobileMenuOpen(false); navigate("/"); }}
+                >
+                  Product
+                </button>
+                <button
+                  className="rounded-lg px-3 py-3 text-left text-base font-medium text-foreground transition-colors hover:bg-muted"
+                  onClick={() => { setMobileMenuOpen(false); navigate("/#features"); }}
+                >
+                  Features
+                </button>
+                <span className="rounded-lg bg-muted px-3 py-3 text-base font-medium text-foreground">
+                  Pricing
+                </span>
+              </nav>
+
+              <div className="mt-auto flex flex-col gap-3 border-t border-border pt-6 pb-8">
+                <Button variant="outline" size="lg" className="w-full text-sm font-medium" onClick={() => { setMobileMenuOpen(false); navigate("/dashboard"); }}>
+                  Log in
+                </Button>
+                <Button size="lg" className="w-full rounded-full text-sm font-medium" onClick={() => { setMobileMenuOpen(false); navigate("/ideas"); }}>
+                  Try for free
+                </Button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Hero */}
       <section className="px-6 pb-16 pt-16 text-center lg:px-10 lg:pt-24">
