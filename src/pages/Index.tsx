@@ -720,7 +720,7 @@ export default function Index() {
       <MoreFeaturesSection />
 
       {/* Testimonials — horizontal scroll cards */}
-      <section id="testimonials" className="py-20 lg:py-28">
+      <section id="testimonials" className="py-20 lg:py-28 max-w-7xl mx-auto">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
