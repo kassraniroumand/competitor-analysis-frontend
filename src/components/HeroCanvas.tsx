@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Sparkles, Plus, Settings, BarChart3, LayoutGrid, MoreHorizontal } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/free-mode";
 
 const floatingImages = [
   { top: "8%", left: "30%", size: "w-16 h-16", rotate: "-3deg", zIndex: 10 },
@@ -29,6 +34,13 @@ const tabs = ["Market Research", "Competitor Analysis", "Opportunity Scoring", "
 
 export default function HeroCanvas() {
   const [activeTab, setActiveTab] = useState(0);
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const handleTabClick = (index: number) => {
+    setActiveTab(index);
+    swiperRef.current?.slideTo(index);
+  };
+
   return (
     <div className="relative overflow-hidden rounded-xl bg-[hsl(0,0%,96%)] shadow-2xl ring-1 ring-border">
       {/* Top bar */}
@@ -121,23 +133,33 @@ export default function HeroCanvas() {
         ))}
       </div>
 
-      {/* Bottom tabs */}
-      <div className="border-t border-border px-4 py-3 overflow-x-auto">
-        <div className="flex items-center gap-4">
+      {/* Bottom tabs - Swiper */}
+      <div className="border-t border-border py-3">
+        <Swiper
+          modules={[FreeMode]}
+          freeMode
+          slidesPerView="auto"
+          spaceBetween={16}
+          slidesOffsetBefore={16}
+          slidesOffsetAfter={16}
+          onSwiper={(swiper) => { swiperRef.current = swiper; }}
+          onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
+        >
           {tabs.map((tab, i) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(i)}
-              className={`whitespace-nowrap text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
-                i === activeTab
-                  ? "text-foreground underline underline-offset-4 decoration-2"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {tab}
-            </button>
+            <SwiperSlide key={tab} style={{ width: "auto" }}>
+              <button
+                onClick={() => handleTabClick(i)}
+                className={`whitespace-nowrap text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
+                  i === activeTab
+                    ? "text-foreground underline underline-offset-4 decoration-2"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {tab}
+              </button>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </div>
   );
