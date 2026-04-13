@@ -85,10 +85,46 @@
   }
 }
 
-.use-cases-swiper .swiper-wrapper {
+.use-cases-swiper .swiper-wrapper,
+.testimonials-swiper .swiper-wrapper {
   align-items: stretch;
 }
 
-.use-cases-swiper .swiper-slide {
+.use-cases-swiper .swiper-slide,
+.testimonials-swiper .swiper-slide {
   height: auto;
+}
+
+/* Hide default swiper nav arrows */
+.use-cases-swiper .swiper-button-prev,
+.use-cases-swiper .swiper-button-next,
+.testimonials-swiper .swiper-button-prev,
+.testimonials-swiper .swiper-button-next {
+  display: none;
+}
+
+/* Custom pill pagination */
+.use-cases-swiper .swiper-pagination,
+.testimonials-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.use-cases-swiper .swiper-pagination-bullet,
+.testimonials-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: hsl(var(--muted-foreground) / 0.25);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.use-cases-swiper .swiper-pagination-bullet-active,
+.testimonials-swiper .swiper-pagination-bullet-active {
+  width: 28px;
+  background: hsl(var(--foreground));
 }
