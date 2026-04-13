@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Lightbulb, Play, ArrowRight, Search, BarChart3, Target,
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
-  ChevronRight, Sparkles, Check,
+  ChevronRight, Sparkles, Check, Menu, X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -100,6 +100,7 @@ const testimonials = [
 export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -130,7 +131,7 @@ export default function Index() {
             </button>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-3 md:flex">
             <Button
               variant="ghost"
               size="sm"
@@ -147,7 +148,51 @@ export default function Index() {
               Get started for free
             </Button>
           </div>
+
+          {/* Mobile burger */}
+          <button
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden border-t border-border bg-background md:hidden"
+            >
+              <div className="flex flex-col gap-1 px-6 py-4">
+                <a href="#features" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                  Features
+                </a>
+                <a href="#testimonials" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                  Testimonials
+                </a>
+                <button
+                  className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  onClick={() => { setMobileMenuOpen(false); navigate("/pricing"); }}
+                >
+                  Pricing
+                </button>
+                <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
+                  <Button variant="ghost" size="sm" className="justify-start text-sm font-medium" onClick={() => { setMobileMenuOpen(false); navigate("/dashboard"); }}>
+                    Log in
+                  </Button>
+                  <Button size="sm" className="rounded-full text-sm font-medium" onClick={() => { setMobileMenuOpen(false); navigate("/ideas"); }}>
+                    Get started for free
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
 
