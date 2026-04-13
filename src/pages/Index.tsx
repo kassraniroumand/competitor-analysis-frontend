@@ -349,56 +349,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Dark Showcase Section */}
-      <section className="bg-foreground px-6 py-20 lg:px-10 lg:py-28">
-        <div className="mx-auto max-w-7xl">
-          {/* Header */}
-          <h2 className="text-4xl font-bold text-background lg:text-5xl">IdeaProbe</h2>
-          <p className="mt-3 text-sm leading-relaxed text-background/50">
-            AI-powered idea validation.<br />Crafting smarter decisions.
-          </p>
-
-          {/* Tabs */}
-          <div className="mt-10 flex flex-wrap gap-2">
-            {showcaseItems.map((item, i) => (
-              <button
-                key={item.label}
-                onClick={() => setActiveShowcase(i)}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-                  activeShowcase === i
-                    ? "bg-background text-foreground"
-                    : "text-background/40 hover:text-background/70"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Monitor frame with dashboard image */}
-          <div className="mt-10 flex justify-center">
-            <div className="w-full max-w-4xl">
-              <div className="relative overflow-hidden rounded-t-xl border border-background/10 bg-background shadow-2xl" style={{ aspectRatio: "16/10" }}>
-                <AnimatePresence initial={false}>
-                  <motion.img
-                    key={activeShowcase}
-                    src={showcaseItems[activeShowcase].image}
-                    alt={showcaseItems[activeShowcase].label}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </AnimatePresence>
-              </div>
-              {/* Monitor stand */}
-              <div className="mx-auto h-5 w-24 rounded-b-lg bg-foreground/80" />
-              <div className="mx-auto h-1.5 w-36 rounded-b-md bg-foreground/70" />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Templates / Use cases showcase */}
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
