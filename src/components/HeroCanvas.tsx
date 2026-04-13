@@ -30,7 +30,7 @@ const tabs = ["Market Research", "Competitor Analysis", "Opportunity Scoring", "
 export default function HeroCanvas() {
   const [activeTab, setActiveTab] = useState(0);
   return (
-    <div className="relative overflow-hidden rounded-xl bg-[hsl(0,0%,96%)] shadow-2xl ring-1 ring-border" style={{ aspectRatio: "4/3" }}>
+    <div className="relative overflow-hidden rounded-xl bg-[hsl(0,0%,96%)] shadow-2xl ring-1 ring-border">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-2.5">
         <div className="flex items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
