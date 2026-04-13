@@ -166,14 +166,13 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Showcase */}
+      {/* How it works — flow */}
       <section className="px-6 py-16 sm:py-24 lg:py-32 lg:px-10">
         <div className="mx-auto w-full max-w-7xl overflow-hidden rounded-2xl bg-secondary p-8 lg:p-12">
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
-            {/* Left — stacked images */}
+            {/* Left — preview */}
             <div className="relative min-h-[400px] lg:min-h-[500px]">
-              {/* Background image */}
-              <div className="absolute left-0 top-0 h-[85%] w-[60%] overflow-hidden rounded-xl shadow-lg">
+              <div className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg">
                 <AnimatePresence initial={false}>
                   <motion.img
                     key={activeShowcase}
@@ -188,61 +187,65 @@ export default function Index() {
                 </AnimatePresence>
               </div>
 
-              {/* Floating card overlay */}
-              <div className="absolute right-0 top-[15%] w-[55%] rounded-xl bg-background p-4 shadow-xl ring-1 ring-border">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>Analyzing 1 of 5 areas...</span>
-                </div>
-                <div className="mt-3 space-y-2">
-                  <div className="h-20 overflow-hidden rounded-lg bg-primary/10">
-                    <div className="flex h-full items-end justify-around px-3 pb-2">
-                      {[40, 65, 50, 80, 55, 70].map((h, i) => (
-                        <div key={i} className="w-3 rounded-sm bg-primary/60" style={{ height: `${h}%` }} />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="h-16 overflow-hidden rounded-lg bg-primary/10 p-3">
-                    <p className="text-xs font-semibold text-foreground">Market demand is growing faster than supply.</p>
-                    <p className="mt-1 text-[10px] text-muted-foreground">Based on trend analysis</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom note bullets */}
-              <div className="absolute bottom-0 left-0 w-[55%] space-y-1.5">
-                {["Scanned 19 competitors", "Analyzed keyword trends", "Reviewed market data"].map((t) => (
-                  <div key={t} className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40" />
-                    {t}
-                  </div>
+              {/* Step indicator */}
+              <div className="absolute bottom-0 left-0 flex items-center gap-2">
+                {showcaseItems.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveShowcase(i)}
+                    className={`h-1.5 rounded-full transition-all ${
+                      activeShowcase === i ? "w-6 bg-foreground" : "w-1.5 bg-muted-foreground/30"
+                    }`}
+                  />
                 ))}
               </div>
             </div>
 
-            {/* Right — feature list */}
+            {/* Right — numbered steps */}
             <div className="flex flex-col justify-between lg:min-h-[500px]">
-              <div className="space-y-1 lg:space-y-2">
+              <div className="space-y-1">
                 {showcaseItems.map((item, i) => (
                   <button
                     key={item.label}
                     onClick={() => setActiveShowcase(i)}
-                    className={`block text-left text-2xl font-bold tracking-tight transition-colors duration-200 lg:text-[2.5rem] lg:leading-tight ${
+                    className={`block w-full text-left transition-all duration-200 rounded-lg px-4 py-3 ${
                       activeShowcase === i
-                        ? "text-foreground"
-                        : "text-muted-foreground/30 hover:text-muted-foreground/50"
+                        ? "bg-background shadow-sm"
+                        : "hover:bg-background/50"
                     }`}
                   >
-                    {item.label}
+                    <div className="flex items-baseline gap-3">
+                      <span className={`text-xs font-bold tabular-nums ${
+                        activeShowcase === i ? "text-primary" : "text-muted-foreground/40"
+                      }`}>
+                        0{i + 1}
+                      </span>
+                      <div>
+                        <p className={`text-sm font-bold tracking-tight transition-colors ${
+                          activeShowcase === i ? "text-foreground" : "text-muted-foreground/40"
+                        }`}>
+                          {item.label}
+                        </p>
+                        {activeShowcase === i && (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            className="mt-1 text-xs leading-relaxed text-muted-foreground"
+                          >
+                            {item.description}
+                          </motion.p>
+                        )}
+                      </div>
+                    </div>
                   </button>
                 ))}
               </div>
 
               <div className="mt-8">
+                <Separator className="mb-4 bg-foreground" />
                 <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-                  Go from raw ideas to validated insights in a click. IdeaProbe generates comprehensive market analysis with competitor data, scoring, and actionable recommendations.
+                  Five steps. Under two minutes. From raw idea to validated business opportunity.
                 </p>
-                <Separator className="mt-4 bg-foreground" />
               </div>
             </div>
           </div>
