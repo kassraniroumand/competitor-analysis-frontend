@@ -2,13 +2,14 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
+import {
   Lightbulb, Play, ArrowRight, Search, BarChart3, Target,
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
   ChevronRight, Sparkles, Check, Menu, X, Minus, Plus,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import HeroCanvas from "@/components/HeroCanvas";
