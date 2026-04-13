@@ -146,7 +146,7 @@ function MoreFeaturesSection() {
                       ) : (
                         <Plus className="h-4 w-4 shrink-0 text-background/60" />
                       )}
-                      <span className={cn("text-base font-semibold transition-colors", isOpen ? "text-background" : "text-background/60")}>
+                      <span className={cn("text-base font-semibold transition-colors", isOpen ? "text-white" : "text-background/60")}>
                         {item.title}
                       </span>
                     </div>
