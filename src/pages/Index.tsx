@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import HeroCanvas from "@/components/HeroCanvas";
 import showcaseScreen from "@/assets/showcase-screen.jpg";
 import showcaseCompetitors from "@/assets/showcase-competitors.jpg";
 import showcaseScoring from "@/assets/showcase-scoring.jpg";
@@ -158,15 +159,9 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Right — dashboard screenshot, bleeding right */}
+          {/* Right — interactive canvas, bleeding right */}
           <div className="relative lg:-mr-10 xl:-mr-20">
-            <div className="overflow-hidden rounded-xl bg-muted shadow-2xl ring-1 ring-border">
-              <img
-                src={showcaseItems[0].image}
-                alt="IdeaProbe dashboard"
-                className="h-full w-full object-cover"
-              />
-            </div>
+            <HeroCanvas />
           </div>
         </div>
       </section>
