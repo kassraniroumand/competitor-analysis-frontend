@@ -66,14 +66,34 @@ const features = [
 
 const testimonials = [
   {
-    quote:
-      "IdeaProbe saved us months of research. We validated 5 ideas in a single afternoon and knew exactly which one to pursue.",
-    author: "Sarah K., Startup Founder",
+    quote: "IdeaProbe saved us months of research. We validated 5 ideas in a single afternoon and knew exactly which one to pursue.",
+    author: "Sarah K.",
+    role: "Startup Founder",
+    company: "Launchpad",
   },
   {
-    quote:
-      "Simple, fast, and the competitor analysis alone is worth it. We found gaps nobody else was covering.",
-    author: "Marcus T., Product Manager",
+    quote: "Simple, fast, and the competitor analysis alone is worth it. We found gaps nobody else was covering.",
+    author: "Marcus T.",
+    role: "Product Manager",
+    company: "Browserbase",
+  },
+  {
+    quote: "IdeaProbe turned our fragmented validation process into a single, reliable system that delivers insights in minutes.",
+    author: "Elena R.",
+    role: "Head of Strategy",
+    company: "Origami",
+  },
+  {
+    quote: "I wanted to actually see how the market moves, not read static reports. IdeaProbe felt like the only tool that could handle that.",
+    author: "James L.",
+    role: "CEO & Founder",
+    company: "NovaTech",
+  },
+  {
+    quote: "The pain point discovery feature alone justified the switch. We uncovered needs our competitors completely missed.",
+    author: "Priya M.",
+    role: "Growth Lead",
+    company: "ScaleUp",
   },
 ];
 
