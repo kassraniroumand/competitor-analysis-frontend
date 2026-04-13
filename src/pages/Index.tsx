@@ -769,12 +769,6 @@ export default function Index() {
             </SwiperSlide>
           </Swiper>
         </div>
-
-        {/* Bottom label */}
-        <div className="mt-8">
-          <h3 className="text-sm font-bold text-foreground">Startup teams</h3>
-          <p className="mt-1 text-xs text-muted-foreground">Idea validation, market sizing, and competitor mapping.</p>
-        </div>
       </section>
 
 
