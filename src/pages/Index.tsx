@@ -252,35 +252,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Checklist + headline section */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <div className="grid gap-12 lg:grid-cols-2">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Validate your startup idea in minutes
-            </h2>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-              Run comprehensive market validation using a wide variety of data sources and AI-powered analysis.
-            </p>
-          </div>
-          <div className="space-y-3">
-            {[
-              "Analyze search demand & keyword trends",
-              "Map competitors & pricing strategies",
-              "Surface real user pain points",
-              "Get AI-powered opportunity scoring",
-              "Assess market size & timing",
-              "Generate validation reports instantly",
-              "Track competitor feature gaps",
-            ].map((item) => (
-              <div key={item} className="flex items-start gap-3">
-                <Check className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
-                <span className="text-sm font-medium text-foreground">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Features section */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
