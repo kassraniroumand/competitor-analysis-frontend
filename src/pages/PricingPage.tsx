@@ -292,7 +292,7 @@ export default function PricingPage() {
       </section>
 
       {/* Trusted by */}
-      <section className="border-y border-border bg-secondary/30 px-6 py-14 lg:px-10">
+      <section className="border-y border-border bg-secondary px-6 py-14 lg:px-10">
         <div className="mx-auto max-w-5xl">
           <p className="text-xs text-muted-foreground">
             Trusted by 5000+ teams for high-stakes validation
