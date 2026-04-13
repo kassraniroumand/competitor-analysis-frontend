@@ -325,6 +325,24 @@ export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      setActiveShowcase(prev =>
+        diff > 0
+          ? Math.min(prev + 1, showcaseItems.length - 1)
+          : Math.max(prev - 1, 0)
+      );
+    }
+    touchStartX.current = null;
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
