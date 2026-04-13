@@ -95,7 +95,6 @@ export default function HeroCanvas() {
                 {/* Center content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-6 text-center">
                   <span className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">{slide.label}</span>
-                  <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground max-w-[280px]">{slide.description}</p>
                 </div>
 
                 {/* Floating image blocks */}
