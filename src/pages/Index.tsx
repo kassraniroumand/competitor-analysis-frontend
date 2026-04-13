@@ -131,41 +131,43 @@ export default function Index() {
       </header>
 
       {/* Hero */}
-      <section className="mx-auto grid max-w-7xl items-center gap-10 px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:pt-36 lg:pb-28">
-        {/* Left — text */}
-        <div>
-          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Validate your startup<br className="hidden sm:block" /> ideas with confidence.
-          </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            AI-powered market research, competitor analysis, and opportunity scoring — what used to take weeks, now takes minutes.
-          </p>
-          <div className="mt-8 flex items-center gap-3">
-            <Button
-              size="lg"
-              className="rounded-full bg-foreground px-8 text-sm font-semibold text-background hover:bg-foreground/90"
-              onClick={() => navigate("/ideas")}
-            >
-              Get started for free
-            </Button>
-            <Button
-              variant="ghost"
-              size="lg"
-              className="text-sm font-semibold text-foreground"
-              onClick={() => navigate("/ideas")}
-            >
-              See how it works
-            </Button>
+      <section className="relative overflow-hidden px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 lg:px-10 lg:pt-36 lg:pb-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-0">
+          {/* Left — text */}
+          <div className="relative z-10">
+            <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
+              Validate your<br /> startup ideas<br /> with confidence.
+            </h1>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
+              IdeaProbe is designed for teams that need to validate startup ideas with AI-powered research at scale.
+            </p>
+            <div className="mt-8 flex items-center gap-4">
+              <Button
+                size="lg"
+                className="rounded-full bg-foreground px-8 text-sm font-semibold text-background hover:bg-foreground/90"
+                onClick={() => navigate("/ideas")}
+              >
+                Start for free
+              </Button>
+              <button
+                onClick={() => navigate("/ideas")}
+                className="text-sm font-medium text-foreground underline-offset-4 hover:underline"
+              >
+                Watch video
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Right — dashboard screenshot */}
-        <div className="relative overflow-hidden rounded-xl bg-muted shadow-2xl">
-          <img
-            src={showcaseItems[0].image}
-            alt="IdeaProbe dashboard"
-            className="h-full w-full object-cover"
-          />
+          {/* Right — dashboard screenshot, bleeding right */}
+          <div className="relative lg:-mr-10 xl:-mr-20">
+            <div className="overflow-hidden rounded-xl bg-muted shadow-2xl ring-1 ring-border">
+              <img
+                src={showcaseItems[0].image}
+                alt="IdeaProbe dashboard"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
