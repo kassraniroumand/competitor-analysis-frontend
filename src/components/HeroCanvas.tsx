@@ -94,9 +94,6 @@ export default function HeroCanvas() {
 
                 {/* Center content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-6 text-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted mb-3">
-                    <slide.icon className="h-5 w-5 text-foreground" />
-                  </div>
                   <span className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">{slide.label}</span>
                   <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground max-w-[280px]">{slide.description}</p>
                 </div>
