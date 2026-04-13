@@ -449,28 +449,48 @@ export default function Index() {
       </section>
 
 
-      {/* Testimonials */}
-      <section
-        id="testimonials"
-        className="border-y border-border bg-muted/30 px-6 py-20 lg:px-10 lg:py-28"
-      >
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-4 flex items-center gap-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-            ))}
-            <span className="ml-2 text-sm font-semibold text-foreground">4.9</span>
+      {/* Testimonials — horizontal scroll cards */}
+      <section id="testimonials" className="py-20 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="flex items-end justify-between">
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Hear it from our users
+            </h2>
+            <div className="hidden items-center gap-2 sm:flex">
+              <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
+                <ChevronRight className="h-4 w-4 rotate-180" />
+              </button>
+              <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
           </div>
-          <div className="grid gap-8 lg:grid-cols-2">
+        </div>
+
+        <div className="mt-10 pl-6 lg:pl-10">
+          <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory">
             {testimonials.map((t) => (
-              <blockquote key={t.author} className="space-y-3">
-                <p className="text-lg leading-relaxed text-foreground">
-                  "{t.quote}"
-                </p>
-                <cite className="block text-sm font-medium not-italic text-muted-foreground">
-                  {t.author}
-                </cite>
-              </blockquote>
+              <div
+                key={t.author}
+                className="min-w-[300px] max-w-[320px] shrink-0 snap-start flex flex-col justify-between rounded-xl bg-secondary p-6"
+                style={{ minHeight: "360px" }}
+              >
+                <div>
+                  <p className="text-sm font-bold text-foreground">{t.company}</p>
+                  <p className="mt-auto pt-16 text-sm leading-relaxed text-foreground">
+                    "{t.quote}"
+                  </p>
+                </div>
+                <div className="mt-8 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground">
+                    {t.author.split(" ").map(n => n[0]).join("")}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{t.author}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
