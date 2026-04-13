@@ -163,34 +163,10 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Showcase — dark panel */}
-      <section className="bg-[hsl(220,20%,10%)] px-6 pt-16 pb-10 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-20 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            IdeaProbe
-          </h2>
-          <p className="mt-3 text-base text-white/60 sm:text-lg leading-relaxed">
-            AI-powered idea validation.<br />
-            Crafting smarter decisions.
-          </p>
-
-          <div className="mt-10 flex flex-wrap gap-2">
-            {showcaseItems.map((item, i) => (
-              <button
-                key={item.label}
-                onClick={() => setActiveShowcase(i)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                  activeShowcase === i
-                    ? "bg-white text-[hsl(220,20%,10%)]"
-                    : "text-white/50 hover:text-white/80"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="relative mt-10 overflow-hidden rounded-xl shadow-2xl" style={{ aspectRatio: "16/10" }}>
+      {/* Showcase */}
+      <section className="px-6 py-16 sm:py-24 lg:py-32 lg:px-10">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div className="relative overflow-hidden rounded-2xl bg-muted shadow-xl" style={{ aspectRatio: "4/3" }}>
             <AnimatePresence initial={false}>
               <motion.img
                 key={activeShowcase}
@@ -203,6 +179,21 @@ export default function Index() {
                 transition={{ duration: 0.3 }}
               />
             </AnimatePresence>
+          </div>
+          <div className="space-y-2 lg:space-y-3">
+            {showcaseItems.map((item, i) => (
+              <button
+                key={item.label}
+                onClick={() => setActiveShowcase(i)}
+                className={`block text-left text-2xl font-bold tracking-tight transition-colors duration-200 lg:text-4xl ${
+                  activeShowcase === i
+                    ? "text-foreground"
+                    : "text-muted-foreground/30 hover:text-muted-foreground/50"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         </div>
       </section>
