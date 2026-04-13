@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Sparkles, Plus, Settings, BarChart3, LayoutGrid, MoreHorizontal } from "lucide-react";
 
 const floatingImages = [
@@ -27,6 +28,7 @@ const imageColors = [
 const tabs = ["Market Research", "Competitor Analysis", "Opportunity Scoring", "Pain Points", "Validation Reports"];
 
 export default function HeroCanvas() {
+  const [activeTab, setActiveTab] = useState(0);
   return (
     <div className="relative overflow-hidden rounded-xl bg-[hsl(0,0%,96%)] shadow-2xl ring-1 ring-border" style={{ aspectRatio: "4/3" }}>
       {/* Top bar */}
@@ -122,16 +124,17 @@ export default function HeroCanvas() {
       {/* Bottom tabs */}
       <div className="flex items-center justify-center gap-4 border-t border-border px-4 py-3">
         {tabs.map((tab, i) => (
-          <span
+          <button
             key={tab}
-            className={`text-xs font-medium ${
-              i === 0
+            onClick={() => setActiveTab(i)}
+            className={`text-xs font-medium transition-colors ${
+              i === activeTab
                 ? "text-foreground underline underline-offset-4 decoration-2"
-                : "text-muted-foreground"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             {tab}
-          </span>
+          </button>
         ))}
       </div>
     </div>
