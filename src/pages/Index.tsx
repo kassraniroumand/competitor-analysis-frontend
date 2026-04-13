@@ -12,6 +12,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import HeroCanvas from "@/components/HeroCanvas";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+// @ts-ignore
+import "swiper/css";
+// @ts-ignore
+import "swiper/css/free-mode";
 import showcaseScreen from "@/assets/showcase-screen.jpg";
 import showcaseCompetitors from "@/assets/showcase-competitors.jpg";
 import showcaseScoring from "@/assets/showcase-scoring.jpg";
