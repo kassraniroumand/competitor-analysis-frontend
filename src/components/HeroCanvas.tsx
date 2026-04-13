@@ -3,7 +3,9 @@ import { Sparkles, Plus, Settings, BarChart3, LayoutGrid, MoreHorizontal } from 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
+// @ts-ignore
 import "swiper/css";
+// @ts-ignore
 import "swiper/css/free-mode";
 
 const floatingImages = [
