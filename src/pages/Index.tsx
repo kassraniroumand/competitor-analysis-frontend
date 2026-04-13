@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Lightbulb, Play, ArrowRight, Search, BarChart3, Target,
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
-  ChevronRight, Sparkles, Check, Menu, X,
+  ChevronRight, Sparkles, Check, Menu, X, Minus, Plus,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
