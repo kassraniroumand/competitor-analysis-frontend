@@ -125,7 +125,7 @@ export default function HeroCanvas() {
             <button
               key={tab}
               onClick={() => handleTabClick(i)}
-              className={`whitespace-nowrap text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
+              className={`whitespace-nowrap text-xs sm:text-sm font-medium transition-colors shrink-0 px-3 py-1.5 rounded-md ${
                 i === activeTab
                   ? "text-foreground underline underline-offset-4 decoration-2"
                   : "text-muted-foreground hover:text-foreground"
