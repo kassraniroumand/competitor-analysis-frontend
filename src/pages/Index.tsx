@@ -377,67 +377,77 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Pricing comparison + features */}
-      <section className="mx-auto max-w-7xl px-6 pb-20 lg:px-10 lg:pb-28">
-        <div className="grid gap-12 lg:grid-cols-2">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              On average, teams{" "}
-              <span className="text-primary">save 40+ hours</span> per idea with IdeaProbe
-            </h2>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-              Stop spending weeks on manual research: our AI-powered validation keeps time-to-insight low while making sure you get comprehensive analysis.
-            </p>
-          </div>
-          <div>
-            <div className="space-y-0 divide-y divide-border rounded-xl border border-border">
-              <div className="flex items-center justify-between px-5 py-3.5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/10">
-                    <Sparkles className="h-4 w-4 text-primary" />
+      {/* Templates / Use cases showcase */}
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-lg">
+          Hundreds of insights from real market data
+        </h2>
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          Choose from AI-powered research across competitors, pain points, and market trends. Or define your own custom analysis to generate tailored validation reports.
+        </p>
+
+        {/* Two large preview cards */}
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          {/* Card 1 */}
+          <div className="overflow-hidden rounded-xl bg-secondary" style={{ aspectRatio: "4/3" }}>
+            <div className="flex h-full flex-col justify-between p-6 lg:p-8">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Market Analysis</p>
+                <div className="mt-6 grid grid-cols-2 gap-4">
+                  <div className="rounded-lg bg-background p-4 shadow-sm">
+                    <p className="text-2xl font-bold text-primary">35%</p>
+                    <p className="mt-1 text-xs text-muted-foreground">faster time-to-insight</p>
                   </div>
-                  <span className="text-sm font-semibold text-foreground">IdeaProbe</span>
-                </div>
-                <span className="text-sm font-bold text-foreground">&lt; 2 min</span>
-              </div>
-              <div className="flex items-center justify-between px-5 py-3.5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
-                    <Search className="h-4 w-4 text-muted-foreground" />
+                  <div className="rounded-lg bg-background p-4 shadow-sm">
+                    <p className="text-2xl font-bold text-primary">5x</p>
+                    <p className="mt-1 text-xs text-muted-foreground">more data points covered</p>
                   </div>
-                  <span className="text-sm text-muted-foreground">Manual research</span>
-                </div>
-                <span className="text-sm text-muted-foreground">2–4 weeks</span>
-              </div>
-              <div className="flex items-center justify-between px-5 py-3.5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
-                    <Users className="h-4 w-4 text-muted-foreground" />
+                  <div className="rounded-lg bg-background p-4 shadow-sm">
+                    <p className="text-2xl font-bold text-primary">20%</p>
+                    <p className="mt-1 text-xs text-muted-foreground">reduction in failed launches</p>
                   </div>
-                  <span className="text-sm text-muted-foreground">Hiring a consultant</span>
+                  <div className="rounded-lg bg-background p-4 shadow-sm">
+                    <p className="text-2xl font-bold text-primary">+12</p>
+                    <p className="mt-1 text-xs text-muted-foreground">NPS uplift across teams</p>
+                  </div>
                 </div>
-                <span className="text-sm text-muted-foreground">4–8 weeks</span>
               </div>
+              <p className="mt-6 text-lg font-bold text-foreground">Real business outcomes, fast.</p>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              Time to validate a single startup idea
-            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="overflow-hidden rounded-xl bg-secondary" style={{ aspectRatio: "4/3" }}>
+            <div className="flex h-full flex-col justify-between p-6 lg:p-8">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Competitor Intel</p>
+                <div className="mt-6 space-y-3">
+                  {["Pricing strategy comparison", "Feature gap analysis", "Market positioning map", "Customer sentiment overview"].map((item) => (
+                    <div key={item} className="flex items-center gap-3 rounded-lg bg-background px-4 py-3 shadow-sm">
+                      <Check className="h-4 w-4 text-primary" />
+                      <span className="text-sm text-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="mt-6 text-lg font-bold text-foreground">Deep competitive landscape.</p>
+            </div>
           </div>
         </div>
 
-        {/* Bottom feature columns */}
-        <div className="mt-16 grid gap-8 sm:grid-cols-2">
+        {/* Bottom label + nav */}
+        <div className="mt-8 flex items-end justify-between">
           <div>
-            <h3 className="text-sm font-bold text-foreground">Custom analysis</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Didn't find the market segment you were after? No worries — we let you define custom keywords, niches, and target audiences for tailored validation.
-            </p>
+            <h3 className="text-sm font-bold text-foreground">Startup teams</h3>
+            <p className="mt-1 text-xs text-muted-foreground">Idea validation, market sizing, and competitor mapping.</p>
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-foreground">Deep competitor mapping</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Integrate competitor data from multiple sources — pricing pages, feature lists, review sites — and get a unified competitive landscape view.
-            </p>
+          <div className="flex items-center gap-2">
+            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
+              <ChevronRight className="h-4 w-4 rotate-180" />
+            </button>
+            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground">
+              <ChevronRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </section>
