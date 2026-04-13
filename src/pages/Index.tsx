@@ -498,6 +498,9 @@ export default function Index() {
       </section>
 
 
+      {/* More Features — Accordion + Collage */}
+      <MoreFeaturesSection />
+
       {/* Testimonials — horizontal scroll cards */}
       <section id="testimonials" className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
