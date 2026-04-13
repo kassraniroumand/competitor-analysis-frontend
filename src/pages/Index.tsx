@@ -151,33 +151,6 @@ export default function Index() {
         </div>
       </header>
 
-      {/* Value prop banner */}
-      <section className="border-b border-border bg-secondary/50">
-        <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10 lg:py-10">
-          <div className="mb-6">
-            <h2 className="text-lg font-bold text-foreground sm:text-xl">
-              AI-powered validation purpose-built for startups
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Powering thousands of validated ideas
-            </p>
-          </div>
-          <Separator className="mb-6 bg-border" />
-          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-            {[
-              { title: "Highest accuracy", desc: "Production-ready insights built on cross-referenced data, with minimal hallucination." },
-              { title: "Predictable costs", desc: "Flex compute budget based on task complexity. Pay per report, not per token." },
-              { title: "Evidence-based outputs", desc: "Verifiability and provenance for every atomic output." },
-              { title: "Trusted", desc: "Trusted by leading startups and enterprises for critical validation decisions." },
-            ].map((item) => (
-              <div key={item.title}>
-                <h3 className="text-sm font-bold text-foreground">{item.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Hero */}
       <section className="relative overflow-hidden px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 lg:px-10 lg:pt-36 lg:pb-28">
@@ -210,6 +183,34 @@ export default function Index() {
           {/* Right — interactive canvas, bleeding right */}
           <div className="relative lg:-mr-10 xl:-mr-20">
             <HeroCanvas />
+          </div>
+        </div>
+      </section>
+
+      {/* Value prop banner */}
+      <section className="border-y border-border bg-secondary/50">
+        <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10 lg:py-10">
+          <div className="mb-6">
+            <h2 className="text-lg font-bold text-foreground sm:text-xl">
+              AI-powered validation purpose-built for startups
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Powering thousands of validated ideas
+            </p>
+          </div>
+          <Separator className="mb-6 bg-border" />
+          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+            {[
+              { title: "Highest accuracy", desc: "Production-ready insights built on cross-referenced data, with minimal hallucination." },
+              { title: "Predictable costs", desc: "Flex compute budget based on task complexity. Pay per report, not per token." },
+              { title: "Evidence-based outputs", desc: "Verifiability and provenance for every atomic output." },
+              { title: "Trusted", desc: "Trusted by leading startups and enterprises for critical validation decisions." },
+            ].map((item) => (
+              <div key={item.title}>
+                <h3 className="text-sm font-bold text-foreground">{item.title}</h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
