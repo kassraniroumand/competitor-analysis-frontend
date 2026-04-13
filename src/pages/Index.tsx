@@ -360,51 +360,53 @@ export default function Index() {
           Choose from AI-powered research across competitors, pain points, and market trends. Or define your own custom analysis to generate tailored validation reports.
         </p>
 
-        {/* Two large preview cards */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          {/* Card 1 */}
-          <div className="overflow-hidden rounded-xl bg-secondary" style={{ aspectRatio: "4/3" }}>
-            <div className="flex h-full flex-col justify-between p-6 lg:p-8">
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Market Analysis</p>
-                <div className="mt-6 grid grid-cols-2 gap-4">
-                  <div className="rounded-lg bg-background p-4 shadow-sm">
-                    <p className="text-2xl font-bold text-primary">35%</p>
-                    <p className="mt-1 text-xs text-muted-foreground">faster time-to-insight</p>
-                  </div>
-                  <div className="rounded-lg bg-background p-4 shadow-sm">
-                    <p className="text-2xl font-bold text-primary">5x</p>
-                    <p className="mt-1 text-xs text-muted-foreground">more data points covered</p>
-                  </div>
-                  <div className="rounded-lg bg-background p-4 shadow-sm">
-                    <p className="text-2xl font-bold text-primary">20%</p>
-                    <p className="mt-1 text-xs text-muted-foreground">reduction in failed launches</p>
-                  </div>
-                  <div className="rounded-lg bg-background p-4 shadow-sm">
-                    <p className="text-2xl font-bold text-primary">+12</p>
-                    <p className="mt-1 text-xs text-muted-foreground">NPS uplift across teams</p>
-                  </div>
-                </div>
-              </div>
-              <p className="mt-6 text-lg font-bold text-foreground">Real business outcomes, fast.</p>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="overflow-hidden rounded-xl bg-secondary" style={{ aspectRatio: "4/3" }}>
-            <div className="flex h-full flex-col justify-between p-6 lg:p-8">
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Competitor Intel</p>
-                <div className="mt-6 space-y-3">
-                  {["Pricing strategy comparison", "Feature gap analysis", "Market positioning map", "Customer sentiment overview"].map((item) => (
-                    <div key={item} className="flex items-center gap-3 rounded-lg bg-background px-4 py-3 shadow-sm">
-                      <Check className="h-4 w-4 text-primary" />
-                      <span className="text-sm text-foreground">{item}</span>
+        {/* Preview cards — horizontal scroll on mobile showing ~1.2 cards */}
+        <div className="mt-10 -mx-6 px-6 lg:mx-0 lg:px-0">
+          <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 lg:grid lg:grid-cols-2 lg:overflow-visible lg:pb-0">
+            {/* Card 1 */}
+            <div className="min-w-[85%] snap-start shrink-0 overflow-hidden rounded-xl bg-secondary lg:min-w-0" style={{ aspectRatio: "4/3" }}>
+              <div className="flex h-full flex-col justify-between p-6 lg:p-8">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Market Analysis</p>
+                  <div className="mt-6 grid grid-cols-2 gap-4">
+                    <div className="rounded-lg bg-background p-4 shadow-sm">
+                      <p className="text-2xl font-bold text-primary">35%</p>
+                      <p className="mt-1 text-xs text-muted-foreground">faster time-to-insight</p>
                     </div>
-                  ))}
+                    <div className="rounded-lg bg-background p-4 shadow-sm">
+                      <p className="text-2xl font-bold text-primary">5x</p>
+                      <p className="mt-1 text-xs text-muted-foreground">more data points covered</p>
+                    </div>
+                    <div className="rounded-lg bg-background p-4 shadow-sm">
+                      <p className="text-2xl font-bold text-primary">20%</p>
+                      <p className="mt-1 text-xs text-muted-foreground">reduction in failed launches</p>
+                    </div>
+                    <div className="rounded-lg bg-background p-4 shadow-sm">
+                      <p className="text-2xl font-bold text-primary">+12</p>
+                      <p className="mt-1 text-xs text-muted-foreground">NPS uplift across teams</p>
+                    </div>
+                  </div>
                 </div>
+                <p className="mt-6 text-lg font-bold text-foreground">Real business outcomes, fast.</p>
               </div>
-              <p className="mt-6 text-lg font-bold text-foreground">Deep competitive landscape.</p>
+            </div>
+
+            {/* Card 2 */}
+            <div className="min-w-[85%] snap-start shrink-0 overflow-hidden rounded-xl bg-secondary lg:min-w-0" style={{ aspectRatio: "4/3" }}>
+              <div className="flex h-full flex-col justify-between p-6 lg:p-8">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Competitor Intel</p>
+                  <div className="mt-6 space-y-3">
+                    {["Pricing strategy comparison", "Feature gap analysis", "Market positioning map", "Customer sentiment overview"].map((item) => (
+                      <div key={item} className="flex items-center gap-3 rounded-lg bg-background px-4 py-3 shadow-sm">
+                        <Check className="h-4 w-4 text-primary" />
+                        <span className="text-sm text-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <p className="mt-6 text-lg font-bold text-foreground">Deep competitive landscape.</p>
+              </div>
             </div>
           </div>
         </div>
