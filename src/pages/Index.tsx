@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import HeroCanvas from "@/components/HeroCanvas";
@@ -668,54 +668,58 @@ export default function Index() {
             }}
             className="use-cases-swiper"
           >
-            {/* Card 1 */}
+{/* Card 1 */}
             <SwiperSlide style={{ width: "85%" }} className="lg:!w-auto">
-              <div className="overflow-hidden rounded-xl bg-secondary" style={{ aspectRatio: "4/3" }}>
-                <div className="flex h-full flex-col justify-between p-6 lg:p-8">
-                  <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Market Analysis</p>
-                    <div className="mt-6 grid grid-cols-2 gap-4">
-                      <div className="rounded-lg bg-background p-4 shadow-sm">
-                        <p className="text-2xl font-bold text-primary">35%</p>
-                        <p className="mt-1 text-xs text-muted-foreground">faster time-to-insight</p>
-                      </div>
-                      <div className="rounded-lg bg-background p-4 shadow-sm">
-                        <p className="text-2xl font-bold text-primary">5x</p>
-                        <p className="mt-1 text-xs text-muted-foreground">more data points covered</p>
-                      </div>
-                      <div className="rounded-lg bg-background p-4 shadow-sm">
-                        <p className="text-2xl font-bold text-primary">20%</p>
-                        <p className="mt-1 text-xs text-muted-foreground">reduction in failed launches</p>
-                      </div>
-                      <div className="rounded-lg bg-background p-4 shadow-sm">
-                        <p className="text-2xl font-bold text-primary">+12</p>
-                        <p className="mt-1 text-xs text-muted-foreground">NPS uplift across teams</p>
-                      </div>
+              <Card className="h-full flex flex-col overflow-hidden">
+                <CardHeader className="pb-2">
+                  <CardDescription className="text-xs font-medium uppercase tracking-wider">Market Analysis</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="rounded-lg bg-secondary p-4">
+                      <p className="text-2xl font-bold text-primary">35%</p>
+                      <p className="mt-1 text-xs text-muted-foreground">faster time-to-insight</p>
+                    </div>
+                    <div className="rounded-lg bg-secondary p-4">
+                      <p className="text-2xl font-bold text-primary">5x</p>
+                      <p className="mt-1 text-xs text-muted-foreground">more data points covered</p>
+                    </div>
+                    <div className="rounded-lg bg-secondary p-4">
+                      <p className="text-2xl font-bold text-primary">20%</p>
+                      <p className="mt-1 text-xs text-muted-foreground">reduction in failed launches</p>
+                    </div>
+                    <div className="rounded-lg bg-secondary p-4">
+                      <p className="text-2xl font-bold text-primary">+12</p>
+                      <p className="mt-1 text-xs text-muted-foreground">NPS uplift across teams</p>
                     </div>
                   </div>
-                  <p className="mt-6 text-lg font-bold text-foreground">Real business outcomes, fast.</p>
-                </div>
-              </div>
+                </CardContent>
+                <CardFooter>
+                  <p className="text-lg font-bold text-foreground">Real business outcomes, fast.</p>
+                </CardFooter>
+              </Card>
             </SwiperSlide>
 
-            {/* Card 2 */}
+{/* Card 2 */}
             <SwiperSlide style={{ width: "85%" }} className="lg:!w-auto">
-              <div className="overflow-hidden rounded-xl bg-secondary" style={{ aspectRatio: "4/3" }}>
-                <div className="flex h-full flex-col justify-between p-6 lg:p-8">
-                  <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Competitor Intel</p>
-                    <div className="mt-6 space-y-3">
-                      {["Pricing strategy comparison", "Feature gap analysis", "Market positioning map", "Customer sentiment overview"].map((item) => (
-                        <div key={item} className="flex items-center gap-3 rounded-lg bg-background px-4 py-3 shadow-sm">
-                          <Check className="h-4 w-4 text-primary" />
-                          <span className="text-sm text-foreground">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+              <Card className="h-full flex flex-col overflow-hidden">
+                <CardHeader className="pb-2">
+                  <CardDescription className="text-xs font-medium uppercase tracking-wider">Competitor Intel</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <div className="space-y-3">
+                    {["Pricing strategy comparison", "Feature gap analysis", "Market positioning map", "Customer sentiment overview"].map((item) => (
+                      <div key={item} className="flex items-center gap-3 rounded-lg bg-secondary px-4 py-3">
+                        <Check className="h-4 w-4 text-primary" />
+                        <span className="text-sm text-foreground">{item}</span>
+                      </div>
+                    ))}
                   </div>
-                  <p className="mt-6 text-lg font-bold text-foreground">Deep competitive landscape.</p>
-                </div>
-              </div>
+                </CardContent>
+                <CardFooter>
+                  <p className="text-lg font-bold text-foreground">Deep competitive landscape.</p>
+                </CardFooter>
+              </Card>
             </SwiperSlide>
           </Swiper>
         </div>
