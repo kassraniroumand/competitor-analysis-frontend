@@ -180,7 +180,7 @@ export default function Index() {
           </div>
 
           {/* Right — interactive canvas, bleeding right */}
-          <div className="relative lg:-mr-10 xl:-mr-20">
+          <div className="relative overflow-hidden lg:-mr-10 xl:-mr-20">
             <HeroCanvas />
           </div>
         </div>
