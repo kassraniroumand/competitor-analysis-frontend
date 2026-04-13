@@ -683,7 +683,7 @@ export default function Index() {
           <Swiper
             modules={[FreeMode]}
             spaceBetween={20}
-            slidesPerView="auto"
+            slidesPerView={1.25}
             freeMode={true}
             breakpoints={{
               1024: {
