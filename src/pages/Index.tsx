@@ -137,7 +137,7 @@ function MoreFeaturesSection() {
                 return (
                   <button
                     key={item.title}
-                    className={cn("w-full text-left py-5 px-4 rounded-xl transition-colors", isOpen && "bg-[#e3e3e3]")}
+                    className={cn("w-full text-left py-5 px-4 rounded-xl transition-colors", isOpen && "bg-white")}
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                   >
                     <div className="flex items-center gap-3">
