@@ -719,7 +719,6 @@ export default function Index() {
             </SwiperSlide>
           </Swiper>
         </div>
-        </div>
 
         {/* Bottom label + nav */}
         <div className="mt-8 flex items-end justify-between">
