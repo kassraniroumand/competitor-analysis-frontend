@@ -187,7 +187,7 @@ export default function Index() {
       </section>
 
       {/* Value prop banner */}
-      <section className="border-y border-border bg-secondary/50">
+      <section className="border-y border-border bg-secondary">
         <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10 lg:py-10">
           <div className="mb-6">
             <h2 className="text-lg font-bold text-foreground sm:text-xl">
