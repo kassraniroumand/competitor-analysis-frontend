@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import HeroCanvas from "@/components/HeroCanvas";
 import showcaseScreen from "@/assets/showcase-screen.jpg";
 import showcaseCompetitors from "@/assets/showcase-competitors.jpg";
 import showcaseScoring from "@/assets/showcase-scoring.jpg";
