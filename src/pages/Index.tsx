@@ -136,16 +136,16 @@ export default function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-0">
           {/* Left — text */}
           <div className="relative z-10">
-            <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
               Validate your<br /> startup ideas<br /> with confidence.
             </h1>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
               IdeaProbe is designed for teams that need to validate startup ideas with AI-powered research at scale.
             </p>
             <div className="mt-8 flex items-center gap-4">
               <Button
                 size="lg"
-                className="rounded-full bg-foreground px-8 text-sm font-semibold text-background hover:bg-foreground/90"
+                className="rounded-full bg-foreground px-8 text-sm font-medium text-background hover:bg-foreground/90"
                 onClick={() => navigate("/ideas")}
               >
                 Start for free
@@ -168,7 +168,7 @@ export default function Index() {
 
       {/* Showcase */}
       <section className="px-6 py-16 sm:py-24 lg:py-32 lg:px-10">
-        <div className="mx-auto w-full max-w-7xl overflow-hidden rounded-2xl bg-[hsl(0,0%,94%)] p-8 lg:p-12">
+        <div className="mx-auto w-full max-w-7xl overflow-hidden rounded-2xl bg-secondary p-8 lg:p-12">
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
             {/* Left — stacked images */}
             <div className="relative min-h-[400px] lg:min-h-[500px]">
@@ -256,7 +256,7 @@ export default function Index() {
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Validate your startup idea in minutes
             </h2>
-            <p className="mt-4 max-w-md text-muted-foreground">
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
               Run comprehensive market validation using a wide variety of data sources and AI-powered analysis.
             </p>
           </div>
@@ -314,11 +314,11 @@ export default function Index() {
       </section>
 
       {/* Dark Showcase Section */}
-      <section className="bg-[hsl(220,15%,10%)] px-6 py-20 lg:px-10 lg:py-28">
+      <section className="bg-foreground px-6 py-20 lg:px-10 lg:py-28">
         <div className="mx-auto max-w-7xl">
           {/* Header */}
-          <h2 className="text-4xl font-extrabold text-white lg:text-5xl">IdeaProbe</h2>
-          <p className="mt-3 text-sm leading-relaxed text-white/50">
+          <h2 className="text-4xl font-bold text-background lg:text-5xl">IdeaProbe</h2>
+          <p className="mt-3 text-sm leading-relaxed text-background/50">
             AI-powered idea validation.<br />Crafting smarter decisions.
           </p>
 
@@ -330,8 +330,8 @@ export default function Index() {
                 onClick={() => setActiveShowcase(i)}
                 className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
                   activeShowcase === i
-                    ? "bg-white text-[hsl(220,15%,10%)]"
-                    : "text-white/40 hover:text-white/70"
+                    ? "bg-background text-foreground"
+                    : "text-background/40 hover:text-background/70"
                 }`}
               >
                 {item.label}
@@ -342,7 +342,7 @@ export default function Index() {
           {/* Monitor frame with dashboard image */}
           <div className="mt-10 flex justify-center">
             <div className="w-full max-w-4xl">
-              <div className="relative overflow-hidden rounded-t-xl border border-white/10 bg-white shadow-2xl" style={{ aspectRatio: "16/10" }}>
+              <div className="relative overflow-hidden rounded-t-xl border border-background/10 bg-background shadow-2xl" style={{ aspectRatio: "16/10" }}>
                 <AnimatePresence initial={false}>
                   <motion.img
                     key={activeShowcase}
@@ -357,8 +357,8 @@ export default function Index() {
                 </AnimatePresence>
               </div>
               {/* Monitor stand */}
-              <div className="mx-auto h-5 w-24 rounded-b-lg bg-[hsl(220,10%,25%)]" />
-              <div className="mx-auto h-1.5 w-36 rounded-b-md bg-[hsl(220,10%,20%)]" />
+              <div className="mx-auto h-5 w-24 rounded-b-lg bg-foreground/80" />
+              <div className="mx-auto h-1.5 w-36 rounded-b-md bg-foreground/70" />
             </div>
           </div>
         </div>
@@ -372,7 +372,7 @@ export default function Index() {
               On average, teams{" "}
               <span className="text-primary">save 40+ hours</span> per idea with IdeaProbe
             </h2>
-            <p className="mt-4 max-w-md text-muted-foreground">
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
               Stop spending weeks on manual research: our AI-powered validation keeps time-to-insight low while making sure you get comprehensive analysis.
             </p>
           </div>
@@ -463,7 +463,7 @@ export default function Index() {
           Great decisions start with{" "}
           <span className="text-primary">real data</span>
         </h2>
-        <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
           Start validating your ideas and getting market insights right away
         </p>
         <Button
