@@ -131,35 +131,41 @@ export default function Index() {
       </header>
 
       {/* Hero */}
-      <section className="flex flex-col items-center justify-center px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28">
-        <div className="mb-8">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary shadow-lg sm:h-20 sm:w-20 sm:rounded-3xl">
-            <Lightbulb className="h-8 w-8 text-primary-foreground sm:h-10 sm:w-10" />
+      <section className="mx-auto grid max-w-7xl items-center gap-10 px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:pt-36 lg:pb-28">
+        {/* Left — text */}
+        <div>
+          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            Validate your startup<br className="hidden sm:block" /> ideas with confidence.
+          </h1>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
+            AI-powered market research, competitor analysis, and opportunity scoring — what used to take weeks, now takes minutes.
+          </p>
+          <div className="mt-8 flex items-center gap-3">
+            <Button
+              size="lg"
+              className="rounded-full bg-foreground px-8 text-sm font-semibold text-background hover:bg-foreground/90"
+              onClick={() => navigate("/ideas")}
+            >
+              Get started for free
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              className="text-sm font-semibold text-foreground"
+              onClick={() => navigate("/ideas")}
+            >
+              See how it works
+            </Button>
           </div>
         </div>
-        <h1 className="max-w-3xl text-center text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-7xl">
-          Validate your startup ideas with confidence.
-        </h1>
-        <p className="mt-5 max-w-xl text-center text-base text-muted-foreground sm:text-lg">
-          AI-powered market research, competitor analysis, and opportunity scoring — what used to take weeks, now takes minutes.
-        </p>
-        <div className="mt-8 flex items-center gap-3">
-          <Button
-            size="lg"
-            className="rounded-full bg-foreground px-8 text-sm font-semibold text-background hover:bg-foreground/90"
-            onClick={() => navigate("/ideas")}
-          >
-            Get started for free
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full px-8 text-sm font-semibold"
-            onClick={() => navigate("/ideas")}
-          >
-            See how it works
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Button>
+
+        {/* Right — dashboard screenshot */}
+        <div className="relative overflow-hidden rounded-xl bg-muted shadow-2xl">
+          <img
+            src={showcaseItems[0].image}
+            alt="IdeaProbe dashboard"
+            className="h-full w-full object-cover"
+          />
         </div>
       </section>
 
