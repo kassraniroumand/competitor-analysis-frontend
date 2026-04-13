@@ -645,7 +645,7 @@ export default function Index() {
 
 
       {/* Templates / Use cases showcase */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-0 lg:py-0">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-lg">
           Hundreds of insights from real market data
         </h2>
