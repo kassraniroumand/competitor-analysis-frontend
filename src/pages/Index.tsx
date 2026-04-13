@@ -496,7 +496,7 @@ export default function Index() {
           </div>
         </div>
 
-        <div className="mt-10 pl-6 lg:pl-10">
+        <div className="mt-10 px-6 lg:px-10">
           <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory">
             {testimonials.map((t) => (
               <div
