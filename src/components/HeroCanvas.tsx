@@ -1,12 +1,14 @@
 import { useState, useRef } from "react";
 import { Sparkles, Plus, Settings, BarChart3, LayoutGrid, MoreHorizontal } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
+import { FreeMode, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 // @ts-ignore
 import "swiper/css";
 // @ts-ignore
 import "swiper/css/free-mode";
+// @ts-ignore
+import "swiper/css/pagination";
 
 const floatingImages = [
   { top: "8%", left: "30%", size: "w-16 h-16", rotate: "-3deg", zIndex: 10 },
@@ -34,6 +36,14 @@ const imageColors = [
 
 const tabs = ["Market Research", "Competitor Analysis", "Opportunity Scoring", "Pain Points", "Validation Reports"];
 
+const slideContents = [
+  { label: "Market Research", icon: BarChart3, description: "Deep-dive into market size, trends, and demand signals" },
+  { label: "Competitor Analysis", icon: LayoutGrid, description: "Map competitors, pricing, and feature gaps" },
+  { label: "Opportunity Scoring", icon: Sparkles, description: "AI-powered scoring across 12 validation dimensions" },
+  { label: "Pain Points", icon: Settings, description: "Surface real user complaints and unmet needs" },
+  { label: "Validation Reports", icon: Plus, description: "Comprehensive go/no-go reports with actionable insights" },
+];
+
 export default function HeroCanvas() {
   const [activeTab, setActiveTab] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
@@ -53,12 +63,7 @@ export default function HeroCanvas() {
         </div>
         <div className="flex items-center gap-1">
           <div className="flex -space-x-1.5">
-            {[
-              "bg-blue-600",
-              "bg-amber-500",
-              "bg-emerald-500",
-              "bg-purple-500",
-            ].map((c, i) => (
+            {["bg-blue-600", "bg-amber-500", "bg-emerald-500", "bg-purple-500"].map((c, i) => (
               <div key={i} className={`h-6 w-6 rounded-full ${c} ring-2 ring-[hsl(0,0%,96%)]`} />
             ))}
           </div>
@@ -66,64 +71,65 @@ export default function HeroCanvas() {
         </div>
       </div>
 
-      {/* Canvas area */}
-      <div className="relative mx-3 mb-3 overflow-hidden rounded-lg bg-background" style={{ aspectRatio: "16/9" }}>
-        {/* Dotted orbit ellipses */}
-        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 800 450" fill="none">
-          {[140, 180, 220, 260, 300].map((ry, i) => (
-            <ellipse
-              key={i}
-              cx="400"
-              cy="225"
-              rx={ry * 1.6}
-              ry={ry * 0.65}
-              stroke="hsl(0,0%,75%)"
-              strokeWidth="1"
-              strokeDasharray="4 6"
-              fill="none"
-            />
+      {/* Main Swiper Canvas */}
+      <div className="mx-3 mb-3 overflow-hidden rounded-lg bg-background">
+        <Swiper
+          modules={[Pagination]}
+          pagination={{ clickable: true }}
+          spaceBetween={0}
+          slidesPerView={1}
+          onSwiper={(swiper) => { swiperRef.current = swiper; }}
+          onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
+          className="hero-canvas-swiper"
+          style={{ aspectRatio: "16/9" }}
+        >
+          {slideContents.map((slide, idx) => (
+            <SwiperSlide key={idx}>
+              <div className="relative h-full w-full">
+                {/* Dotted orbit ellipses */}
+                <svg className="absolute inset-0 h-full w-full" viewBox="0 0 800 450" fill="none">
+                  {[140, 180, 220, 260, 300].map((ry, i) => (
+                    <ellipse
+                      key={i}
+                      cx="400"
+                      cy="225"
+                      rx={ry * 1.6}
+                      ry={ry * 0.65}
+                      stroke="hsl(0,0%,85%)"
+                      strokeWidth="1"
+                      strokeDasharray="4 6"
+                      fill="none"
+                    />
+                  ))}
+                </svg>
+
+                {/* Center content */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-6 text-center">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted mb-3">
+                    <slide.icon className="h-5 w-5 text-foreground" />
+                  </div>
+                  <span className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">{slide.label}</span>
+                  <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground max-w-[280px]">{slide.description}</p>
+                </div>
+
+                {/* Floating image blocks */}
+                {floatingImages.map((img, i) => (
+                  <div
+                    key={i}
+                    className={`absolute ${img.size} ${imageColors[(i + idx * 2) % imageColors.length]} rounded-md shadow-md opacity-60`}
+                    style={{
+                      top: img.top,
+                      left: img.left,
+                      right: (img as any).right,
+                      transform: `rotate(${img.rotate})`,
+                      zIndex: img.zIndex,
+                    }}
+                  />
+                ))}
+              </div>
+            </SwiperSlide>
           ))}
-        </svg>
-
-        {/* Center text */}
-        <div className="absolute inset-0 flex items-center justify-center z-20">
-          <div className="flex items-center gap-3">
-            <span className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">AI validation</span>
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-muted">
-              <Sparkles className="h-4 w-4 text-foreground" />
-            </div>
-            <span className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">for serious ideas</span>
-          </div>
-        </div>
-
-        {/* Floating image blocks */}
-        {floatingImages.map((img, i) => (
-          <div
-            key={i}
-            className={`absolute ${img.size} ${imageColors[i]} rounded-md shadow-md`}
-            style={{
-              top: img.top,
-              left: img.left,
-              right: (img as any).right,
-              transform: `rotate(${img.rotate})`,
-              zIndex: img.zIndex,
-            }}
-          />
-        ))}
-
-        {/* User cursors */}
-        <div className="absolute top-[28%] left-[28%] z-30 flex items-start gap-0.5">
-          <svg width="12" height="16" viewBox="0 0 12 16" fill="hsl(0,0%,50%)">
-            <path d="M1 1L11 8L5.5 8.5L3 15L1 1Z" />
-          </svg>
-          <span className="rounded-full bg-[hsl(0,0%,60%)] px-2 py-0.5 text-[10px] font-medium text-white">User A</span>
-        </div>
-        <div className="absolute top-[55%] left-[52%] z-30 flex items-start gap-0.5">
-          <svg width="12" height="16" viewBox="0 0 12 16" fill="hsl(0,0%,50%)">
-            <path d="M1 1L11 8L5.5 8.5L3 15L1 1Z" />
-          </svg>
-          <span className="rounded-full bg-[hsl(0,0%,60%)] px-2 py-0.5 text-[10px] font-medium text-white">User B</span>
-        </div>
+        </Swiper>
       </div>
 
       {/* Bottom toolbar */}
@@ -135,33 +141,23 @@ export default function HeroCanvas() {
         ))}
       </div>
 
-      {/* Bottom tabs - Swiper */}
-      <div className="border-t border-border py-3">
-        <Swiper
-          modules={[FreeMode]}
-          freeMode
-          slidesPerView="auto"
-          spaceBetween={16}
-          slidesOffsetBefore={16}
-          slidesOffsetAfter={16}
-          onSwiper={(swiper) => { swiperRef.current = swiper; }}
-          onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
-        >
+      {/* Bottom tabs */}
+      <div className="border-t border-border py-3 overflow-x-auto">
+        <div className="flex items-center gap-4 px-4">
           {tabs.map((tab, i) => (
-            <SwiperSlide key={tab} style={{ width: "auto" }}>
-              <button
-                onClick={() => handleTabClick(i)}
-                className={`whitespace-nowrap text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
-                  i === activeTab
-                    ? "text-foreground underline underline-offset-4 decoration-2"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {tab}
-              </button>
-            </SwiperSlide>
+            <button
+              key={tab}
+              onClick={() => handleTabClick(i)}
+              className={`whitespace-nowrap text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
+                i === activeTab
+                  ? "text-foreground underline underline-offset-4 decoration-2"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {tab}
+            </button>
           ))}
-        </Swiper>
+        </div>
       </div>
     </div>
   );
