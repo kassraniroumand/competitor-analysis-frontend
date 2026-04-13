@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import {
   Lightbulb, Play, ArrowRight, Search, BarChart3, Target,
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
-  ChevronRight, Sparkles, Check, Menu, X,
+  ChevronRight, Sparkles, Check, Menu, X, Minus, Plus,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -96,6 +97,126 @@ const testimonials = [
     company: "ScaleUp",
   },
 ];
+
+const moreFeaturesData = [
+  {
+    title: "Deep Market Research",
+    description: "Analyze search demand, keyword trends, and community signals to validate real market need — powered by AI that scans thousands of data points in seconds.",
+  },
+  {
+    title: "Competitor Intelligence",
+    description: "Map direct and indirect competitors, compare pricing and features, and find your competitive edge with automated landscape analysis.",
+  },
+  {
+    title: "Pain Point Discovery",
+    description: "Surface real user complaints, feature requests, and unmet needs from forums, reviews, and social media across the web.",
+  },
+  {
+    title: "Validation Reports",
+    description: "Generate comprehensive, shareable reports with opportunity scores, risk assessments, and actionable next steps for your team.",
+  },
+];
+
+function MoreFeaturesSection() {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+      <div className="overflow-hidden rounded-3xl bg-foreground text-background">
+        <div className="grid lg:grid-cols-2">
+          {/* Left — Title + Accordion */}
+          <div className="flex flex-col justify-center p-8 lg:p-14">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+              More features
+            </h2>
+
+            <div className="mt-10 space-y-0 divide-y divide-background/10">
+              {moreFeaturesData.map((item, i) => {
+                const isOpen = openIndex === i;
+                return (
+                  <button
+                    key={item.title}
+                    className="w-full text-left py-5"
+                    onClick={() => setOpenIndex(isOpen ? -1 : i)}
+                  >
+                    <div className="flex items-center gap-3">
+                      {isOpen ? (
+                        <Minus className="h-4 w-4 shrink-0 text-background/60" />
+                      ) : (
+                        <Plus className="h-4 w-4 shrink-0 text-background/60" />
+                      )}
+                      <span className={cn("text-base font-semibold transition-colors", isOpen ? "text-background" : "text-background/60")}>
+                        {item.title}
+                      </span>
+                    </div>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <p className="mt-3 pl-7 text-sm leading-relaxed text-background/70">
+                            {item.description}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right — Decorative collage */}
+          <div className="relative hidden lg:block overflow-hidden">
+            <div className="absolute inset-0 p-8">
+              {/* Scattered UI cards to mimic the reference collage */}
+              <div className="relative h-full w-full">
+                <div className="absolute top-4 left-4 rounded-xl bg-background text-foreground p-4 shadow-lg w-48">
+                  <p className="text-xs font-medium text-muted-foreground">Opportunity Score</p>
+                  <p className="mt-1 text-2xl font-bold text-primary">87/100</p>
+                  <p className="text-[10px] text-muted-foreground">High potential</p>
+                </div>
+                <div className="absolute top-8 right-6 rounded-xl bg-primary text-primary-foreground px-5 py-2.5 shadow-lg text-sm font-semibold">
+                  Validate →
+                </div>
+                <div className="absolute top-32 right-4 rounded-xl bg-background text-foreground p-4 shadow-lg w-52">
+                  <p className="text-xs font-medium text-muted-foreground">Competitors found</p>
+                  <div className="mt-2 space-y-1.5">
+                    {["Competitor A", "Competitor B", "Competitor C"].map((c) => (
+                      <div key={c} className="flex items-center gap-2 text-xs">
+                        <div className="h-2 w-2 rounded-full bg-primary" />
+                        <span>{c}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="absolute bottom-32 left-8 rounded-xl bg-background text-foreground p-4 shadow-lg w-56">
+                  <p className="text-xs font-medium text-muted-foreground">Pain Points</p>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {["Slow onboarding", "High pricing", "Missing API", "Poor UX"].map((p) => (
+                      <span key={p} className="rounded-full bg-secondary px-2.5 py-1 text-[10px] font-medium">{p}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="absolute bottom-8 right-10 rounded-xl bg-background text-foreground p-4 shadow-lg">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-semibold">Report ready</span>
+                  </div>
+                </div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 h-32 w-32 blur-3xl" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Index() {
   const navigate = useNavigate();
@@ -497,6 +618,9 @@ export default function Index() {
         </div>
       </section>
 
+
+      {/* More Features — Accordion + Collage */}
+      <MoreFeaturesSection />
 
       {/* Testimonials — horizontal scroll cards */}
       <section id="testimonials" className="py-20 lg:py-28">
