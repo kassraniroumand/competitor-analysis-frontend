@@ -493,7 +493,7 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-secondary/50">
+      <footer className="border-t border-border bg-secondary">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
           <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr_0.8fr]">
             {/* Brand */}
