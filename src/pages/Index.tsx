@@ -325,15 +325,16 @@ export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const touchStartX = useRef<number | null>(null);
+  const dragStartX = useRef<number | null>(null);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    dragStartX.current = e.clientX;
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
   }, []);
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
+  const handlePointerUp = useCallback((e: React.PointerEvent) => {
+    if (dragStartX.current === null) return;
+    const diff = dragStartX.current - e.clientX;
     if (Math.abs(diff) > 50) {
       setActiveShowcase(prev =>
         diff > 0
@@ -341,7 +342,7 @@ export default function Index() {
           : Math.max(prev - 1, 0)
       );
     }
-    touchStartX.current = null;
+    dragStartX.current = null;
   }, []);
 
   return (
