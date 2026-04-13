@@ -379,43 +379,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Showcase — side-by-side layout */}
-      <section className="bg-muted/30 px-6 py-16 sm:py-20 lg:px-10 lg:py-28">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-          {/* Left — image with rounded corners */}
-          <div className="relative overflow-hidden rounded-2xl bg-muted shadow-2xl" style={{ aspectRatio: "4/3" }}>
-            <AnimatePresence initial={false}>
-              <motion.img
-                key={activeShowcase}
-                src={showcaseItems[activeShowcase].image}
-                alt={showcaseItems[activeShowcase].label}
-                className="absolute inset-0 h-full w-full object-cover"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </AnimatePresence>
-          </div>
-
-          {/* Right — text list */}
-          <div className="space-y-2 lg:space-y-3">
-            {showcaseItems.map((item, i) => (
-              <button
-                key={item.label}
-                onClick={() => setActiveShowcase(i)}
-                className={`block w-full text-left text-2xl font-semibold transition-all duration-200 sm:text-3xl lg:text-4xl ${
-                  activeShowcase === i
-                    ? "text-foreground"
-                    : "text-muted-foreground/40 hover:text-muted-foreground/60"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials */}
       <section
