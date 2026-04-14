@@ -6,15 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
 
 interface NewAnalysisDialogProps {
   open: boolean;
@@ -34,26 +34,26 @@ export function NewAnalysisDialog({ open, onOpenChange, triggerButton = true }: 
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       {triggerButton && (
-        <DialogTrigger asChild>
+        <SheetTrigger asChild>
           <Button size="lg" className="gap-2 text-base px-6 shadow-sm">
             <Plus className="h-5 w-5" />
             New Analysis
           </Button>
-        </DialogTrigger>
+        </SheetTrigger>
       )}
-      <DialogContent className="sm:max-w-[600px]">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-lg">
+      <SheetContent side="right" className="w-[66vw] sm:max-w-none p-6 overflow-y-auto">
+        <SheetHeader>
+          <SheetTitle className="flex items-center gap-2 text-lg">
             <Sparkles className="h-5 w-5 text-primary" />
             Analyze a New Idea
-          </DialogTitle>
-          <DialogDescription>
+          </SheetTitle>
+          <SheetDescription>
             Describe your startup idea and we'll generate a comprehensive validation report with competitor analysis.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="space-y-4 py-4">
+          </SheetDescription>
+        </SheetHeader>
+        <div className="space-y-4 py-6">
           <div className="space-y-2">
             <Label htmlFor="idea">Your Idea</Label>
             <Textarea
@@ -87,18 +87,18 @@ export function NewAnalysisDialog({ open, onOpenChange, triggerButton = true }: 
             <Input id="keywords" placeholder="e.g. AI, inventory, food waste (comma-separated)" className="text-sm" />
           </div>
         </div>
-        <DialogFooter className="gap-2 sm:gap-0">
-          <DialogClose asChild>
+        <SheetFooter className="gap-2 sm:gap-0">
+          <SheetClose asChild>
             <Button variant="outline" onClick={() => setIdeaText("")}>
               Cancel
             </Button>
-          </DialogClose>
+          </SheetClose>
           <Button className="gap-2" disabled={!ideaText.trim()} onClick={handleSubmit}>
             <Sparkles className="h-4 w-4" />
             Analyze Idea
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 }
