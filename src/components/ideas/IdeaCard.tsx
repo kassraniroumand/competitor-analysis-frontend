@@ -3,7 +3,7 @@ import { Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag, FileText } from
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { ScoreBadge } from "@/components/shared/ScoreBadge";
 import type { IdeaReport } from "@/data/mock-data";
