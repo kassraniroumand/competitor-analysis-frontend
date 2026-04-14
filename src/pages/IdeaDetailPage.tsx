@@ -145,17 +145,14 @@ export default function IdeaDetailPage() {
 
           {/* Quick Stat Cards */}
           {quickStats.map((stat) => (
-            <Card key={stat.label}>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent shrink-0">
-                  <stat.icon className="h-4 w-4 text-accent-foreground" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">{stat.label}</p>
-                  <p className="text-sm font-semibold text-foreground truncate">{stat.value}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <StatDrilldownCard
+              key={stat.label}
+              label={stat.label}
+              value={stat.value}
+              icon={stat.icon}
+              details={stat.details}
+              summary={stat.summary}
+            />
           ))}
 
           {/* Description Card */}
