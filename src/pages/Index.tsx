@@ -165,10 +165,10 @@ function MoreFeaturesSection() {
                     <AnimatePresence initial={false}>
                       {isOpen && (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          initial={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                          animate={isMobile ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                          exit={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                          transition={{ duration: isMobile ? 0.15 : 0.25, ease: "easeInOut" }}
                           className="overflow-hidden"
                         >
                           <p className="mt-3 pl-7 text-sm leading-relaxed text-black/70">
@@ -188,10 +188,10 @@ function MoreFeaturesSection() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={openIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                exit={isMobile ? { opacity: 0 } : { opacity: 0, y: -20 }}
+                transition={{ duration: isMobile ? 0.15 : 0.3, ease: "easeInOut" }}
                 className="absolute inset-0 p-6 lg:p-8"
               >
                 <div className="relative h-full w-full">
