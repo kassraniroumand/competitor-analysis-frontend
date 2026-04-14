@@ -73,53 +73,52 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
         )}
       </CardContent>
 
-      <Separator />
-      <CardFooter className="p-0">
-        <div className="grid grid-cols-5 w-full">
+      <CardFooter className="px-4 pb-4 pt-2">
+        <div className="inline-flex items-center rounded-lg border border-border divide-x divide-border overflow-hidden">
           <Button
             variant="ghost"
             size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
             onClick={() => navigate(`/ideas/${report.id}`)}
           >
             <FileText className="h-3.5 w-3.5" />
-            <span>Detail</span>
+            Detail
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
             onClick={() => onQuickView?.(report)}
           >
             <Eye className="h-3.5 w-3.5" />
-            <span>Preview</span>
+            Preview
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
             onClick={() => navigate(`/competitors?idea=${report.id}`)}
           >
             <Users className="h-3.5 w-3.5" />
-            <span>Competitor</span>
+            Competitor
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
             onClick={() => navigate(`/validation?idea=${report.id}`)}
           >
             <CheckCircle2 className="h-3.5 w-3.5" />
-            <span>Validation</span>
+            Validation
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-10 gap-1.5 border-l"
+            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
             onClick={() => navigate(`/pain-points?idea=${report.id}`)}
           >
             <AlertTriangle className="h-3.5 w-3.5" />
-            <span>Pain</span>
+            Pain
           </Button>
         </div>
       </CardFooter>
