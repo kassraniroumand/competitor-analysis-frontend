@@ -131,6 +131,7 @@ const moreFeaturesData = [
 // More features accordion section
 function MoreFeaturesSection() {
   const [openIndex, setOpenIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
