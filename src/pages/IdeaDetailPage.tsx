@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { StatDrilldownCard } from "@/components/ideas/StatDrilldownCard";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
@@ -35,10 +36,46 @@ export default function IdeaDetailPage() {
   ];
 
   const quickStats = [
-    { label: "Target Audience", value: report.targetAudience || "—", icon: Target },
-    { label: "Industry", value: report.industry || "—", icon: Briefcase },
-    { label: "Geography", value: report.geography || "—", icon: Globe },
-    { label: "Business Model", value: report.businessModel || "—", icon: BarChart3 },
+    {
+      label: "Target Audience", value: report.targetAudience || "—", icon: Target,
+      summary: "Primary users who will benefit most from this product. Understanding the audience shapes messaging, features, and go-to-market strategy.",
+      details: [
+        { label: "Segment Size", value: "~2.4M businesses", progress: 72 },
+        { label: "Willingness to Pay", value: "High (78%)", progress: 78 },
+        { label: "Tech Adoption Rate", value: "Moderate (61%)", progress: 61 },
+        { label: "Switching Cost", value: "Low barrier", progress: 35 },
+      ],
+    },
+    {
+      label: "Industry", value: report.industry || "—", icon: Briefcase,
+      summary: "The target industry vertical and its current state of digital transformation and market readiness.",
+      details: [
+        { label: "Market Size (TAM)", value: "$12.8B", progress: 85 },
+        { label: "Growth Rate (CAGR)", value: "14.2%", progress: 71 },
+        { label: "Digital Maturity", value: "Low-Medium", progress: 40 },
+        { label: "Regulatory Complexity", value: "Moderate", progress: 55 },
+      ],
+    },
+    {
+      label: "Geography", value: report.geography || "—", icon: Globe,
+      summary: "Initial target markets and expansion potential across regions.",
+      details: [
+        { label: "Primary Market", value: "North America", progress: 90 },
+        { label: "Secondary Market", value: "Western Europe", progress: 65 },
+        { label: "Market Readiness", value: "High", progress: 82 },
+        { label: "Localization Effort", value: "Low", progress: 25 },
+      ],
+    },
+    {
+      label: "Business Model", value: report.businessModel || "—", icon: BarChart3,
+      summary: "Revenue model viability and projected unit economics for sustainable growth.",
+      details: [
+        { label: "Revenue Potential", value: "$4.2M ARR (Y3)", progress: 76 },
+        { label: "Gross Margin", value: "~82%", progress: 82 },
+        { label: "CAC Payback", value: "8 months", progress: 60 },
+        { label: "LTV:CAC Ratio", value: "4.1x", progress: 80 },
+      ],
+    },
   ];
 
   return (
@@ -108,17 +145,14 @@ export default function IdeaDetailPage() {
 
           {/* Quick Stat Cards */}
           {quickStats.map((stat) => (
-            <Card key={stat.label}>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent shrink-0">
-                  <stat.icon className="h-4 w-4 text-accent-foreground" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">{stat.label}</p>
-                  <p className="text-sm font-semibold text-foreground truncate">{stat.value}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <StatDrilldownCard
+              key={stat.label}
+              label={stat.label}
+              value={stat.value}
+              icon={stat.icon}
+              details={stat.details}
+              summary={stat.summary}
+            />
           ))}
 
           {/* Description Card */}
