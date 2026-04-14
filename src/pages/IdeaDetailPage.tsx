@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Download, Pencil, ExternalLink, Users, Briefcase,
-  TrendingUp, AlertTriangle, Zap, DollarSign,
+  TrendingUp, AlertTriangle, Zap, DollarSign, Lightbulb,
   Shield, Rocket, CheckCircle, MessageSquare, Search,
   ThumbsUp, ThumbsDown, ChevronRight, HelpCircle,
   Target, BarChart3, Globe, Layers
@@ -417,6 +417,3 @@ export default function IdeaDetailPage() {
     </AppLayout>
   );
 }
-
-// Re-export Lightbulb locally since it's used in JSX above
-import { Lightbulb } from "lucide-react";
