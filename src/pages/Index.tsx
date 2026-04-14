@@ -603,8 +603,9 @@ export default function Index() {
                         </p>
                         {activeShowcase === i && (
                           <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
+                            initial={isMobile ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                            animate={isMobile ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+                            transition={{ duration: isMobile ? 0.1 : 0.2 }}
                             className="mt-1 text-xs leading-relaxed text-muted-foreground"
                           >
                             {item.description}
