@@ -83,7 +83,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
             onClick={() => navigate(`/ideas/${report.id}`)}
           >
             <FileText className="h-3.5 w-3.5" />
-            <span className="hidden xl:inline">Details</span>
+            <span>Detail</span>
           </Button>
           <Button
             variant="ghost"
@@ -92,7 +92,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
             onClick={() => onQuickView?.(report)}
           >
             <Eye className="h-3.5 w-3.5" />
-            <span className="hidden xl:inline">Preview</span>
+            <span>Preview</span>
           </Button>
           <Button
             variant="ghost"
@@ -101,7 +101,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
             onClick={() => navigate(`/competitors?idea=${report.id}`)}
           >
             <Users className="h-3.5 w-3.5" />
-            <span className="hidden xl:inline">Competitors</span>
+            <span>Competitor</span>
           </Button>
           <Button
             variant="ghost"
@@ -110,7 +110,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
             onClick={() => navigate(`/validation?idea=${report.id}`)}
           >
             <CheckCircle2 className="h-3.5 w-3.5" />
-            <span className="hidden xl:inline">Validation</span>
+            <span>Validation</span>
           </Button>
           <Button
             variant="ghost"
@@ -119,7 +119,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
             onClick={() => navigate(`/pain-points?idea=${report.id}`)}
           >
             <AlertTriangle className="h-3.5 w-3.5" />
-            <span className="hidden xl:inline">Pains</span>
+            <span>Pain</span>
           </Button>
         </div>
       </CardFooter>
