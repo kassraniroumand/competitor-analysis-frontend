@@ -185,17 +185,11 @@ function MoreFeaturesSection() {
 
           {/* Right — Dynamic collage based on active tab */}
           <div className="relative overflow-hidden min-h-[300px] lg:min-h-0">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={openIndex}
-                initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
-                animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                exit={isMobile ? { opacity: 0 } : { opacity: 0, y: -20 }}
-                transition={{ duration: isMobile ? 0.15 : 0.3, ease: "easeInOut" }}
-                className="absolute inset-0 p-6 lg:p-8"
-              >
+            {isMobile ? (
+              <div className="absolute inset-0 p-6 lg:p-8">
                 <div className="relative h-full w-full">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 h-32 w-32 blur-3xl" />
+
 
                   {/* Tab 0: Market Research */}
                   {openIndex === 0 && (
