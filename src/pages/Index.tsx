@@ -162,21 +162,31 @@ function MoreFeaturesSection() {
                         {item.title}
                       </span>
                     </div>
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                          animate={isMobile ? { opacity: 1 } : { height: "auto", opacity: 1 }}
-                          exit={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                          transition={{ duration: isMobile ? 0.15 : 0.25, ease: "easeInOut" }}
-                          className="overflow-hidden"
-                        >
+                    {isMobile ? (
+                      isOpen && (
+                        <div className="overflow-hidden">
                           <p className="mt-3 pl-7 text-sm leading-relaxed text-black/70">
                             {item.description}
                           </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                        </div>
+                      )
+                    ) : (
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <p className="mt-3 pl-7 text-sm leading-relaxed text-black/70">
+                              {item.description}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
                   </button>
                 );
               })}
