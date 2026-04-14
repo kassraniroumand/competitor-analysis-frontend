@@ -36,10 +36,46 @@ export default function IdeaDetailPage() {
   ];
 
   const quickStats = [
-    { label: "Target Audience", value: report.targetAudience || "—", icon: Target },
-    { label: "Industry", value: report.industry || "—", icon: Briefcase },
-    { label: "Geography", value: report.geography || "—", icon: Globe },
-    { label: "Business Model", value: report.businessModel || "—", icon: BarChart3 },
+    {
+      label: "Target Audience", value: report.targetAudience || "—", icon: Target,
+      summary: "Primary users who will benefit most from this product. Understanding the audience shapes messaging, features, and go-to-market strategy.",
+      details: [
+        { label: "Segment Size", value: "~2.4M businesses", progress: 72 },
+        { label: "Willingness to Pay", value: "High (78%)", progress: 78 },
+        { label: "Tech Adoption Rate", value: "Moderate (61%)", progress: 61 },
+        { label: "Switching Cost", value: "Low barrier", progress: 35 },
+      ],
+    },
+    {
+      label: "Industry", value: report.industry || "—", icon: Briefcase,
+      summary: "The target industry vertical and its current state of digital transformation and market readiness.",
+      details: [
+        { label: "Market Size (TAM)", value: "$12.8B", progress: 85 },
+        { label: "Growth Rate (CAGR)", value: "14.2%", progress: 71 },
+        { label: "Digital Maturity", value: "Low-Medium", progress: 40 },
+        { label: "Regulatory Complexity", value: "Moderate", progress: 55 },
+      ],
+    },
+    {
+      label: "Geography", value: report.geography || "—", icon: Globe,
+      summary: "Initial target markets and expansion potential across regions.",
+      details: [
+        { label: "Primary Market", value: "North America", progress: 90 },
+        { label: "Secondary Market", value: "Western Europe", progress: 65 },
+        { label: "Market Readiness", value: "High", progress: 82 },
+        { label: "Localization Effort", value: "Low", progress: 25 },
+      ],
+    },
+    {
+      label: "Business Model", value: report.businessModel || "—", icon: BarChart3,
+      summary: "Revenue model viability and projected unit economics for sustainable growth.",
+      details: [
+        { label: "Revenue Potential", value: "$4.2M ARR (Y3)", progress: 76 },
+        { label: "Gross Margin", value: "~82%", progress: 82 },
+        { label: "CAC Payback", value: "8 months", progress: 60 },
+        { label: "LTV:CAC Ratio", value: "4.1x", progress: 80 },
+      ],
+    },
   ];
 
   return (
