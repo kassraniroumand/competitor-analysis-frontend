@@ -331,6 +331,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
   const handleShowcaseSwipe = useCallback((offsetX: number) => {
     if (Math.abs(offsetX) < 50) return;
 
