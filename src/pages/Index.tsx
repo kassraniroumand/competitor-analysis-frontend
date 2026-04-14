@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import {
@@ -130,6 +131,7 @@ const moreFeaturesData = [
 // More features accordion section
 function MoreFeaturesSection() {
   const [openIndex, setOpenIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
@@ -163,10 +165,10 @@ function MoreFeaturesSection() {
                     <AnimatePresence initial={false}>
                       {isOpen && (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          initial={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                          animate={isMobile ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                          exit={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                          transition={{ duration: isMobile ? 0.15 : 0.25, ease: "easeInOut" }}
                           className="overflow-hidden"
                         >
                           <p className="mt-3 pl-7 text-sm leading-relaxed text-black/70">
@@ -186,10 +188,10 @@ function MoreFeaturesSection() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={openIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                exit={isMobile ? { opacity: 0 } : { opacity: 0, y: -20 }}
+                transition={{ duration: isMobile ? 0.15 : 0.3, ease: "easeInOut" }}
                 className="absolute inset-0 p-6 lg:p-8"
               >
                 <div className="relative h-full w-full">
@@ -329,6 +331,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
   const handleShowcaseSwipe = useCallback((offsetX: number) => {
     if (Math.abs(offsetX) < 50) return;
 
@@ -421,7 +424,7 @@ export default function Index() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              transition={isMobile ? { duration: 0.2, ease: "easeOut" } : { type: "spring", damping: 30, stiffness: 300 }}
               className="fixed inset-y-0 right-0 z-[70] flex w-full flex-col bg-background px-6 py-5 md:hidden"
             >
               <div className="flex items-center justify-between">
@@ -539,10 +542,10 @@ export default function Index() {
             <div className="relative min-h-[400px] lg:min-h-[500px]">
               <motion.div
                 className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg cursor-grab select-none touch-pan-y active:cursor-grabbing"
-                drag="x"
+                drag={isMobile ? false : "x"}
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.08}
-                onDragEnd={(_, info) => handleShowcaseSwipe(info.offset.x)}
+                onDragEnd={(_, info) => !isMobile && handleShowcaseSwipe(info.offset.x)}
               >
                 <AnimatePresence initial={false} mode="wait">
                   <motion.img
@@ -600,8 +603,9 @@ export default function Index() {
                         </p>
                         {activeShowcase === i && (
                           <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
+                            initial={isMobile ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                            animate={isMobile ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+                            transition={{ duration: isMobile ? 0.1 : 0.2 }}
                             className="mt-1 text-xs leading-relaxed text-muted-foreground"
                           >
                             {item.description}
