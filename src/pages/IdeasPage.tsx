@@ -62,25 +62,26 @@ export default function IdeasPage() {
         </PageHeader>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {isLoading
             ? Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
             : [
-                { label: "Total Ideas", value: stats.total, accent: false },
-                { label: "Completed", value: stats.completed, accent: false },
-                { label: "Processing", value: stats.processing, accent: false },
-                { label: "Avg. Score", value: stats.avgScore, accent: true },
+                { label: "Total Ideas", value: stats.total, icon: Lightbulb, color: "bg-foreground text-background", iconBg: "bg-background/15" },
+                { label: "Completed", value: stats.completed, icon: CheckCircle2, color: "bg-primary text-primary-foreground", iconBg: "bg-primary-foreground/20" },
+                { label: "Processing", value: stats.processing, icon: Loader2, color: "bg-secondary text-foreground", iconBg: "bg-background" },
+                { label: "Avg. Score", value: stats.avgScore, icon: Target, color: "bg-accent text-accent-foreground", iconBg: "bg-background" },
               ].map((stat) => (
-                <Card key={stat.label}>
-                  <CardContent className="p-4">
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                      {stat.label}
-                    </p>
-                    <p className={`text-2xl font-bold mt-1 ${stat.accent ? "text-primary" : "text-foreground"}`}>
-                      {stat.value}
-                    </p>
-                  </CardContent>
-                </Card>
+                <div key={stat.label} className={`rounded-2xl p-4 ${stat.color}`}>
+                  <div className="flex items-center justify-between">
+                    <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${stat.iconBg}`}>
+                      <stat.icon className="h-4 w-4" />
+                    </div>
+                    <span className="text-2xl font-bold tabular-nums">{stat.value}</span>
+                  </div>
+                  <p className="mt-3 text-xs font-medium opacity-70 uppercase tracking-wider">
+                    {stat.label}
+                  </p>
+                </div>
               ))}
         </div>
 
