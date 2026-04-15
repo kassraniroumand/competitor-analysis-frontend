@@ -7,7 +7,7 @@ import {
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
   ChevronRight, Sparkles, Check, Menu, X, Minus, Plus,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -426,34 +426,23 @@ function ShowcaseScrollSection({
     return () => mql.removeEventListener("change", onChange);
   }, []);
 
-  useEffect(() => {
-    const section = isDesktop ? desktopSectionRef.current : mobileSectionRef.current;
-    if (!section) return;
+  const { scrollYProgress: mobileProgress } = useScroll({
+    target: mobileSectionRef,
+    offset: ["start start", "end end"],
+  });
 
-    const handleScroll = () => {
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
-      const viewportH = window.innerHeight;
-      const scrollRange = Math.max(sectionHeight - viewportH, 1);
-      const scrolled = Math.max(0, -rect.top) / scrollRange;
-      const clamped = Math.max(0, Math.min(1, scrolled));
-      const stepIndex = Math.min(
-        showcaseItems.length - 1,
-        Math.floor(clamped * showcaseItems.length)
-      );
+  const { scrollYProgress: desktopProgress } = useScroll({
+    target: desktopSectionRef,
+    offset: ["start start", "end end"],
+  });
 
-      setActiveShowcase(stepIndex);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [isDesktop, setActiveShowcase]);
+  useMotionValueEvent(isDesktop ? desktopProgress : mobileProgress, "change", (latest) => {
+    const stepIndex = Math.min(
+      showcaseItems.length - 1,
+      Math.floor(latest * showcaseItems.length)
+    );
+    setActiveShowcase(stepIndex);
+  });
 
   const showcaseCard = (
     <div className="overflow-hidden rounded-2xl bg-secondary p-5 sm:p-6 lg:p-12">
