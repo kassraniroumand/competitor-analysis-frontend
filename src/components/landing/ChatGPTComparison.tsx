@@ -30,11 +30,10 @@ export default function ChatGPTComparison() {
     <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
       {/* Header */}
       <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-        Why IdeaProbe?
+        Built for serious business.
       </h2>
       <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-        General-purpose AI is great for brainstorming — but idea validation
-        needs purpose-built tools with real data and consistent frameworks.
+        IdeaProbe is designed for professional teams. Our platform brings deep market analysis, competitor intelligence, and AI-powered scoring.
       </p>
 
       <Separator className="my-8 bg-border" />
