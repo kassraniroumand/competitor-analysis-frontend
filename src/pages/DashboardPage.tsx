@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import {
   Lightbulb, Users, TrendingUp, AlertTriangle, Sparkles,
-  ArrowRight, Clock, Trophy, BarChart3, FileText,
+  ArrowRight, Clock, Trophy, BarChart3, FileText, Target, CheckCircle2, Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
