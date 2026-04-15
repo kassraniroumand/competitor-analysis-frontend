@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription }
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import HeroCanvas from "@/components/HeroCanvas";
+import ChatGPTComparison from "@/components/landing/ChatGPTComparison";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";
 // @ts-ignore
@@ -855,6 +856,9 @@ export default function Index() {
 
       {/* More Features — Accordion + Collage */}
       <MoreFeaturesSection />
+
+      {/* ChatGPT vs IdeaProbe comparison */}
+      <ChatGPTComparison />
 
       {/* Testimonials — horizontal scroll cards */}
       <section id="testimonials" className="py-20 lg:py-28 max-w-7xl mx-auto">
