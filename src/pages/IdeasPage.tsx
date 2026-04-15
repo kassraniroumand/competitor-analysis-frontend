@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Lightbulb, Search, SlidersHorizontal, Sparkles } from "lucide-react";
+import { Lightbulb, Search, SlidersHorizontal, Sparkles, ArrowUpDown, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
