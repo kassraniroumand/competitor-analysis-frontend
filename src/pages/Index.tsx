@@ -717,38 +717,66 @@ export default function Index() {
         <Separator className="my-8 bg-border" />
 
         {/* Bento grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[180px]">
           {features.map((feature, idx) => {
-            const isLarge = idx < 2;
+            // Bento spans: first two take 6 cols + 2 rows, next two 6 cols + 1 row, last two 4 cols + 1 row
+            const spanClass = [
+              "lg:col-span-7 lg:row-span-2",
+              "lg:col-span-5 lg:row-span-2",
+              "lg:col-span-6",
+              "lg:col-span-6",
+              "lg:col-span-4",
+              "lg:col-span-4",
+            ][idx] || "lg:col-span-4";
+            const isHero = idx < 2;
+
+            // Unique accent colors per card
+            const accentBgs = [
+              "from-primary/15 to-primary/5",
+              "from-accent to-accent/30",
+              "from-orange-500/10 to-yellow-500/5",
+              "from-blue-500/10 to-indigo-500/5",
+              "from-rose-500/10 to-pink-500/5",
+              "from-emerald-500/10 to-teal-500/5",
+            ];
+
             return (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.07 }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
                 className={cn(
-                  "group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors hover:bg-accent/50",
-                  isLarge && "sm:col-span-1 lg:row-span-2"
+                  "group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5",
+                  spanClass,
+                  accentBgs[idx]
                 )}
               >
+                {/* Decorative floating shape */}
                 <div className={cn(
-                  "flex items-center justify-center rounded-xl bg-secondary transition-transform group-hover:scale-105",
-                  isLarge ? "mb-6 h-40" : "mb-5 h-24"
-                )}>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-background shadow-sm">
-                    <feature.icon className={cn("text-foreground", isLarge ? "h-6 w-6" : "h-5 w-5")} />
+                  "absolute rounded-full bg-primary/10 blur-2xl transition-transform duration-500 group-hover:scale-150",
+                  isHero ? "-right-10 -top-10 h-40 w-40" : "-right-6 -top-6 h-24 w-24"
+                )} />
+
+                <div className="relative z-10">
+                  <div className={cn(
+                    "mb-4 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm shadow-sm border border-border/50 w-fit",
+                    isHero ? "h-12 w-12" : "h-10 w-10"
+                  )}>
+                    <feature.icon className={cn("text-primary", isHero ? "h-6 w-6" : "h-5 w-5")} />
                   </div>
+                  <h3 className={cn(
+                    "font-bold text-foreground",
+                    isHero ? "text-xl" : "text-sm"
+                  )}>
+                    {feature.title}
+                  </h3>
                 </div>
-                <h3 className={cn(
-                  "font-bold text-foreground",
-                  isLarge ? "text-lg" : "text-sm"
-                )}>
-                  {feature.title}
-                </h3>
+
                 <p className={cn(
-                  "mt-2 leading-relaxed text-muted-foreground",
-                  isLarge ? "text-sm" : "text-xs"
+                  "relative z-10 leading-relaxed text-muted-foreground",
+                  isHero ? "text-sm max-w-md" : "text-xs"
                 )}>
                   {feature.description}
                 </p>
