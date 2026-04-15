@@ -415,7 +415,9 @@ function ShowcaseScrollSection({
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // Scroll-driven logic — desktop only
   useEffect(() => {
+    if (isMobile) return;
     const section = sectionRef.current;
     if (!section) return;
 
@@ -423,7 +425,6 @@ function ShowcaseScrollSection({
       const rect = section.getBoundingClientRect();
       const sectionHeight = section.offsetHeight;
       const viewportH = window.innerHeight;
-      // How far we've scrolled into the section (0 at top, 1 at bottom)
       const scrolled = Math.max(0, -rect.top) / (sectionHeight - viewportH);
       const clamped = Math.max(0, Math.min(1, scrolled));
       const stepIndex = Math.min(
@@ -435,21 +436,80 @@ function ShowcaseScrollSection({
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [setActiveShowcase]);
+  }, [setActiveShowcase, isMobile]);
 
-  // On mobile, use a shorter section
-  const sectionHeight = isMobile ? showcaseItems.length * 80 : showcaseItems.length * 100;
+  // Mobile: normal section, no scroll-driven
+  if (isMobile) {
+    return (
+      <section className="px-6 py-16">
+        <div className="overflow-hidden rounded-2xl bg-secondary p-5">
+          {/* Image */}
+          <div className="relative aspect-video overflow-hidden rounded-xl shadow-lg mb-4">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.img
+                key={activeShowcase}
+                src={showcaseItems[activeShowcase].image}
+                alt={showcaseItems[activeShowcase].label}
+                className="absolute inset-0 h-full w-full object-cover"
+                draggable={false}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              />
+            </AnimatePresence>
+          </div>
 
+          {/* Steps — compact horizontal pills + active description */}
+          <div className="flex gap-1.5 overflow-x-auto pb-2 mb-3 no-scrollbar">
+            {showcaseItems.map((item, i) => (
+              <button
+                key={item.label}
+                onClick={() => setActiveShowcase(i)}
+                className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition-all ${
+                  activeShowcase === i
+                    ? "bg-foreground text-background"
+                    : "bg-background text-muted-foreground"
+                }`}
+              >
+                0{i + 1}
+              </button>
+            ))}
+          </div>
+
+          <div className="px-1">
+            <p className="text-sm font-bold text-foreground">
+              {showcaseItems[activeShowcase].label}
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              {showcaseItems[activeShowcase].description}
+            </p>
+          </div>
+
+          {/* Progress */}
+          <div className="mt-4 h-0.5 w-full rounded-full bg-border overflow-hidden">
+            <motion.div
+              className="h-full bg-primary rounded-full"
+              animate={{ width: `${((activeShowcase + 1) / showcaseItems.length) * 100}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop: scroll-driven sticky layout
   return (
     <section
       ref={sectionRef}
-      style={{ height: `${sectionHeight}vh` }}
+      style={{ height: `${showcaseItems.length * 100}vh` }}
       className="relative"
     >
       <div className="sticky top-0 h-screen flex items-center">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
-          <div className="overflow-hidden rounded-2xl bg-secondary p-6 sm:p-8 lg:p-12">
-            <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-10">
+          <div className="overflow-hidden rounded-2xl bg-secondary p-8 lg:p-12">
+            <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
               {/* Left — preview image */}
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
                 <AnimatePresence initial={false} mode="wait">
@@ -466,14 +526,13 @@ function ShowcaseScrollSection({
                   />
                 </AnimatePresence>
 
-                {/* Step counter badge */}
                 <div className="absolute bottom-3 left-3 rounded-lg bg-background/90 backdrop-blur-sm px-3 py-1.5 text-xs font-bold text-foreground shadow">
                   {activeShowcase + 1} / {showcaseItems.length}
                 </div>
               </div>
 
               {/* Right — numbered steps */}
-              <div className="flex flex-col justify-between lg:min-h-[400px]">
+              <div className="flex flex-col justify-between min-h-[400px]">
                 <div className="space-y-1">
                   {showcaseItems.map((item, i) => (
                     <button
@@ -503,7 +562,7 @@ function ShowcaseScrollSection({
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: "auto" }}
                                 exit={{ opacity: 0, height: 0 }}
-                                transition={{ duration: isMobile ? 0.15 : 0.25, ease: "easeOut" }}
+                                transition={{ duration: 0.25, ease: "easeOut" }}
                                 className="mt-1 text-xs leading-relaxed text-muted-foreground overflow-hidden"
                               >
                                 {item.description}
@@ -516,7 +575,6 @@ function ShowcaseScrollSection({
                   ))}
                 </div>
 
-                {/* Progress bar */}
                 <div className="mt-6">
                   <div className="h-0.5 w-full rounded-full bg-border overflow-hidden">
                     <motion.div
