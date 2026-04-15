@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Sparkles, Check, X, ArrowRight } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const features = [
   { category: "Market Research", chatgpt: false, gemini: false, platform: true },
@@ -26,16 +27,18 @@ function StatusIcon({ available }: { available: boolean }) {
 
 export default function ChatGPTComparison() {
   return (
-    <section className="py-20 lg:py-28 max-w-4xl mx-auto px-4 sm:px-6">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-          Why <span className="text-primary">IdeaProbe</span>?
+    <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+      {/* Header row — same layout as "Built for serious business" */}
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Why IdeaProbe?
         </h2>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          General-purpose AI is great for brainstorming — but idea validation needs purpose-built tools.
+        <p className="max-w-md text-sm leading-relaxed text-muted-foreground lg:text-right">
+          General-purpose AI is great for brainstorming — but idea validation needs purpose-built tools with real data and consistent frameworks.
         </p>
       </div>
+
+      <Separator className="my-8 bg-border" />
 
       {/* Comparison Table */}
       <motion.div
@@ -91,7 +94,7 @@ export default function ChatGPTComparison() {
       </motion.div>
 
       {/* CTA */}
-      <div className="flex justify-center pt-8">
+      <div className="flex justify-center pt-10">
         <a
           href="/ideas"
           className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-[1.02]"
