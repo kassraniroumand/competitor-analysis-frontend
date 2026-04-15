@@ -40,7 +40,7 @@ export default function IdeaDetailPage() {
         <header className="space-y-3">
           <div className="flex items-center gap-2 text-xs">
             <Badge variant="outline" className="font-medium uppercase tracking-wider">
-              {report.status === "completed" ? "Completed" : report.status === "analyzing" ? "Analyzing" : "Queued"}
+              {report.status === "completed" ? "Completed" : report.status === "processing" ? "Processing" : "Queued"}
             </Badge>
             <Badge variant="outline" className="font-medium uppercase tracking-wider">{report.category}</Badge>
           </div>
