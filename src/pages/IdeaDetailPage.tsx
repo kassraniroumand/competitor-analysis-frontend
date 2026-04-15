@@ -4,7 +4,7 @@ import {
   TrendingUp, AlertTriangle, Zap, DollarSign, Lightbulb,
   Shield, Rocket, CheckCircle, MessageSquare, Search,
   ThumbsUp, ThumbsDown, ChevronRight, HelpCircle,
-  Target, BarChart3, Globe, Layers
+  Target, BarChart3, Globe, Layers, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -35,6 +35,12 @@ export default function IdeaDetailPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-10 max-w-5xl mx-auto space-y-8">
+
+        {/* ── Back Button ── */}
+        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => navigate("/ideas")}>
+          <ArrowLeft className="h-4 w-4" />
+          Back to Ideas
+        </Button>
 
         {/* ── Header ── */}
         <header className="space-y-4">
