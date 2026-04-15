@@ -40,40 +40,40 @@ const showcaseItems = [
 
 const features = [
   {
-    icon: Search,
-    title: "Deep Market Research",
+    icon: TrendingUp,
+    title: "Save Weeks of Research",
     description:
-      "Analyze search demand, keyword trends, and community interest to validate real market need for your idea.",
-  },
-  {
-    icon: Users,
-    title: "Competitor Intelligence",
-    description:
-      "Map direct and indirect competitors, compare pricing, features, strengths, and find your competitive edge.",
-  },
-  {
-    icon: Target,
-    title: "Pain Point Discovery",
-    description:
-      "Surface real user complaints, feature requests, and unmet needs from across the web.",
-  },
-  {
-    icon: BarChart3,
-    title: "Validation Metrics",
-    description:
-      "Get quantified demand signals: search volume, trend direction, community activity, and market sizing.",
+      "What takes consultants 2–4 weeks, IdeaProbe delivers in under 2 minutes with real data — not guesswork.",
   },
   {
     icon: Shield,
-    title: "Opportunity Scoring",
+    title: "Reduce Startup Risk",
     description:
-      "AI-powered scoring rates each idea out of 100, factoring in market size, competition, and timing.",
+      "Catch fatal flaws before you invest. 70% of startups fail from no market need — validate first.",
+  },
+  {
+    icon: Users,
+    title: "Built for Teams",
+    description:
+      "Share reports, compare ideas side-by-side, and align your team on data-driven decisions.",
+  },
+  {
+    icon: BarChart3,
+    title: "Quantified Confidence",
+    description:
+      "Every idea scored across 12 dimensions. No more gut feelings — just clear, comparable metrics.",
   },
   {
     icon: Zap,
-    title: "Instant Reports",
+    title: "Always Up-to-Date",
     description:
-      "Generate comprehensive validation reports in under 2 minutes — what used to take weeks of manual research.",
+      "Live data from search trends, communities, and market signals — never based on stale training data.",
+  },
+  {
+    icon: Star,
+    title: "Investor-Ready Output",
+    description:
+      "Export polished validation reports that prove market demand to investors and stakeholders.",
   },
 ];
 
