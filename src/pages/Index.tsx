@@ -705,64 +705,42 @@ export default function Index() {
       </section>
 
 
-      {/* Features section — Bento grid */}
+      {/* Features section — Accordion list */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Built for serious business.
-        </h2>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          IdeaProbe is designed for professional teams. Our platform brings deep market analysis, competitor intelligence, and AI-powered scoring.
-        </p>
-
-        <Separator className="my-8 bg-border" />
-
-        {/* Bento grid */}
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-12">
-          {/* Card 1 — Hero wide */}
-          <div className="sm:col-span-2 lg:col-span-7 rounded-2xl bg-foreground text-background p-8 flex flex-col justify-between min-h-[280px]">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-background/15">
-              <Search className="h-5 w-5" />
-            </div>
-            <div className="mt-auto">
-              <h3 className="text-xl font-bold">{features[0].title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-background/70 max-w-md">{features[0].description}</p>
-            </div>
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
+          {/* Left — sticky header */}
+          <div className="lg:sticky lg:top-28">
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Built for serious business.
+            </h2>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+              IdeaProbe is designed for professional teams. Our platform brings deep market analysis, competitor intelligence, and AI-powered scoring.
+            </p>
           </div>
 
-          {/* Card 2 — Tall accent */}
-          <div className="lg:col-span-5 lg:row-span-2 rounded-2xl bg-primary p-8 flex flex-col justify-between min-h-[280px]">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-foreground/20">
-              <Users className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <div className="mt-auto">
-              <h3 className="text-xl font-bold text-primary-foreground">{features[1].title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70 max-w-sm">{features[1].description}</p>
-            </div>
-          </div>
-
-          {/* Card 3 — Medium */}
-          <div className="lg:col-span-7 rounded-2xl border border-border bg-card p-7 flex flex-col justify-between min-h-[200px]">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary">
-              <Target className="h-5 w-5 text-foreground" />
-            </div>
-            <div className="mt-auto">
-              <h3 className="text-base font-bold text-foreground">{features[2].title}</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{features[2].description}</p>
-            </div>
-          </div>
-
-          {/* Cards 4, 5, 6 — Bottom row */}
-          {features.slice(3).map((feature) => (
-            <div key={feature.title} className="lg:col-span-4 rounded-2xl bg-secondary p-6 flex flex-col justify-between min-h-[180px]">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-background border border-border">
-                <feature.icon className="h-5 w-5 text-foreground" />
+          {/* Right — feature list with dividers */}
+          <div className="divide-y divide-border">
+            {features.map((feature, idx) => (
+              <div key={feature.title} className="group py-7 first:pt-0 last:pb-0">
+                <div className="flex items-start gap-5">
+                  <span className="mt-0.5 text-xs font-mono font-bold text-muted-foreground/50 tabular-nums">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                        <feature.icon className="h-4 w-4 text-primary" />
+                      </div>
+                      <h3 className="text-base font-bold text-foreground">{feature.title}</h3>
+                    </div>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground pl-12">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="mt-auto">
-                <h3 className="text-sm font-bold text-foreground">{feature.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{feature.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
