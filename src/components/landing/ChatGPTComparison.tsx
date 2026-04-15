@@ -1,33 +1,39 @@
 import { motion } from "framer-motion";
-import { MessageSquare, Sparkles, Check, X, ArrowRight } from "lucide-react";
+import { Sparkles, Check, X, ArrowRight } from "lucide-react";
 
 const features = [
-  { category: "Market Research", chatgpt: "Manual prompting, outdated data", platform: "One-click real-time analysis" },
-  { category: "Competitors", chatgpt: "Generic surface-level lists", platform: "Full competitive map with pricing" },
-  { category: "Pain Points", chatgpt: "Guesswork, no real evidence", platform: "Evidence-based from 50+ sources" },
-  { category: "Scoring", chatgpt: "Subjective, inconsistent", platform: "12-dimension data-backed scoring" },
-  { category: "Reports", chatgpt: "Copy-paste from multiple chats", platform: "One-click professional export" },
-  { category: "Speed", chatgpt: "Hours of prompt engineering", platform: "Results in under 60 seconds" },
-  { category: "Data Sources", chatgpt: "Training data only", platform: "Live data from real sources" },
-  { category: "Consistency", chatgpt: "Different prompts → different results", platform: "Same framework every time" },
+  { category: "Market Research", chatgpt: false, gemini: false, platform: true },
+  { category: "Competitor Analysis", chatgpt: false, gemini: false, platform: true },
+  { category: "Pain Point Discovery", chatgpt: false, gemini: false, platform: true },
+  { category: "12-Dimension Scoring", chatgpt: false, gemini: false, platform: true },
+  { category: "Real-Time Data Sources", chatgpt: false, gemini: true, platform: true },
+  { category: "One-Click Reports", chatgpt: false, gemini: false, platform: true },
+  { category: "Consistent Framework", chatgpt: false, gemini: false, platform: true },
+  { category: "Results in < 60s", chatgpt: false, gemini: false, platform: true },
 ];
+
+function StatusIcon({ available }: { available: boolean }) {
+  return available ? (
+    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10">
+      <Check className="h-3.5 w-3.5 text-primary" />
+    </div>
+  ) : (
+    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-destructive/10">
+      <X className="h-3.5 w-3.5 text-destructive/70" />
+    </div>
+  );
+}
 
 export default function ChatGPTComparison() {
   return (
-    <section className="py-20 lg:py-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
+    <section className="py-20 lg:py-28 max-w-4xl mx-auto px-4 sm:px-6">
       {/* Header */}
       <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 rounded-full bg-destructive/10 px-4 py-1.5 text-xs font-semibold text-destructive mb-5">
-          <MessageSquare className="h-3.5 w-3.5" />
-          ChatGPT is not enough
-        </div>
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-          Stop prompt-engineering.
-          <br />
-          <span className="text-primary">Start validating.</span>
+          Why <span className="text-primary">IdeaProbe</span>?
         </h2>
-        <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-          ChatGPT is great for brainstorming — but validation needs structured data, real sources, and consistent frameworks.
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+          General-purpose AI is great for brainstorming — but idea validation needs purpose-built tools.
         </p>
       </div>
 
@@ -39,41 +45,46 @@ export default function ChatGPTComparison() {
         transition={{ duration: 0.5 }}
         className="rounded-2xl border border-border overflow-hidden"
       >
-        {/* Table Header */}
-        <div className="grid grid-cols-[1fr_1fr_1fr] bg-muted/50">
-          <div className="p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        {/* Header Row */}
+        <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] sm:grid-cols-[2fr_1fr_1fr_1fr] bg-muted/50 text-center">
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground text-left">
             Feature
           </div>
-          <div className="p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2 border-l border-border">
-            <MessageSquare className="h-3.5 w-3.5" />
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground border-l border-border">
             ChatGPT
           </div>
-          <div className="p-4 text-xs font-semibold uppercase tracking-wider text-primary flex items-center gap-2 border-l border-primary/20 bg-primary/5">
-            <Sparkles className="h-3.5 w-3.5" />
-            IdeaProbe
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground border-l border-border">
+            Gemini
+          </div>
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-primary border-l border-primary/20 bg-primary/5">
+            <span className="flex items-center justify-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5" />
+              IdeaProbe
+            </span>
           </div>
         </div>
 
-        {/* Table Rows */}
-        {features.map((feature, i) => (
+        {/* Rows */}
+        {features.map((f, i) => (
           <motion.div
-            key={feature.category}
+            key={f.category}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
-            className="grid grid-cols-[1fr_1fr_1fr] border-t border-border"
+            transition={{ delay: i * 0.04 }}
+            className="grid grid-cols-[1.4fr_1fr_1fr_1fr] sm:grid-cols-[2fr_1fr_1fr_1fr] border-t border-border text-center"
           >
-            <div className="p-4 text-sm font-medium text-foreground flex items-center">
-              {feature.category}
+            <div className="p-3 sm:p-4 text-sm font-medium text-foreground text-left flex items-center">
+              {f.category}
             </div>
-            <div className="p-4 text-sm text-muted-foreground border-l border-border flex items-start gap-2">
-              <X className="h-4 w-4 shrink-0 text-destructive/60 mt-0.5" />
-              <span>{feature.chatgpt}</span>
+            <div className="p-3 sm:p-4 border-l border-border flex items-center justify-center">
+              <StatusIcon available={f.chatgpt} />
             </div>
-            <div className="p-4 text-sm text-foreground border-l border-primary/20 bg-primary/[0.02] flex items-start gap-2">
-              <Check className="h-4 w-4 shrink-0 text-primary mt-0.5" />
-              <span>{feature.platform}</span>
+            <div className="p-3 sm:p-4 border-l border-border flex items-center justify-center">
+              <StatusIcon available={f.gemini} />
+            </div>
+            <div className="p-3 sm:p-4 border-l border-primary/20 bg-primary/[0.02] flex items-center justify-center">
+              <StatusIcon available={f.platform} />
             </div>
           </motion.div>
         ))}
