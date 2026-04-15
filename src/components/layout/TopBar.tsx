@@ -19,7 +19,6 @@ const navItems = [
 ];
 
 export function TopBar() {
-  const isMobile = useIsMobile();
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border bg-card px-4">
