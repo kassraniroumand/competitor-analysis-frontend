@@ -161,20 +161,6 @@ export default function HeroCanvas() {
                 ))}
               </div>
 
-              {/* Bar chart */}
-              <div className="mt-5 flex items-end gap-1 h-12">
-                {barHeights[i].map((h, bi) => (
-                  <div
-                    key={bi}
-                    className="flex-1 rounded-sm transition-all duration-700 ease-out"
-                    style={{
-                      height: isActive ? `${h}%` : "10%",
-                      transitionDelay: isActive ? `${bi * 40 + 200}ms` : "0ms",
-                      background: `hsl(var(--primary) / ${0.15 + (h / 100) * 0.45})`,
-                    }}
-                  />
-                ))}
-              </div>
             </div>
           );
         })}
