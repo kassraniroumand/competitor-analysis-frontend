@@ -538,7 +538,7 @@ function ShowcaseScrollSection({
   );
 }
 
-  const navigate = useNavigate();
+  export default function Index() {
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
