@@ -82,12 +82,8 @@ export function TopBar() {
                   JD
                 </AvatarFallback>
               </Avatar>
-              {!isMobile && (
-                <>
-                  <span className="text-sm font-medium text-foreground">Jane Doe</span>
-                  <ChevronDown className="h-3 w-3 text-muted-foreground" />
-                </>
-              )}
+              <span className="hidden sm:inline text-sm font-medium text-foreground">Jane Doe</span>
+              <ChevronDown className="hidden sm:block h-3 w-3 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
