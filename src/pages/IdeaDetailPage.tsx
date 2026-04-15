@@ -36,6 +36,12 @@ export default function IdeaDetailPage() {
     <AppLayout>
       <div className="p-6 lg:p-10 max-w-5xl mx-auto space-y-8">
 
+        {/* ── Back Button ── */}
+        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => navigate("/ideas")}>
+          <ArrowLeft className="h-4 w-4" />
+          Back to Ideas
+        </Button>
+
         {/* ── Header ── */}
         <header className="space-y-4">
           <div className="flex items-center gap-2 text-xs">
