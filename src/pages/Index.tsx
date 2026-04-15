@@ -705,50 +705,56 @@ export default function Index() {
       </section>
 
 
-      {/* Features section */}
+      {/* Features section — Bento grid */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-        {/* Header row */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Built for serious business.
-          </h2>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground lg:text-right">
-            IdeaProbe is designed for professional teams. Our platform brings deep market analysis, competitor intelligence, and AI-powered scoring.
-          </p>
-        </div>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Built for serious business.
+        </h2>
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          IdeaProbe is designed for professional teams. Our platform brings deep market analysis, competitor intelligence, and AI-powered scoring.
+        </p>
+
         <Separator className="my-8 bg-border" />
 
-        {/* Two large feature cards */}
-        <div className="grid gap-px lg:grid-cols-2">
-          {features.slice(0, 2).map((feature, idx) => (
-            <div key={feature.title} className={`space-y-4 py-8 ${idx === 0 ? "lg:pr-10 lg:border-r lg:border-border" : "lg:pl-10"}`}>
-              <div className="flex items-center gap-2.5">
-                <feature.icon className="h-5 w-5 text-foreground" />
-                <h3 className="text-base font-bold text-foreground">{feature.title}</h3>
-              </div>
-              <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">{feature.description}</p>
-              <div className="mt-4 flex h-[320px] items-center justify-center overflow-hidden rounded-xl bg-secondary">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm">
-                  <feature.icon className="h-7 w-7 text-foreground" />
+        {/* Bento grid */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, idx) => {
+            const isLarge = idx < 2;
+            return (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.07 }}
+                className={cn(
+                  "group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors hover:bg-accent/50",
+                  isLarge && "sm:col-span-1 lg:row-span-2"
+                )}
+              >
+                <div className={cn(
+                  "flex items-center justify-center rounded-xl bg-secondary transition-transform group-hover:scale-105",
+                  isLarge ? "mb-6 h-40" : "mb-5 h-24"
+                )}>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-background shadow-sm">
+                    <feature.icon className={cn("text-foreground", isLarge ? "h-6 w-6" : "h-5 w-5")} />
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <Separator className="my-8 bg-border" />
-
-        {/* Bottom 4 small features */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {features.slice(2).map((feature) => (
-            <div key={feature.title} className="space-y-2.5">
-              <div className="flex items-center gap-2">
-                <feature.icon className="h-4 w-4 text-foreground" />
-                <h3 className="text-sm font-bold text-foreground">{feature.title}</h3>
-              </div>
-              <p className="text-xs leading-relaxed text-muted-foreground">{feature.description}</p>
-            </div>
-          ))}
+                <h3 className={cn(
+                  "font-bold text-foreground",
+                  isLarge ? "text-lg" : "text-sm"
+                )}>
+                  {feature.title}
+                </h3>
+                <p className={cn(
+                  "mt-2 leading-relaxed text-muted-foreground",
+                  isLarge ? "text-sm" : "text-xs"
+                )}>
+                  {feature.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
