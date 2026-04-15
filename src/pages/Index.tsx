@@ -407,17 +407,17 @@ function MoreFeaturesSection() {
 function ShowcaseScrollSection({
   activeShowcase,
   setActiveShowcase,
-  isMobile,
 }: {
   activeShowcase: number;
   setActiveShowcase: (i: number) => void;
   isMobile: boolean;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isDesktop = typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
 
   // Scroll-driven logic — desktop only
   useEffect(() => {
-    if (isMobile) return;
+    if (!isDesktop) return;
     const section = sectionRef.current;
     if (!section) return;
 
@@ -436,37 +436,37 @@ function ShowcaseScrollSection({
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [setActiveShowcase, isMobile]);
+  }, [setActiveShowcase, isDesktop]);
 
-  // Mobile: normal section, no scroll-driven
-  if (isMobile) {
-    return (
-      <section className="px-6 py-16">
-        <div className="overflow-hidden rounded-2xl bg-secondary p-5">
-          {/* Image */}
-          <div className="relative aspect-video overflow-hidden rounded-xl shadow-lg mb-4">
-            <AnimatePresence initial={false} mode="wait">
-              <motion.img
-                key={activeShowcase}
-                src={showcaseItems[activeShowcase].image}
-                alt={showcaseItems[activeShowcase].label}
-                className="absolute inset-0 h-full w-full object-cover"
-                draggable={false}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              />
-            </AnimatePresence>
-          </div>
+  const showcaseCard = (
+    <div className="overflow-hidden rounded-2xl bg-secondary p-5 sm:p-6 lg:p-12">
+      <div className="flex flex-col lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-start gap-5 lg:gap-10">
+        {/* Preview image */}
+        <div className="relative aspect-video lg:aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
+          <AnimatePresence initial={false} mode="wait">
+            <motion.img
+              key={activeShowcase}
+              src={showcaseItems[activeShowcase].image}
+              alt={showcaseItems[activeShowcase].label}
+              className="absolute inset-0 h-full w-full object-cover"
+              draggable={false}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          </AnimatePresence>
+        </div>
 
-          {/* Steps — compact horizontal pills + active description */}
-          <div className="flex gap-1.5 overflow-x-auto pb-2 mb-3 no-scrollbar">
+        {/* Steps */}
+        <div className="flex flex-col justify-between lg:min-h-[400px]">
+          {/* Mobile: horizontal pills */}
+          <div className="flex gap-1.5 overflow-x-auto pb-2 mb-2 no-scrollbar lg:hidden">
             {showcaseItems.map((item, i) => (
               <button
                 key={item.label}
                 onClick={() => setActiveShowcase(i)}
-                className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition-all ${
+                className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                   activeShowcase === i
                     ? "bg-foreground text-background"
                     : "bg-background text-muted-foreground"
@@ -477,7 +477,8 @@ function ShowcaseScrollSection({
             ))}
           </div>
 
-          <div className="px-1">
+          {/* Mobile: active step info */}
+          <div className="px-0.5 lg:hidden">
             <p className="text-sm font-bold text-foreground">
               {showcaseItems[activeShowcase].label}
             </p>
@@ -486,18 +487,89 @@ function ShowcaseScrollSection({
             </p>
           </div>
 
-          {/* Progress */}
-          <div className="mt-4 h-0.5 w-full rounded-full bg-border overflow-hidden">
-            <motion.div
-              className="h-full bg-primary rounded-full"
-              animate={{ width: `${((activeShowcase + 1) / showcaseItems.length) * 100}%` }}
-              transition={{ duration: 0.3 }}
-            />
+          {/* Desktop: numbered step list */}
+          <div className="hidden lg:block space-y-1">
+            {showcaseItems.map((item, i) => (
+              <button
+                key={item.label}
+                onClick={() => setActiveShowcase(i)}
+                className={`block w-full text-left transition-all duration-300 rounded-lg px-4 py-3 ${
+                  activeShowcase === i
+                    ? "bg-background shadow-sm"
+                    : "hover:bg-background/50"
+                }`}
+              >
+                <div className="flex items-baseline gap-3">
+                  <span className={`text-xs font-bold tabular-nums transition-colors duration-300 ${
+                    activeShowcase === i ? "text-primary" : "text-muted-foreground/40"
+                  }`}>
+                    0{i + 1}
+                  </span>
+                  <div>
+                    <p className={`text-sm font-bold tracking-tight transition-colors duration-300 ${
+                      activeShowcase === i ? "text-foreground" : "text-muted-foreground/40"
+                    }`}>
+                      {item.label}
+                    </p>
+                    <AnimatePresence initial={false}>
+                      {activeShowcase === i && (
+                        <motion.p
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25, ease: "easeOut" }}
+                          className="mt-1 text-xs leading-relaxed text-muted-foreground overflow-hidden"
+                        >
+                          {item.description}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-4 lg:mt-6">
+            <div className="h-0.5 w-full rounded-full bg-border overflow-hidden">
+              <motion.div
+                className="h-full bg-primary rounded-full"
+                animate={{ width: `${((activeShowcase + 1) / showcaseItems.length) * 100}%` }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+            <p className="hidden lg:block mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+              Five steps. Under two minutes. From raw idea to validated business opportunity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Mobile: normal flow section */}
+      <section className="px-6 py-12 lg:hidden">
+        {showcaseCard}
+      </section>
+
+      {/* Desktop: scroll-driven sticky section */}
+      <section
+        ref={sectionRef}
+        style={{ height: `${showcaseItems.length * 100}vh` }}
+        className="relative hidden lg:block"
+      >
+        <div className="sticky top-0 h-screen flex items-center">
+          <div className="mx-auto w-full max-w-7xl px-10">
+            {showcaseCard}
           </div>
         </div>
       </section>
-    );
-  }
+    </>
+  );
+}
 
   // Desktop: scroll-driven sticky layout
   return (
