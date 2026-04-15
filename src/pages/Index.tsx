@@ -559,7 +559,8 @@ function ShowcaseScrollSection({
         style={{ height: `${showcaseItems.length * 72}vh` }}
         className="relative lg:hidden"
       >
-        <div className="sticky top-16 flex h-[calc(100svh-4rem)] items-center px-6 py-4">
+        <div className="sticky top-16 flex h-[calc(100svh-4rem)] flex-col justify-center px-6 py-4">
+          <h2 className="mb-4 text-center text-2xl font-bold tracking-tight text-foreground">How It Works</h2>
           <div className="w-full">{showcaseCard}</div>
         </div>
       </section>
@@ -569,7 +570,8 @@ function ShowcaseScrollSection({
         style={{ height: `${showcaseItems.length * 100}vh` }}
         className="relative hidden lg:block"
       >
-        <div className="sticky top-0 flex h-screen items-center">
+        <div className="sticky top-0 flex h-screen flex-col items-center justify-center">
+          <h2 className="mb-6 text-center text-4xl font-bold tracking-tight text-foreground">How It Works</h2>
           <div className="mx-auto w-full max-w-7xl px-10">
             {showcaseCard}
           </div>
