@@ -128,3 +128,38 @@
   width: 28px;
   background: hsl(var(--foreground));
 }
+
+/* Smooth swiper touch */
+.use-cases-swiper .swiper-wrapper,
+.testimonials-swiper .swiper-wrapper,
+.hero-canvas-swiper .swiper-wrapper {
+  touch-action: pan-y;
+}
+
+.use-cases-swiper,
+.testimonials-swiper,
+.hero-canvas-swiper {
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero-canvas-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.hero-canvas-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: hsl(var(--muted-foreground) / 0.25);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.hero-canvas-swiper .swiper-pagination-bullet-active {
+  width: 28px;
+  background: hsl(var(--foreground));
+}
