@@ -89,7 +89,7 @@ const categories = [
     chatgpt: {
       title: "Subjective opinion",
       points: [
-        "Gives a vague "this could work" assessment",
+        "Gives a vague 'this could work' assessment",
         "No consistent scoring framework",
         "Different prompts → different conclusions",
         "No comparative benchmarking",
