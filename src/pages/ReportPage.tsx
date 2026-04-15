@@ -125,10 +125,17 @@ export default function ReportPage() {
         {/* Competitor Summary */}
         <InsightCard title="Competitor Landscape" icon={Users}>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-            <MetricCard title="Total" value={mockCompetitors.length} />
-            <MetricCard title="Direct" value={mockCompetitors.filter(c => c.type === 'direct').length} />
-            <MetricCard title="Indirect" value={mockCompetitors.filter(c => c.type === 'indirect').length} />
-            <MetricCard title="Saturation" value="Medium" />
+            {[
+              { label: "Total", value: mockCompetitors.length, color: "bg-foreground text-background" },
+              { label: "Direct", value: mockCompetitors.filter(c => c.type === 'direct').length, color: "bg-primary text-primary-foreground" },
+              { label: "Indirect", value: mockCompetitors.filter(c => c.type === 'indirect').length, color: "bg-secondary text-foreground" },
+              { label: "Saturation", value: "Medium", color: "bg-accent text-accent-foreground" },
+            ].map((stat) => (
+              <div key={stat.label} className={`rounded-2xl p-4 ${stat.color}`}>
+                <span className="text-2xl font-bold tabular-nums">{stat.value}</span>
+                <p className="mt-1 text-xs font-medium opacity-70 uppercase tracking-wider">{stat.label}</p>
+              </div>
+            ))}
           </div>
           <div className="h-[200px]">
             <ResponsiveContainer width="100%" height="100%">
