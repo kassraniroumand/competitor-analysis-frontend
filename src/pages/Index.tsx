@@ -705,7 +705,7 @@ export default function Index() {
       </section>
 
 
-      {/* Features section — Bento grid */}
+      {/* Features section — Interactive Bento grid */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Built for serious business.
@@ -719,7 +719,6 @@ export default function Index() {
         {/* Bento grid */}
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[180px]">
           {features.map((feature, idx) => {
-            // Bento spans: first two take 6 cols + 2 rows, next two 6 cols + 1 row, last two 4 cols + 1 row
             const spanClass = [
               "lg:col-span-7 lg:row-span-2",
               "lg:col-span-5 lg:row-span-2",
@@ -730,7 +729,6 @@ export default function Index() {
             ][idx] || "lg:col-span-4";
             const isHero = idx < 2;
 
-            // Unique accent colors per card
             const accentBgs = [
               "from-primary/15 to-primary/5",
               "from-accent to-accent/30",
@@ -747,25 +745,47 @@ export default function Index() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
+                whileHover={{
+                  scale: 1.03,
+                  rotateX: -2,
+                  rotateY: 3,
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
+                }}
+                whileTap={{ scale: 0.97 }}
+                style={{ transformPerspective: 800 }}
                 className={cn(
-                  "group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5",
+                  "group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-gradient-to-br p-6 flex flex-col justify-between transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10",
                   spanClass,
                   accentBgs[idx]
                 )}
               >
-                {/* Decorative floating shape */}
-                <div className={cn(
-                  "absolute rounded-full bg-primary/10 blur-2xl transition-transform duration-500 group-hover:scale-150",
-                  isHero ? "-right-10 -top-10 h-40 w-40" : "-right-6 -top-6 h-24 w-24"
-                )} />
+                {/* Animated gradient orb */}
+                <motion.div
+                  className={cn(
+                    "absolute rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500",
+                    isHero ? "-right-16 -top-16 h-56 w-56" : "-right-8 -top-8 h-32 w-32"
+                  )}
+                  style={{ background: "radial-gradient(circle, hsl(var(--primary) / 0.2), transparent 70%)" }}
+                  animate={{
+                    x: [0, 10, -10, 0],
+                    y: [0, -10, 10, 0],
+                  }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                {/* Shimmer line on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
 
                 <div className="relative z-10">
-                  <div className={cn(
-                    "mb-4 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm shadow-sm border border-border/50 w-fit",
-                    isHero ? "h-12 w-12" : "h-10 w-10"
-                  )}>
+                  <motion.div
+                    className={cn(
+                      "mb-4 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm shadow-sm border border-border/50 w-fit",
+                      isHero ? "h-12 w-12" : "h-10 w-10"
+                    )}
+                    whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.5 } }}
+                  >
                     <feature.icon className={cn("text-primary", isHero ? "h-6 w-6" : "h-5 w-5")} />
-                  </div>
+                  </motion.div>
                   <h3 className={cn(
                     "font-bold text-foreground",
                     isHero ? "text-xl" : "text-sm"
@@ -774,12 +794,20 @@ export default function Index() {
                   </h3>
                 </div>
 
-                <p className={cn(
-                  "relative z-10 leading-relaxed text-muted-foreground",
-                  isHero ? "text-sm max-w-md" : "text-xs"
-                )}>
-                  {feature.description}
-                </p>
+                <div className="relative z-10 flex items-end justify-between gap-4">
+                  <p className={cn(
+                    "leading-relaxed text-muted-foreground",
+                    isHero ? "text-sm max-w-md" : "text-xs"
+                  )}>
+                    {feature.description}
+                  </p>
+                  <motion.div
+                    className="shrink-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+                    whileHover={{ scale: 1.2 }}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </motion.div>
+                </div>
               </motion.div>
             );
           })}
