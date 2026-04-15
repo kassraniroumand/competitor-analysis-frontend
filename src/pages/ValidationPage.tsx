@@ -62,12 +62,22 @@ export default function ValidationPage() {
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
           ) : (
-            <>
-              <MetricCard title="Ideas Validated" value={mockValidation.length} icon={CheckCircle2} />
-              <MetricCard title="Avg Demand Score" value={`${avgDemandScore}%`} icon={BarChart3} />
-              <MetricCard title="Total Keywords" value={mockValidation.reduce((s, v) => s + v.searchDemand.keywords.length, 0)} icon={Search} />
-              <MetricCard title="Community Mentions" value={mockValidation.reduce((s, v) => s + v.communityInterest.redditMentions + v.communityInterest.twitterMentions, 0).toLocaleString()} icon={MessageCircle} />
-            </>
+            [
+              { label: "Ideas Validated", value: mockValidation.length, icon: CheckCircle2, color: "bg-foreground text-background", iconBg: "bg-background/15" },
+              { label: "Avg Demand Score", value: `${avgDemandScore}%`, icon: BarChart3, color: "bg-primary text-primary-foreground", iconBg: "bg-primary-foreground/20" },
+              { label: "Total Keywords", value: mockValidation.reduce((s, v) => s + v.searchDemand.keywords.length, 0), icon: Search, color: "bg-secondary text-foreground", iconBg: "bg-background" },
+              { label: "Community Mentions", value: mockValidation.reduce((s, v) => s + v.communityInterest.redditMentions + v.communityInterest.twitterMentions, 0).toLocaleString(), icon: MessageCircle, color: "bg-accent text-accent-foreground", iconBg: "bg-background" },
+            ].map((stat) => (
+              <div key={stat.label} className={`rounded-2xl p-4 ${stat.color}`}>
+                <div className="flex items-center justify-between">
+                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${stat.iconBg}`}>
+                    <stat.icon className="h-4 w-4" />
+                  </div>
+                  <span className="text-2xl font-bold tabular-nums">{stat.value}</span>
+                </div>
+                <p className="mt-3 text-xs font-medium opacity-70 uppercase tracking-wider">{stat.label}</p>
+              </div>
+            ))
           )}
         </div>
 
