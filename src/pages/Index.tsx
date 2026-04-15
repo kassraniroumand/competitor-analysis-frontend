@@ -413,7 +413,16 @@ function ShowcaseScrollSection({
   isMobile: boolean;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isDesktop = typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Track viewport size reactively
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => setIsDesktop(mql.matches);
+    onChange();
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
 
   // Scroll-driven logic — desktop only
   useEffect(() => {
@@ -435,6 +444,7 @@ function ShowcaseScrollSection({
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run once immediately
     return () => window.removeEventListener("scroll", handleScroll);
   }, [setActiveShowcase, isDesktop]);
 
