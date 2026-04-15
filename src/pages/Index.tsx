@@ -879,7 +879,9 @@ export default function Index() {
             modules={[FreeMode, Navigation, Pagination]}
             spaceBetween={20}
             slidesPerView="auto"
-            freeMode={true}
+            freeMode={{ enabled: true, momentum: true, momentumRatio: 0.8 }}
+            grabCursor={true}
+            touchReleaseOnEdges={true}
             navigation={{
               prevEl: ".testimonials-prev",
               nextEl: ".testimonials-next",
