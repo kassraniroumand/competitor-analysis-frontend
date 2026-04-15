@@ -67,6 +67,9 @@ export default function HeroCanvas() {
           pagination={{ clickable: true }}
           spaceBetween={0}
           slidesPerView={1}
+          grabCursor={true}
+          touchReleaseOnEdges={true}
+          speed={400}
           onSwiper={(swiper) => { swiperRef.current = swiper; }}
           onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
           className="hero-canvas-swiper"
