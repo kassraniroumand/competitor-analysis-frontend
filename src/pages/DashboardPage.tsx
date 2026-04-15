@@ -72,16 +72,27 @@ export default function DashboardPage() {
         </PageHeader>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
           ) : (
-            <>
-              <MetricCard title="Total Ideas" value={mockReports.length} subtitle={`${completedReports.length} completed`} icon={Lightbulb} />
-              <MetricCard title="Avg. Score" value={`${avgScore}/100`} subtitle="Across completed ideas" icon={TrendingUp} />
-              <MetricCard title="Competitors" value={totalCompetitors} subtitle={`Across ${new Set(mockCompetitors.map((c) => c.ideaId)).size} ideas`} icon={Users} />
-              <MetricCard title="Processing" value={processingReports.length} subtitle="Currently analyzing" icon={Clock} />
-            </>
+            [
+              { label: "Total Ideas", value: mockReports.length, sub: `${completedReports.length} completed`, icon: Lightbulb, color: "bg-foreground text-background", iconBg: "bg-background/15" },
+              { label: "Avg. Score", value: `${avgScore}/100`, sub: "Across completed ideas", icon: Target, color: "bg-primary text-primary-foreground", iconBg: "bg-primary-foreground/20" },
+              { label: "Competitors", value: totalCompetitors, sub: `Across ${new Set(mockCompetitors.map((c) => c.ideaId)).size} ideas`, icon: Users, color: "bg-secondary text-foreground", iconBg: "bg-background" },
+              { label: "Processing", value: processingReports.length, sub: "Currently analyzing", icon: Loader2, color: "bg-accent text-accent-foreground", iconBg: "bg-background" },
+            ].map((stat) => (
+              <div key={stat.label} className={`rounded-2xl p-4 ${stat.color}`}>
+                <div className="flex items-center justify-between">
+                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${stat.iconBg}`}>
+                    <stat.icon className="h-4 w-4" />
+                  </div>
+                  <span className="text-2xl font-bold tabular-nums">{stat.value}</span>
+                </div>
+                <p className="mt-3 text-xs font-medium opacity-70 uppercase tracking-wider">{stat.label}</p>
+                <p className="mt-0.5 text-[10px] opacity-50">{stat.sub}</p>
+              </div>
+            ))
           )}
         </div>
 
