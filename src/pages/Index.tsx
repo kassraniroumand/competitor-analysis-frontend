@@ -412,10 +412,12 @@ function ShowcaseScrollSection({
   setActiveShowcase: (i: number) => void;
   isMobile: boolean;
 }) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const mobileSectionRef = useRef<HTMLDivElement>(null);
+  const desktopSectionRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
+  );
 
-  // Track viewport size reactively
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
     const onChange = () => setIsDesktop(mql.matches);
@@ -424,35 +426,39 @@ function ShowcaseScrollSection({
     return () => mql.removeEventListener("change", onChange);
   }, []);
 
-  // Scroll-driven logic — desktop only
   useEffect(() => {
-    if (!isDesktop) return;
-    const section = sectionRef.current;
+    const section = isDesktop ? desktopSectionRef.current : mobileSectionRef.current;
     if (!section) return;
 
     const handleScroll = () => {
       const rect = section.getBoundingClientRect();
       const sectionHeight = section.offsetHeight;
       const viewportH = window.innerHeight;
-      const scrolled = Math.max(0, -rect.top) / (sectionHeight - viewportH);
+      const scrollRange = Math.max(sectionHeight - viewportH, 1);
+      const scrolled = Math.max(0, -rect.top) / scrollRange;
       const clamped = Math.max(0, Math.min(1, scrolled));
       const stepIndex = Math.min(
         showcaseItems.length - 1,
         Math.floor(clamped * showcaseItems.length)
       );
+
       setActiveShowcase(stepIndex);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // run once immediately
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [setActiveShowcase, isDesktop]);
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [isDesktop, setActiveShowcase]);
 
   const showcaseCard = (
     <div className="overflow-hidden rounded-2xl bg-secondary p-5 sm:p-6 lg:p-12">
-      <div className="flex flex-col lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-start gap-5 lg:gap-10">
-        {/* Preview image */}
-        <div className="relative aspect-video lg:aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
+      <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-10">
+        <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
           <AnimatePresence initial={false} mode="wait">
             <motion.img
               key={activeShowcase}
@@ -468,15 +474,13 @@ function ShowcaseScrollSection({
           </AnimatePresence>
         </div>
 
-        {/* Steps */}
         <div className="flex flex-col justify-between lg:min-h-[400px]">
-          {/* Mobile: horizontal pills */}
-          <div className="flex gap-1.5 overflow-x-auto pb-2 mb-2 no-scrollbar lg:hidden">
+          <div className="mb-2 grid grid-cols-5 gap-1.5 lg:hidden">
             {showcaseItems.map((item, i) => (
               <button
                 key={item.label}
                 onClick={() => setActiveShowcase(i)}
-                className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
+                className={`rounded-full px-0 py-1.5 text-xs font-semibold transition-all ${
                   activeShowcase === i
                     ? "bg-foreground text-background"
                     : "bg-background text-muted-foreground"
@@ -487,7 +491,6 @@ function ShowcaseScrollSection({
             ))}
           </div>
 
-          {/* Mobile: active step info */}
           <div className="px-0.5 lg:hidden">
             <p className="text-sm font-bold text-foreground">
               {showcaseItems[activeShowcase].label}
@@ -497,28 +500,31 @@ function ShowcaseScrollSection({
             </p>
           </div>
 
-          {/* Desktop: numbered step list */}
-          <div className="hidden lg:block space-y-1">
+          <div className="hidden space-y-1 lg:block">
             {showcaseItems.map((item, i) => (
               <button
                 key={item.label}
                 onClick={() => setActiveShowcase(i)}
-                className={`block w-full text-left transition-all duration-300 rounded-lg px-4 py-3 ${
+                className={`block w-full rounded-lg px-4 py-3 text-left transition-all duration-300 ${
                   activeShowcase === i
                     ? "bg-background shadow-sm"
                     : "hover:bg-background/50"
                 }`}
               >
                 <div className="flex items-baseline gap-3">
-                  <span className={`text-xs font-bold tabular-nums transition-colors duration-300 ${
-                    activeShowcase === i ? "text-primary" : "text-muted-foreground/40"
-                  }`}>
+                  <span
+                    className={`text-xs font-bold tabular-nums transition-colors duration-300 ${
+                      activeShowcase === i ? "text-primary" : "text-muted-foreground/40"
+                    }`}
+                  >
                     0{i + 1}
                   </span>
                   <div>
-                    <p className={`text-sm font-bold tracking-tight transition-colors duration-300 ${
-                      activeShowcase === i ? "text-foreground" : "text-muted-foreground/40"
-                    }`}>
+                    <p
+                      className={`text-sm font-bold tracking-tight transition-colors duration-300 ${
+                        activeShowcase === i ? "text-foreground" : "text-muted-foreground/40"
+                      }`}
+                    >
                       {item.label}
                     </p>
                     <AnimatePresence initial={false}>
@@ -528,7 +534,7 @@ function ShowcaseScrollSection({
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.25, ease: "easeOut" }}
-                          className="mt-1 text-xs leading-relaxed text-muted-foreground overflow-hidden"
+                          className="mt-1 overflow-hidden text-xs leading-relaxed text-muted-foreground"
                         >
                           {item.description}
                         </motion.p>
@@ -540,16 +546,15 @@ function ShowcaseScrollSection({
             ))}
           </div>
 
-          {/* Progress bar */}
           <div className="mt-4 lg:mt-6">
-            <div className="h-0.5 w-full rounded-full bg-border overflow-hidden">
+            <div className="h-0.5 w-full overflow-hidden rounded-full bg-border">
               <motion.div
-                className="h-full bg-primary rounded-full"
+                className="h-full rounded-full bg-primary"
                 animate={{ width: `${((activeShowcase + 1) / showcaseItems.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <p className="hidden lg:block mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 hidden max-w-md text-sm leading-relaxed text-muted-foreground lg:block">
               Five steps. Under two minutes. From raw idea to validated business opportunity.
             </p>
           </div>
@@ -560,18 +565,22 @@ function ShowcaseScrollSection({
 
   return (
     <>
-      {/* Mobile: normal flow section */}
-      <section className="px-6 py-12 lg:hidden">
-        {showcaseCard}
+      <section
+        ref={mobileSectionRef}
+        style={{ height: `${showcaseItems.length * 72}vh` }}
+        className="relative lg:hidden"
+      >
+        <div className="sticky top-16 flex h-[calc(100svh-4rem)] items-center px-6 py-4">
+          <div className="w-full">{showcaseCard}</div>
+        </div>
       </section>
 
-      {/* Desktop: scroll-driven sticky section */}
       <section
-        ref={sectionRef}
+        ref={desktopSectionRef}
         style={{ height: `${showcaseItems.length * 100}vh` }}
         className="relative hidden lg:block"
       >
-        <div className="sticky top-0 h-screen flex items-center">
+        <div className="sticky top-0 flex h-screen items-center">
           <div className="mx-auto w-full max-w-7xl px-10">
             {showcaseCard}
           </div>
