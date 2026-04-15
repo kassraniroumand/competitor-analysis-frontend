@@ -705,7 +705,7 @@ export default function Index() {
       </section>
 
 
-      {/* Features section — Interactive Bento grid */}
+      {/* Features section — Bento grid */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Built for serious business.
@@ -717,100 +717,52 @@ export default function Index() {
         <Separator className="my-8 bg-border" />
 
         {/* Bento grid */}
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[180px]">
-          {features.map((feature, idx) => {
-            const spanClass = [
-              "lg:col-span-7 lg:row-span-2",
-              "lg:col-span-5 lg:row-span-2",
-              "lg:col-span-6",
-              "lg:col-span-6",
-              "lg:col-span-4",
-              "lg:col-span-4",
-            ][idx] || "lg:col-span-4";
-            const isHero = idx < 2;
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-12">
+          {/* Card 1 — Hero wide */}
+          <div className="sm:col-span-2 lg:col-span-7 rounded-2xl bg-foreground text-background p-8 flex flex-col justify-between min-h-[280px]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-background/15">
+              <Search className="h-5 w-5" />
+            </div>
+            <div className="mt-auto">
+              <h3 className="text-xl font-bold">{features[0].title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-background/70 max-w-md">{features[0].description}</p>
+            </div>
+          </div>
 
-            const accentBgs = [
-              "from-primary/15 to-primary/5",
-              "from-accent to-accent/30",
-              "from-orange-500/10 to-yellow-500/5",
-              "from-blue-500/10 to-indigo-500/5",
-              "from-rose-500/10 to-pink-500/5",
-              "from-emerald-500/10 to-teal-500/5",
-            ];
+          {/* Card 2 — Tall accent */}
+          <div className="lg:col-span-5 lg:row-span-2 rounded-2xl bg-primary p-8 flex flex-col justify-between min-h-[280px]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-foreground/20">
+              <Users className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <div className="mt-auto">
+              <h3 className="text-xl font-bold text-primary-foreground">{features[1].title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70 max-w-sm">{features[1].description}</p>
+            </div>
+          </div>
 
-            return (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -2,
-                  rotateY: 3,
-                  transition: { type: "spring", stiffness: 300, damping: 20 },
-                }}
-                whileTap={{ scale: 0.97 }}
-                style={{ transformPerspective: 800 }}
-                className={cn(
-                  "group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-gradient-to-br p-6 flex flex-col justify-between transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10",
-                  spanClass,
-                  accentBgs[idx]
-                )}
-              >
-                {/* Animated gradient orb */}
-                <motion.div
-                  className={cn(
-                    "absolute rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500",
-                    isHero ? "-right-16 -top-16 h-56 w-56" : "-right-8 -top-8 h-32 w-32"
-                  )}
-                  style={{ background: "radial-gradient(circle, hsl(var(--primary) / 0.2), transparent 70%)" }}
-                  animate={{
-                    x: [0, 10, -10, 0],
-                    y: [0, -10, 10, 0],
-                  }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                />
+          {/* Card 3 — Medium */}
+          <div className="lg:col-span-7 rounded-2xl border border-border bg-card p-7 flex flex-col justify-between min-h-[200px]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary">
+              <Target className="h-5 w-5 text-foreground" />
+            </div>
+            <div className="mt-auto">
+              <h3 className="text-base font-bold text-foreground">{features[2].title}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{features[2].description}</p>
+            </div>
+          </div>
 
-                {/* Shimmer line on hover */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-
-                <div className="relative z-10">
-                  <motion.div
-                    className={cn(
-                      "mb-4 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm shadow-sm border border-border/50 w-fit",
-                      isHero ? "h-12 w-12" : "h-10 w-10"
-                    )}
-                    whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.5 } }}
-                  >
-                    <feature.icon className={cn("text-primary", isHero ? "h-6 w-6" : "h-5 w-5")} />
-                  </motion.div>
-                  <h3 className={cn(
-                    "font-bold text-foreground",
-                    isHero ? "text-xl" : "text-sm"
-                  )}>
-                    {feature.title}
-                  </h3>
-                </div>
-
-                <div className="relative z-10 flex items-end justify-between gap-4">
-                  <p className={cn(
-                    "leading-relaxed text-muted-foreground",
-                    isHero ? "text-sm max-w-md" : "text-xs"
-                  )}>
-                    {feature.description}
-                  </p>
-                  <motion.div
-                    className="shrink-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
-                    whileHover={{ scale: 1.2 }}
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </motion.div>
-                </div>
-              </motion.div>
-            );
-          })}
+          {/* Cards 4, 5, 6 — Bottom row */}
+          {features.slice(3).map((feature) => (
+            <div key={feature.title} className="lg:col-span-4 rounded-2xl bg-secondary p-6 flex flex-col justify-between min-h-[180px]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-background border border-border">
+                <feature.icon className="h-5 w-5 text-foreground" />
+              </div>
+              <div className="mt-auto">
+                <h3 className="text-sm font-bold text-foreground">{feature.title}</h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{feature.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
