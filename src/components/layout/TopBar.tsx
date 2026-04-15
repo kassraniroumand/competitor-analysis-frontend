@@ -35,21 +35,19 @@ export function TopBar() {
       </div>
 
       {/* Desktop nav links */}
-      {!isMobile && (
-        <nav className="flex items-center gap-1 ml-4">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.title}
-              to={item.url}
-              className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-              activeClassName="bg-accent text-accent-foreground"
-            >
-              <item.icon className="h-4 w-4" />
-              <span>{item.title}</span>
-            </NavLink>
-          ))}
-        </nav>
-      )}
+      <nav className="hidden lg:flex items-center gap-1 ml-4">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.title}
+            to={item.url}
+            className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            activeClassName="bg-accent text-accent-foreground"
+          >
+            <item.icon className="h-4 w-4" />
+            <span>{item.title}</span>
+          </NavLink>
+        ))}
+      </nav>
 
       {/* Search - desktop only */}
       {!isMobile && (
