@@ -50,25 +50,21 @@ export function TopBar() {
       </nav>
 
       {/* Search - desktop only */}
-      {!isMobile && (
-        <div className="flex-1 max-w-md ml-auto">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search ideas, competitors, reports…"
-              className="pl-9 h-9 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-ring"
-            />
-          </div>
+      <div className="hidden lg:block flex-1 max-w-md ml-auto">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Search ideas, competitors, reports…"
+            className="pl-9 h-9 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-ring"
+          />
         </div>
-      )}
+      </div>
 
-      {/* Mobile: search icon */}
-      {isMobile && <div className="flex-1" />}
-      {isMobile && (
-        <Button variant="ghost" size="icon" className="h-9 w-9">
-          <Search className="h-4 w-4 text-muted-foreground" />
-        </Button>
-      )}
+      {/* Mobile: spacer + search icon */}
+      <div className="flex-1 lg:hidden" />
+      <Button variant="ghost" size="icon" className="h-9 w-9 lg:hidden">
+        <Search className="h-4 w-4 text-muted-foreground" />
+      </Button>
 
       <div className="flex items-center gap-2">
         {/* Notifications */}
