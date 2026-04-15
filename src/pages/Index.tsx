@@ -543,15 +543,6 @@ export default function Index() {
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
-  const handleShowcaseSwipe = useCallback((offsetX: number) => {
-    if (Math.abs(offsetX) < 50) return;
-
-    setActiveShowcase((prev) =>
-      offsetX < 0
-        ? Math.min(prev + 1, showcaseItems.length - 1)
-        : Math.max(prev - 1, 0)
-    );
-  }, []);
 
   return (
     <div className="min-h-screen bg-background">
