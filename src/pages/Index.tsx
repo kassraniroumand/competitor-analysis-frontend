@@ -7,7 +7,7 @@ import {
   TrendingUp, Users, Zap, Shield, Star, CheckCircle2,
   ChevronRight, Sparkles, Check, Menu, X, Minus, Plus,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
