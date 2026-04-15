@@ -65,9 +65,12 @@ export default function IdeaDetailPage() {
             </div>
 
             <div className="flex gap-2 shrink-0 flex-wrap">
+              <Button variant="outline" size="sm" className="gap-1.5" onClick={() => navigate(`/ideas/${id}/competitors`)}><Users className="h-3.5 w-3.5" /> Competitors</Button>
+              <Button variant="outline" size="sm" className="gap-1.5" onClick={() => navigate("/pain-points")}><AlertTriangle className="h-3.5 w-3.5" /> Pain Points</Button>
+              <Button variant="outline" size="sm" className="gap-1.5" onClick={() => navigate("/validation")}><CheckCircle className="h-3.5 w-3.5" /> Validation</Button>
+              <Button variant="outline" size="sm" className="gap-1.5" onClick={() => navigate(`/reports/${id}`)}><BarChart3 className="h-3.5 w-3.5" /> Report</Button>
               <Button variant="outline" size="sm" className="gap-1.5"><Pencil className="h-3.5 w-3.5" /> Edit Idea</Button>
-              <Button variant="outline" size="sm" className="gap-1.5"><Download className="h-3.5 w-3.5" /> Export Report</Button>
-              <Button size="sm" className="gap-1.5"><ExternalLink className="h-3.5 w-3.5" /> View Related Competitor</Button>
+              <Button variant="outline" size="sm" className="gap-1.5"><Download className="h-3.5 w-3.5" /> Export</Button>
             </div>
           </div>
         </header>
