@@ -4,7 +4,7 @@ import {
   TrendingUp, AlertTriangle, Zap, DollarSign, Lightbulb,
   Shield, Rocket, CheckCircle, MessageSquare, Search,
   ThumbsUp, ThumbsDown, ChevronRight, HelpCircle,
-  Target, BarChart3, Globe, Layers
+  Target, BarChart3, Globe, Layers, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
