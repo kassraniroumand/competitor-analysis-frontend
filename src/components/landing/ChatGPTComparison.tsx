@@ -1,46 +1,29 @@
 import { motion } from "framer-motion";
-import { Sparkles, Search, BarChart3, Target, Zap, Clock, FileText, ArrowRight } from "lucide-react";
+import { Sparkles, Check, X, ArrowRight } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
-const topFeatures = [
-  {
-    icon: Search,
-    title: "ChatGPT / Gemini",
-    description:
-      "General-purpose AI can brainstorm ideas, but requires manual prompting, lacks real-time market data, and gives inconsistent results every time you ask.",
-    highlight: false,
-  },
-  {
-    icon: Sparkles,
-    title: "IdeaProbe",
-    description:
-      "Purpose-built validation engine with real-time data sources, 12-dimension scoring, competitor analysis, and consistent frameworks — all in under 60 seconds.",
-    highlight: true,
-  },
+const features = [
+  { category: "Market Research", chatgpt: false, gemini: false, platform: true },
+  { category: "Competitor Analysis", chatgpt: false, gemini: false, platform: true },
+  { category: "Pain Point Discovery", chatgpt: false, gemini: false, platform: true },
+  { category: "12-Dimension Scoring", chatgpt: false, gemini: false, platform: true },
+  { category: "Real-Time Data Sources", chatgpt: false, gemini: true, platform: true },
+  { category: "One-Click Reports", chatgpt: false, gemini: false, platform: true },
+  { category: "Consistent Framework", chatgpt: false, gemini: false, platform: true },
+  { category: "Results in < 60s", chatgpt: false, gemini: false, platform: true },
 ];
 
-const bottomFeatures = [
-  {
-    icon: BarChart3,
-    title: "12-Dimension Scoring",
-    description: "Structured framework scores every idea consistently, unlike generic AI chat.",
-  },
-  {
-    icon: Target,
-    title: "Real-Time Data",
-    description: "Live market signals and competitor intel — not stale training data.",
-  },
-  {
-    icon: FileText,
-    title: "One-Click Reports",
-    description: "Full validation reports generated instantly, no prompt engineering needed.",
-  },
-  {
-    icon: Clock,
-    title: "Results in < 60s",
-    description: "From idea to validated report in under a minute, every single time.",
-  },
-];
+function StatusIcon({ available }: { available: boolean }) {
+  return available ? (
+    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10">
+      <Check className="h-3.5 w-3.5 text-primary" />
+    </div>
+  ) : (
+    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-destructive/10">
+      <X className="h-3.5 w-3.5 text-destructive/70" />
+    </div>
+  );
+}
 
 export default function ChatGPTComparison() {
   return (
@@ -58,67 +41,61 @@ export default function ChatGPTComparison() {
 
       <Separator className="my-8 bg-border" />
 
-      {/* Two large cards */}
-      <div className="grid gap-px lg:grid-cols-2">
-        {topFeatures.map((feature, idx) => (
+      {/* Comparison Table */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="rounded-2xl border border-border overflow-hidden"
+      >
+        {/* Header Row */}
+        <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] sm:grid-cols-[2fr_1fr_1fr_1fr] bg-muted/50 text-center">
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground text-left">
+            Feature
+          </div>
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground border-l border-border">
+            ChatGPT
+          </div>
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground border-l border-border">
+            Gemini
+          </div>
+          <div className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-primary border-l border-primary/20 bg-primary/5">
+            <span className="flex items-center justify-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5" />
+              IdeaProbe
+            </span>
+          </div>
+        </div>
+
+        {/* Rows */}
+        {features.map((f, i) => (
           <motion.div
-            key={feature.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            key={f.category}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: idx * 0.1 }}
-            className={`space-y-4 py-8 ${idx === 0 ? "lg:pr-10 lg:border-r lg:border-border" : "lg:pl-10"}`}
+            transition={{ delay: i * 0.04 }}
+            className="grid grid-cols-[1.4fr_1fr_1fr_1fr] sm:grid-cols-[2fr_1fr_1fr_1fr] border-t border-border text-center"
           >
-            <div className="flex items-center gap-2.5">
-              <feature.icon className="h-5 w-5 text-foreground" />
-              <h3 className="text-base font-bold text-foreground">{feature.title}</h3>
+            <div className="p-3 sm:p-4 text-sm font-medium text-foreground text-left flex items-center">
+              {f.category}
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">
-              {feature.description}
-            </p>
-            <div
-              className={`mt-4 flex h-[320px] items-center justify-center overflow-hidden rounded-xl ${
-                feature.highlight ? "bg-primary/10" : "bg-secondary"
-              }`}
-            >
-              <div
-                className={`flex h-16 w-16 items-center justify-center rounded-2xl shadow-sm ${
-                  feature.highlight ? "bg-primary text-primary-foreground" : "bg-background"
-                }`}
-              >
-                <feature.icon className="h-7 w-7" />
-              </div>
+            <div className="p-3 sm:p-4 border-l border-border flex items-center justify-center">
+              <StatusIcon available={f.chatgpt} />
+            </div>
+            <div className="p-3 sm:p-4 border-l border-border flex items-center justify-center">
+              <StatusIcon available={f.gemini} />
+            </div>
+            <div className="p-3 sm:p-4 border-l border-primary/20 bg-primary/[0.02] flex items-center justify-center">
+              <StatusIcon available={f.platform} />
             </div>
           </motion.div>
         ))}
-      </div>
-
-      <Separator className="my-8 bg-border" />
-
-      {/* Bottom 4 small features */}
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {bottomFeatures.map((feature, idx) => (
-          <motion.div
-            key={feature.title}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: idx * 0.06 }}
-            className="space-y-2.5"
-          >
-            <div className="flex items-center gap-2">
-              <feature.icon className="h-4 w-4 text-foreground" />
-              <h3 className="text-sm font-bold text-foreground">{feature.title}</h3>
-            </div>
-            <p className="text-xs leading-relaxed text-muted-foreground">
-              {feature.description}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+      </motion.div>
 
       {/* CTA */}
-      <div className="flex justify-center pt-12">
+      <div className="flex justify-center pt-10">
         <a
           href="/ideas"
           className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-[1.02]"
