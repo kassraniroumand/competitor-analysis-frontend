@@ -37,7 +37,7 @@ export default function IdeaDetailPage() {
       <div className="p-6 lg:p-10 max-w-5xl mx-auto space-y-8">
 
         {/* ── Back Button ── */}
-        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => navigate("/ideas")}>
+        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => navigate(-1)}>
           <ArrowLeft className="h-4 w-4" />
           Back to Ideas
         </Button>
