@@ -646,99 +646,12 @@ export default function Index() {
         </div>
       </section>
 
-      {/* How it works — flow */}
-      <section className="px-6 py-16 sm:py-24 lg:py-32 lg:px-10">
-        <div className="mx-auto w-full max-w-7xl overflow-hidden rounded-2xl bg-secondary p-8 lg:p-12">
-          <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
-            {/* Left — preview */}
-            <div className="relative min-h-[400px] lg:min-h-[500px]">
-              <motion.div
-                className="absolute left-0 top-0 h-[85%] w-full overflow-hidden rounded-xl shadow-lg cursor-grab select-none touch-pan-y active:cursor-grabbing"
-                drag={isMobile ? false : "x"}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.08}
-                onDragEnd={(_, info) => !isMobile && handleShowcaseSwipe(info.offset.x)}
-              >
-                <AnimatePresence initial={false} mode="wait">
-                  <motion.img
-                    key={activeShowcase}
-                    src={showcaseItems[activeShowcase].image}
-                    alt={showcaseItems[activeShowcase].label}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    draggable={false}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </AnimatePresence>
-              </motion.div>
-
-              {/* Step indicator */}
-              <div className="absolute bottom-0 left-0 flex items-center gap-2">
-                {showcaseItems.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveShowcase(i)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      activeShowcase === i ? "w-6 bg-foreground" : "w-1.5 bg-muted-foreground/30"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Right — numbered steps */}
-            <div className="flex flex-col justify-between lg:min-h-[500px]">
-              <div className="space-y-1">
-                {showcaseItems.map((item, i) => (
-                  <button
-                    key={item.label}
-                    onClick={() => setActiveShowcase(i)}
-                    className={`block w-full text-left transition-all duration-200 rounded-lg px-4 py-3 ${
-                      activeShowcase === i
-                        ? "bg-background shadow-sm"
-                        : "hover:bg-background/50"
-                    }`}
-                  >
-                    <div className="flex items-baseline gap-3">
-                      <span className={`text-xs font-bold tabular-nums ${
-                        activeShowcase === i ? "text-primary" : "text-muted-foreground/40"
-                      }`}>
-                        0{i + 1}
-                      </span>
-                      <div>
-                        <p className={`text-sm font-bold tracking-tight transition-colors ${
-                          activeShowcase === i ? "text-foreground" : "text-muted-foreground/40"
-                        }`}>
-                          {item.label}
-                        </p>
-                        {activeShowcase === i && (
-                          <motion.p
-                            initial={isMobile ? { opacity: 0 } : { opacity: 0, height: 0 }}
-                            animate={isMobile ? { opacity: 1 } : { opacity: 1, height: "auto" }}
-                            transition={{ duration: isMobile ? 0.1 : 0.2 }}
-                            className="mt-1 text-xs leading-relaxed text-muted-foreground"
-                          >
-                            {item.description}
-                          </motion.p>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              <div className="mt-8">
-                <Separator className="mb-4 bg-foreground" />
-                <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-                  Five steps. Under two minutes. From raw idea to validated business opportunity.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* How it works — scroll-driven flow */}
+      <ShowcaseScrollSection
+        activeShowcase={activeShowcase}
+        setActiveShowcase={setActiveShowcase}
+        isMobile={isMobile}
+      />
 
 
       {/* Features section — Accordion list */}
