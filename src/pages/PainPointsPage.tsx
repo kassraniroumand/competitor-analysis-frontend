@@ -91,12 +91,22 @@ export default function PainPointsPage() {
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
           ) : (
-            <>
-              <MetricCard title="Total Pain Points" value={filtered.length} icon={AlertTriangle} />
-              <MetricCard title="Critical Issues" value={criticalCount} icon={Flame} />
-              <MetricCard title="Total Mentions" value={totalMentions.toLocaleString()} icon={MessageSquareQuote} />
-              <MetricCard title="Categories" value={categoryData.length} icon={BarChart3} />
-            </>
+            [
+              { label: "Total Pain Points", value: filtered.length, icon: AlertTriangle, color: "bg-foreground text-background", iconBg: "bg-background/15" },
+              { label: "Critical Issues", value: criticalCount, icon: Flame, color: "bg-destructive text-destructive-foreground", iconBg: "bg-destructive-foreground/20" },
+              { label: "Total Mentions", value: totalMentions.toLocaleString(), icon: MessageSquareQuote, color: "bg-secondary text-foreground", iconBg: "bg-background" },
+              { label: "Categories", value: categoryData.length, icon: BarChart3, color: "bg-accent text-accent-foreground", iconBg: "bg-background" },
+            ].map((stat) => (
+              <div key={stat.label} className={`rounded-2xl p-4 ${stat.color}`}>
+                <div className="flex items-center justify-between">
+                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${stat.iconBg}`}>
+                    <stat.icon className="h-4 w-4" />
+                  </div>
+                  <span className="text-2xl font-bold tabular-nums">{stat.value}</span>
+                </div>
+                <p className="mt-3 text-xs font-medium opacity-70 uppercase tracking-wider">{stat.label}</p>
+              </div>
+            ))
           )}
         </div>
 
