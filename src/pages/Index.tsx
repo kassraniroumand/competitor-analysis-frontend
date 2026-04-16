@@ -567,7 +567,7 @@ function ShowcaseScrollSection({
         style={{ height: `${showcaseItems.length * 50}vh` }}
         className="relative lg:hidden"
       >
-        <div className="sticky top-16 flex h-[calc(100svh-4rem)] flex-col justify-center px-6 py-4">
+        <div className="sticky top-16 flex min-h-[calc(100svh-4rem)] flex-col justify-center px-6 py-8">
           <h2 className="mb-4 text-center text-2xl font-bold tracking-tight text-foreground">How It Works</h2>
           <div className="w-full max-w-2xl mx-auto">{showcaseCard}</div>
         </div>
