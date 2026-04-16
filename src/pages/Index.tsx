@@ -587,7 +587,11 @@ function ShowcaseScrollSection({
         className="relative lg:hidden"
       >
         <div className="sticky top-16 flex min-h-[calc(100svh-4rem)] flex-col justify-center px-4 py-6">
-          <h2 className="mb-3 text-center text-2xl font-bold tracking-tight text-foreground">How It Works</h2>
+          <div className="mb-4 text-center">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-primary">Simple Process</p>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">How It Works</h2>
+            <p className="mx-auto mt-1.5 max-w-sm text-sm text-muted-foreground">Go from raw idea to validated opportunity in under two minutes.</p>
+          </div>
           <div className="w-full">{showcaseCard}</div>
         </div>
       </section>
@@ -598,7 +602,11 @@ function ShowcaseScrollSection({
         className="relative hidden lg:block"
       >
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center">
-          <h2 className="mb-6 text-center text-4xl font-bold tracking-tight text-foreground">How It Works</h2>
+          <div className="mb-8 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-primary">Simple Process</p>
+            <h2 className="text-4xl font-bold tracking-tight text-foreground">How It Works</h2>
+            <p className="mx-auto mt-3 max-w-lg text-base text-muted-foreground">Five steps to transform a rough idea into a validated, investor-ready business opportunity.</p>
+          </div>
           <div className="mx-auto w-full max-w-7xl px-10">
             {showcaseCard}
           </div>
