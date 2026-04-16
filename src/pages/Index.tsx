@@ -445,15 +445,16 @@ function ShowcaseScrollSection({
   });
 
   const showcaseCard = (
-    <div className="overflow-hidden rounded-2xl bg-secondary p-5 sm:p-6 lg:p-12">
+    <div className="overflow-hidden rounded-2xl bg-foreground p-5 sm:p-6 lg:p-10">
       <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-10">
-        <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
+        {/* Image */}
+        <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-background/10">
           <AnimatePresence initial={false} mode="wait">
             <motion.img
               key={activeShowcase}
               src={showcaseItems[activeShowcase].image}
               alt={showcaseItems[activeShowcase].label}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover opacity-90"
               draggable={false}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -464,6 +465,7 @@ function ShowcaseScrollSection({
         </div>
 
         <div className="flex flex-col justify-between lg:min-h-[400px]">
+          {/* Mobile step pills */}
           <div className="mb-2 grid grid-cols-5 gap-1.5 lg:hidden">
             {showcaseItems.map((item, i) => (
               <button
@@ -471,8 +473,8 @@ function ShowcaseScrollSection({
                 onClick={() => setActiveShowcase(i)}
                 className={`rounded-full px-0 py-1.5 text-xs font-semibold transition-all ${
                   activeShowcase === i
-                    ? "bg-foreground text-background"
-                    : "bg-background text-muted-foreground"
+                    ? "bg-chart-2 text-foreground"
+                    : "bg-background/10 text-background/40"
                 }`}
               >
                 0{i + 1}
@@ -480,70 +482,76 @@ function ShowcaseScrollSection({
             ))}
           </div>
 
+          {/* Mobile active description */}
           <div className="px-0.5 lg:hidden">
-            <p className="text-sm font-bold text-foreground">
+            <p className="text-sm font-bold text-background">
               {showcaseItems[activeShowcase].label}
             </p>
-            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+            <p className="mt-1 text-xs leading-relaxed text-background/50">
               {showcaseItems[activeShowcase].description}
             </p>
           </div>
 
-          <div className="hidden space-y-1 lg:block">
-            {showcaseItems.map((item, i) => (
-              <button
-                key={item.label}
-                onClick={() => setActiveShowcase(i)}
-                className={`block w-full rounded-lg px-4 py-3 text-left transition-all duration-300 ${
-                  activeShowcase === i
-                    ? "bg-background shadow-sm"
-                    : "hover:bg-background/50"
-                }`}
-              >
-                <div className="flex items-baseline gap-3">
-                  <span
-                    className={`text-xs font-bold tabular-nums transition-colors duration-300 ${
-                      activeShowcase === i ? "text-primary" : "text-muted-foreground/40"
-                    }`}
-                  >
-                    0{i + 1}
-                  </span>
-                  <div>
-                    <p
-                      className={`text-sm font-bold tracking-tight transition-colors duration-300 ${
-                        activeShowcase === i ? "text-foreground" : "text-muted-foreground/40"
+          {/* Desktop step list */}
+          <div className="hidden flex-col gap-1 lg:flex">
+            {showcaseItems.map((item, i) => {
+              const isActive = activeShowcase === i;
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => setActiveShowcase(i)}
+                  className={`block w-full rounded-lg px-3 py-3 text-left transition-all duration-300 ${
+                    isActive
+                      ? "bg-background/5 border border-background/10"
+                      : "border border-transparent hover:bg-background/5"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <span
+                      className={`text-xs font-bold tabular-nums mt-0.5 transition-colors duration-300 ${
+                        isActive ? "text-chart-2" : "text-background/20"
                       }`}
                     >
-                      {item.label}
-                    </p>
-                    <AnimatePresence initial={false}>
-                      {activeShowcase === i && (
-                        <motion.p
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.25, ease: "easeOut" }}
-                          className="mt-1 overflow-hidden text-xs leading-relaxed text-muted-foreground"
-                        >
-                          {item.description}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                      0{i + 1}
+                    </span>
+                    <div>
+                      <p
+                        className={`text-sm font-semibold tracking-tight transition-colors duration-300 ${
+                          isActive ? "text-background" : "text-background/30"
+                        }`}
+                      >
+                        {item.label}
+                      </p>
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="mt-1 overflow-hidden text-xs leading-relaxed text-background/50"
+                          >
+                            {item.description}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
-                </div>
-              </button>
-            ))}
+                </button>
+              );
+            })}
           </div>
 
+          {/* Progress bar */}
           <div className="mt-4 lg:mt-6">
-            <div className="h-0.5 w-full overflow-hidden rounded-full bg-border">
+            <div className="h-1 w-full overflow-hidden rounded-full bg-background/10">
               <motion.div
-                className="h-full rounded-full bg-primary"
+                className="h-full rounded-full bg-chart-2"
                 animate={{ width: `${((activeShowcase + 1) / showcaseItems.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <p className="mt-3 hidden max-w-md text-sm leading-relaxed text-muted-foreground lg:block">
+            <p className="mt-3 hidden max-w-md text-xs leading-relaxed text-background/30 lg:block">
               Five steps. Under two minutes. From raw idea to validated business opportunity.
             </p>
           </div>
@@ -561,7 +569,7 @@ function ShowcaseScrollSection({
       >
         <div className="sticky top-16 flex h-[calc(100svh-4rem)] flex-col justify-center px-6 py-4">
           <h2 className="mb-4 text-center text-2xl font-bold tracking-tight text-foreground">How It Works</h2>
-          <div className="w-full">{showcaseCard}</div>
+          <div className="w-full max-w-2xl mx-auto">{showcaseCard}</div>
         </div>
       </section>
 
