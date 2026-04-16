@@ -679,12 +679,8 @@ export default function Index() {
         </div>
       </section>
 
-      {/* How it works — scroll-driven flow */}
-      <ShowcaseScrollSection
-        activeShowcase={activeShowcase}
-        setActiveShowcase={setActiveShowcase}
-        isMobile={isMobile}
-      />
+      {/* How it works */}
+      <HowItWorksSection />
 
 
       {/* Features section — Accordion list */}
