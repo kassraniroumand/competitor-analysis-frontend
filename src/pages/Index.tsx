@@ -478,7 +478,7 @@ function ShowcaseScrollSection({
                     className={`flex h-10 items-center justify-center rounded-xl transition-all duration-300 ${
                       isActive
                         ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/30"
-                        : "bg-background/15 text-background/60"
+                        : "bg-background/20 text-background/80"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -490,12 +490,12 @@ function ShowcaseScrollSection({
               <p className="text-base font-bold text-background">
                 {showcaseItems[activeShowcase].label}
               </p>
-              <p className="mt-1 text-sm leading-relaxed text-background/50">
+              <p className="mt-1 text-sm leading-relaxed text-background/70">
                 {showcaseItems[activeShowcase].description}
               </p>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-chart-2/10 px-3 py-1.5">
+              <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-chart-2/15 px-3 py-1.5">
                 <span className="text-sm font-bold text-chart-2">{showcaseItems[activeShowcase].stat}</span>
-                <span className="text-xs text-background/40">{showcaseItems[activeShowcase].statLabel}</span>
+                <span className="text-xs text-background/60">{showcaseItems[activeShowcase].statLabel}</span>
               </div>
             </div>
           </div>
@@ -523,13 +523,13 @@ function ShowcaseScrollSection({
                       className="relative flex items-start gap-4 rounded-xl px-2 py-3 text-left transition-all duration-300 hover:bg-background/5"
                     >
                       {/* Icon dot */}
-                      <div
+                       <div
                         className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
                           isActive
                             ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/20"
                             : isPast
-                            ? "bg-chart-2/20 text-chart-2"
-                            : "bg-background/5 text-background/20"
+                            ? "bg-chart-2/25 text-chart-2"
+                            : "bg-background/10 text-background/50"
                         }`}
                       >
                         <Icon className="h-4 w-4" />
@@ -539,7 +539,7 @@ function ShowcaseScrollSection({
                       <div className="pt-1.5 min-w-0">
                         <p
                           className={`text-sm font-semibold tracking-tight transition-colors duration-300 ${
-                            isActive ? "text-background" : isPast ? "text-background/50" : "text-background/25"
+                            isActive ? "text-background" : isPast ? "text-background/70" : "text-background/45"
                           }`}
                         >
                           {item.label}
@@ -553,12 +553,12 @@ function ShowcaseScrollSection({
                               transition={{ duration: 0.25, ease: "easeOut" }}
                               className="overflow-hidden"
                             >
-                              <p className="mt-1 text-xs leading-relaxed text-background/45">
+                              <p className="mt-1 text-xs leading-relaxed text-background/65">
                                 {item.description}
                               </p>
-                              <div className="mt-2 inline-flex items-center gap-2 rounded-md bg-chart-2/10 px-2.5 py-1">
+                              <div className="mt-2 inline-flex items-center gap-2 rounded-md bg-chart-2/15 px-2.5 py-1">
                                 <span className="text-xs font-bold text-chart-2">{item.stat}</span>
-                                <span className="text-[10px] text-background/35">{item.statLabel}</span>
+                                <span className="text-[10px] text-background/55">{item.statLabel}</span>
                               </div>
                             </motion.div>
                           )}
@@ -573,14 +573,14 @@ function ShowcaseScrollSection({
 
           {/* Progress bar */}
           <div className="mt-4 lg:mt-5">
-            <div className="h-1 w-full overflow-hidden rounded-full bg-background/10">
+            <div className="h-1 w-full overflow-hidden rounded-full bg-background/15">
               <motion.div
                 className="h-full rounded-full bg-chart-2"
                 animate={{ width: `${((activeShowcase + 1) / showcaseItems.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <p className="mt-3 hidden max-w-md text-xs leading-relaxed text-background/30 lg:block">
+            <p className="mt-3 hidden max-w-md text-xs leading-relaxed text-background/50 lg:block">
               Five steps. Under two minutes. From raw idea to validated business opportunity.
             </p>
           </div>
