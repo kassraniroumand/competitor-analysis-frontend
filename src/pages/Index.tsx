@@ -464,7 +464,7 @@ function ShowcaseScrollSection({
           </AnimatePresence>
         </div>
 
-        <div className="flex flex-col justify-between lg:min-h-[400px]">
+        <div className="flex flex-col gap-4">
           {/* Mobile step pills */}
           <div className="mb-2 grid grid-cols-5 gap-1.5 lg:hidden">
             {showcaseItems.map((item, i) => (
