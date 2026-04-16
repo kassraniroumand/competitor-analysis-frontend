@@ -475,7 +475,7 @@ function ShowcaseScrollSection({
                   <button
                     key={item.label}
                     onClick={() => setActiveShowcase(i)}
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
+                    className={`flex h-10 items-center justify-center rounded-xl transition-all duration-300 ${
                       isActive
                         ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/30"
                         : "bg-background/10 text-background/30"
