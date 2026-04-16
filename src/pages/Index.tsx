@@ -31,11 +31,11 @@ import showcasePainpoints from "@/assets/showcase-painpoints.jpg";
 import showcaseReports from "@/assets/showcase-reports.jpg";
 
 const showcaseItems = [
-  { label: "Submit your idea", description: "Describe your startup concept in a few sentences — our AI takes it from there.", image: showcaseScreen },
-  { label: "AI scans the market", description: "We analyze competitors, search trends, community signals, and pricing data in real time.", image: showcaseCompetitors },
-  { label: "Discover pain points", description: "Surface real user complaints, feature requests, and unmet needs from across the web.", image: showcaseScoring },
-  { label: "Get your score", description: "Receive an opportunity score out of 100, factoring in market size, competition, and timing.", image: showcasePainpoints },
-  { label: "Act on insights", description: "Download a full validation report with actionable recommendations and next steps.", image: showcaseReports },
+  { label: "Submit your idea", description: "Describe your startup concept in a few sentences — our AI takes it from there.", image: showcaseScreen, icon: Lightbulb },
+  { label: "AI scans the market", description: "We analyze competitors, search trends, community signals, and pricing data in real time.", image: showcaseCompetitors, icon: Search },
+  { label: "Discover pain points", description: "Surface real user complaints, feature requests, and unmet needs from across the web.", image: showcaseScoring, icon: Target },
+  { label: "Get your score", description: "Receive an opportunity score out of 100, factoring in market size, competition, and timing.", image: showcasePainpoints, icon: BarChart3 },
+  { label: "Act on insights", description: "Download a full validation report with actionable recommendations and next steps.", image: showcaseReports, icon: Zap },
 ];
 
 const features = [
