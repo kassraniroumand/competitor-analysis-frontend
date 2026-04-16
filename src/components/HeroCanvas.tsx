@@ -186,6 +186,31 @@ export default function HeroCanvas() {
                   </div>
                 ))}
               </div>
+
+              {/* Insights row */}
+              <div
+                className="mt-3 flex items-center gap-2 transition-all duration-500"
+                style={{
+                  transitionDelay: isActive ? "280ms" : "0ms",
+                  opacity: isActive ? 1 : 0,
+                  transform: isActive ? "translateY(0)" : "translateY(6px)",
+                }}
+              >
+                <div className="flex-1 rounded-lg bg-secondary/40 border border-border/40 px-3 py-2 flex items-center gap-2">
+                  <div className={`h-1.5 w-1.5 rounded-full shrink-0 ${s.accentDot}`} />
+                  <p className="text-[10px] text-muted-foreground leading-snug truncate">
+                    {i === 0 && "Reddit & Twitter mentions trending upward over 90 days"}
+                    {i === 1 && "3 competitors lack mobile apps — potential gap identified"}
+                    {i === 2 && "Strong signal on problem-solution fit & willingness to pay"}
+                    {i === 3 && "Top complaint: \"no bulk export\" — mentioned 23 times"}
+                    {i === 4 && "Report ready for investor pitch with key metrics highlighted"}
+                  </p>
+                </div>
+                <div className="shrink-0 rounded-lg bg-secondary/40 border border-border/40 px-2.5 py-2 text-center">
+                  <p className="text-[10px] font-bold text-foreground tabular-nums">{s.stats[0].value}</p>
+                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mt-0.5">key metric</p>
+                </div>
+              </div>
             </div>
           );
         })}
