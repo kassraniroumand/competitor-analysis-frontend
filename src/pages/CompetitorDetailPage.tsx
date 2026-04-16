@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { ExternalLink, Globe, Users as UsersIcon, DollarSign, Star, ThumbsUp, ThumbsDown, MessageSquareQuote, Target, Zap, ArrowRightLeft } from "lucide-react";
+import { ExternalLink, Globe, Users as UsersIcon, DollarSign, Star, ThumbsUp, ThumbsDown, MessageSquareQuote, Target, Zap, ArrowRightLeft, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -31,6 +31,11 @@ export default function CompetitorDetailPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
+        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => navigate("/competitors")}>
+          <ArrowLeft className="h-4 w-4" />
+          Back to Competitors
+        </Button>
+
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
