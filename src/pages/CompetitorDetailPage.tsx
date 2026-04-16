@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { ExternalLink, Globe, Users as UsersIcon, DollarSign, Star, ThumbsUp, ThumbsDown, MessageSquareQuote, Target, Zap, ArrowRightLeft } from "lucide-react";
+import { ExternalLink, Globe, Users as UsersIcon, DollarSign, Star, ThumbsUp, ThumbsDown, MessageSquareQuote, Target, Zap, ArrowRightLeft, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
