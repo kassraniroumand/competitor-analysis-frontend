@@ -478,7 +478,7 @@ function ShowcaseScrollSection({
                     className={`flex h-10 items-center justify-center rounded-xl transition-all duration-300 ${
                       isActive
                         ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/30"
-                        : "bg-background/10 text-background/30"
+                        : "bg-background/15 text-background/60"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
