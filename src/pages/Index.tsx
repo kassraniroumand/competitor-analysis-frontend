@@ -467,7 +467,7 @@ function ShowcaseScrollSection({
         <div className="flex flex-col">
           {/* Mobile: horizontal step indicators + active content */}
           <div className="lg:hidden">
-            <div className="mb-3 flex items-center gap-2">
+            <div className="mb-3 grid grid-cols-5 gap-2">
               {showcaseItems.map((item, i) => {
                 const Icon = item.icon;
                 const isActive = activeShowcase === i;
@@ -475,7 +475,7 @@ function ShowcaseScrollSection({
                   <button
                     key={item.label}
                     onClick={() => setActiveShowcase(i)}
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
+                    className={`flex h-10 items-center justify-center rounded-xl transition-all duration-300 ${
                       isActive
                         ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/30"
                         : "bg-background/10 text-background/30"
