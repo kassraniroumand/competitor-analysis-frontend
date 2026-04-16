@@ -564,10 +564,10 @@ function ShowcaseScrollSection({
     <>
       <section
         ref={mobileSectionRef}
-        style={{ height: `${showcaseItems.length * 72}vh` }}
+        style={{ height: `${showcaseItems.length * 45}vh` }}
         className="relative lg:hidden"
       >
-        <div className="sticky top-16 flex h-[calc(100svh-4rem)] flex-col justify-center px-6 py-4">
+        <div className="sticky top-16 flex min-h-[calc(100svh-4rem)] flex-col justify-center px-6 py-8">
           <h2 className="mb-4 text-center text-2xl font-bold tracking-tight text-foreground">How It Works</h2>
           <div className="w-full max-w-2xl mx-auto">{showcaseCard}</div>
         </div>
@@ -575,7 +575,7 @@ function ShowcaseScrollSection({
 
       <section
         ref={desktopSectionRef}
-        style={{ height: `${showcaseItems.length * 100}vh` }}
+        style={{ height: `${showcaseItems.length * 80}vh` }}
         className="relative hidden lg:block"
       >
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center">
