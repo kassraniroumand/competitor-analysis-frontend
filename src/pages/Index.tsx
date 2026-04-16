@@ -467,7 +467,7 @@ function ShowcaseScrollSection({
         <div className="flex flex-col">
           {/* Mobile: horizontal step indicators + active content */}
           <div className="lg:hidden">
-            <div className="mb-3 flex items-center gap-2">
+            <div className="mb-3 grid grid-cols-5 gap-2">
               {showcaseItems.map((item, i) => {
                 const Icon = item.icon;
                 const isActive = activeShowcase === i;
