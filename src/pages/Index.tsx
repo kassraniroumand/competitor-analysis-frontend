@@ -464,86 +464,105 @@ function ShowcaseScrollSection({
           </AnimatePresence>
         </div>
 
-        <div className="flex flex-col gap-4">
-          {/* Mobile step pills */}
-          <div className="mb-2 grid grid-cols-5 gap-1.5 lg:hidden">
-            {showcaseItems.map((item, i) => (
-              <button
-                key={item.label}
-                onClick={() => setActiveShowcase(i)}
-                className={`rounded-full px-0 py-1.5 text-xs font-semibold transition-all ${
-                  activeShowcase === i
-                    ? "bg-chart-2 text-foreground"
-                    : "bg-background/10 text-background/40"
-                }`}
-              >
-                0{i + 1}
-              </button>
-            ))}
+        <div className="flex flex-col">
+          {/* Mobile: horizontal step indicators + active content */}
+          <div className="lg:hidden">
+            <div className="mb-3 flex items-center gap-2">
+              {showcaseItems.map((item, i) => {
+                const Icon = item.icon;
+                const isActive = activeShowcase === i;
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => setActiveShowcase(i)}
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
+                      isActive
+                        ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/30"
+                        : "bg-background/10 text-background/30"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </button>
+                );
+              })}
+            </div>
+            <div className="px-0.5">
+              <p className="text-base font-bold text-background">
+                {showcaseItems[activeShowcase].label}
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-background/50">
+                {showcaseItems[activeShowcase].description}
+              </p>
+            </div>
           </div>
 
-          {/* Mobile active description */}
-          <div className="px-0.5 lg:hidden">
-            <p className="text-sm font-bold text-background">
-              {showcaseItems[activeShowcase].label}
-            </p>
-            <p className="mt-1 text-xs leading-relaxed text-background/50">
-              {showcaseItems[activeShowcase].description}
-            </p>
-          </div>
+          {/* Desktop: vertical timeline */}
+          <div className="hidden lg:block">
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-[19px] top-2 bottom-2 w-px bg-background/10" />
+              <motion.div
+                className="absolute left-[19px] top-2 w-px bg-chart-2"
+                animate={{ height: `${((activeShowcase) / (showcaseItems.length - 1)) * 100}%` }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              />
 
-          {/* Desktop step list */}
-          <div className="hidden flex-col gap-1 lg:flex">
-            {showcaseItems.map((item, i) => {
-              const isActive = activeShowcase === i;
-              return (
-                <button
-                  key={item.label}
-                  onClick={() => setActiveShowcase(i)}
-                  className={`block w-full rounded-lg px-3 py-3 text-left transition-all duration-300 ${
-                    isActive
-                      ? "bg-background/5 border border-background/10"
-                      : "border border-transparent hover:bg-background/5"
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    <span
-                      className={`text-xs font-bold tabular-nums mt-0.5 transition-colors duration-300 ${
-                        isActive ? "text-chart-2" : "text-background/20"
-                      }`}
+              <div className="flex flex-col gap-0.5">
+                {showcaseItems.map((item, i) => {
+                  const Icon = item.icon;
+                  const isActive = activeShowcase === i;
+                  const isPast = i < activeShowcase;
+                  return (
+                    <button
+                      key={item.label}
+                      onClick={() => setActiveShowcase(i)}
+                      className="relative flex items-start gap-4 rounded-xl px-2 py-3 text-left transition-all duration-300 hover:bg-background/5"
                     >
-                      0{i + 1}
-                    </span>
-                    <div>
-                      <p
-                        className={`text-sm font-semibold tracking-tight transition-colors duration-300 ${
-                          isActive ? "text-background" : "text-background/30"
+                      {/* Icon dot */}
+                      <div
+                        className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
+                          isActive
+                            ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/20"
+                            : isPast
+                            ? "bg-chart-2/20 text-chart-2"
+                            : "bg-background/5 text-background/20"
                         }`}
                       >
-                        {item.label}
-                      </p>
-                      <AnimatePresence initial={false}>
-                        {isActive && (
-                          <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.25, ease: "easeOut" }}
-                            className="mt-1 overflow-hidden text-xs leading-relaxed text-background/50"
-                          >
-                            {item.description}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
+                        <Icon className="h-4 w-4" />
+                      </div>
+
+                      {/* Content */}
+                      <div className="pt-1.5 min-w-0">
+                        <p
+                          className={`text-sm font-semibold tracking-tight transition-colors duration-300 ${
+                            isActive ? "text-background" : isPast ? "text-background/50" : "text-background/25"
+                          }`}
+                        >
+                          {item.label}
+                        </p>
+                        <AnimatePresence initial={false}>
+                          {isActive && (
+                            <motion.p
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.25, ease: "easeOut" }}
+                              className="mt-1 overflow-hidden text-xs leading-relaxed text-background/45"
+                            >
+                              {item.description}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           {/* Progress bar */}
-          <div className="mt-4 lg:mt-6">
+          <div className="mt-4 lg:mt-5">
             <div className="h-1 w-full overflow-hidden rounded-full bg-background/10">
               <motion.div
                 className="h-full rounded-full bg-chart-2"
