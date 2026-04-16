@@ -445,8 +445,8 @@ function ShowcaseScrollSection({
   });
 
   const showcaseCard = (
-    <div className="overflow-hidden rounded-2xl bg-foreground p-5 sm:p-6 lg:p-10">
-      <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-10">
+    <div className="overflow-hidden rounded-2xl bg-foreground p-5 sm:p-6 lg:p-8">
+      <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
         {/* Image */}
         <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-background/10">
           <AnimatePresence initial={false} mode="wait">
@@ -464,7 +464,7 @@ function ShowcaseScrollSection({
           </AnimatePresence>
         </div>
 
-        <div className="flex flex-col justify-between lg:min-h-[400px]">
+        <div className="flex flex-col gap-4">
           {/* Mobile step pills */}
           <div className="mb-2 grid grid-cols-5 gap-1.5 lg:hidden">
             {showcaseItems.map((item, i) => (
