@@ -31,6 +31,11 @@ export default function CompetitorDetailPage() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
+        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => navigate("/competitors")}>
+          <ArrowLeft className="h-4 w-4" />
+          Back to Competitors
+        </Button>
+
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
