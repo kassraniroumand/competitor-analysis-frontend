@@ -191,8 +191,25 @@ export default function HeroCanvas() {
         })}
       </div>
 
-      {/* Bottom — progress dots + timer bar */}
-      <div className="border-t border-border px-4 py-2.5">
+      {/* Bottom — info + progress */}
+      <div className="border-t border-border px-4 py-3 space-y-2.5">
+        <div className="flex items-center justify-between text-[10px]">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-2 py-0.5 font-semibold text-primary">
+              Step {activeIndex + 1}/{slides.length}
+            </span>
+            <span className="text-muted-foreground font-medium">
+              {slides[activeIndex].label}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+              Live analysis
+            </span>
+            <span>⚡ &lt; 60s</span>
+          </div>
+        </div>
         <div className="flex items-center justify-center gap-1.5">
           {slides.map((_, i) => (
             <button
