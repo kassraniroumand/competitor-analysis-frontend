@@ -564,7 +564,7 @@ function ShowcaseScrollSection({
     <>
       <section
         ref={mobileSectionRef}
-        style={{ height: `${showcaseItems.length * 72}vh` }}
+        style={{ height: `${showcaseItems.length * 50}vh` }}
         className="relative lg:hidden"
       >
         <div className="sticky top-16 flex h-[calc(100svh-4rem)] flex-col justify-center px-6 py-4">
