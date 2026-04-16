@@ -31,11 +31,11 @@ import showcasePainpoints from "@/assets/showcase-painpoints.jpg";
 import showcaseReports from "@/assets/showcase-reports.jpg";
 
 const showcaseItems = [
-  { label: "Submit your idea", description: "Describe your startup concept in a few sentences — our AI takes it from there.", image: showcaseScreen, icon: Lightbulb },
-  { label: "AI scans the market", description: "We analyze competitors, search trends, community signals, and pricing data in real time.", image: showcaseCompetitors, icon: Search },
-  { label: "Discover pain points", description: "Surface real user complaints, feature requests, and unmet needs from across the web.", image: showcaseScoring, icon: Target },
-  { label: "Get your score", description: "Receive an opportunity score out of 100, factoring in market size, competition, and timing.", image: showcasePainpoints, icon: BarChart3 },
-  { label: "Act on insights", description: "Download a full validation report with actionable recommendations and next steps.", image: showcaseReports, icon: Zap },
+  { label: "Submit your idea", description: "Describe your startup concept in a few sentences — our AI takes it from there.", image: showcaseScreen, icon: Lightbulb, stat: "30 sec", statLabel: "avg. input time" },
+  { label: "AI scans the market", description: "We analyze competitors, search trends, community signals, and pricing data in real time.", image: showcaseCompetitors, icon: Search, stat: "50+", statLabel: "data sources" },
+  { label: "Discover pain points", description: "Surface real user complaints, feature requests, and unmet needs from across the web.", image: showcaseScoring, icon: Target, stat: "1,200+", statLabel: "signals analyzed" },
+  { label: "Get your score", description: "Receive an opportunity score out of 100, factoring in market size, competition, and timing.", image: showcasePainpoints, icon: BarChart3, stat: "0–100", statLabel: "opportunity score" },
+  { label: "Act on insights", description: "Download a full validation report with actionable recommendations and next steps.", image: showcaseReports, icon: Zap, stat: "PDF", statLabel: "exportable report" },
 ];
 
 const features = [
@@ -493,6 +493,10 @@ function ShowcaseScrollSection({
               <p className="mt-1 text-sm leading-relaxed text-background/50">
                 {showcaseItems[activeShowcase].description}
               </p>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-chart-2/10 px-3 py-1.5">
+                <span className="text-sm font-bold text-chart-2">{showcaseItems[activeShowcase].stat}</span>
+                <span className="text-xs text-background/40">{showcaseItems[activeShowcase].statLabel}</span>
+              </div>
             </div>
           </div>
 
@@ -542,15 +546,21 @@ function ShowcaseScrollSection({
                         </p>
                         <AnimatePresence initial={false}>
                           {isActive && (
-                            <motion.p
+                            <motion.div
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
                               transition={{ duration: 0.25, ease: "easeOut" }}
-                              className="mt-1 overflow-hidden text-xs leading-relaxed text-background/45"
+                              className="overflow-hidden"
                             >
-                              {item.description}
-                            </motion.p>
+                              <p className="mt-1 text-xs leading-relaxed text-background/45">
+                                {item.description}
+                              </p>
+                              <div className="mt-2 inline-flex items-center gap-2 rounded-md bg-chart-2/10 px-2.5 py-1">
+                                <span className="text-xs font-bold text-chart-2">{item.stat}</span>
+                                <span className="text-[10px] text-background/35">{item.statLabel}</span>
+                              </div>
+                            </motion.div>
                           )}
                         </AnimatePresence>
                       </div>
