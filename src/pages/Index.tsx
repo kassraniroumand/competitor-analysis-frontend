@@ -404,228 +404,47 @@ function MoreFeaturesSection() {
 }
 
 
-function ShowcaseScrollSection({
-  activeShowcase,
-  setActiveShowcase,
-}: {
-  activeShowcase: number;
-  setActiveShowcase: (i: number) => void;
-  isMobile: boolean;
-}) {
-  const mobileSectionRef = useRef<HTMLDivElement>(null);
-  const desktopSectionRef = useRef<HTMLDivElement>(null);
-  const [isDesktop, setIsDesktop] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
-  );
-
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 1024px)");
-    const onChange = () => setIsDesktop(mql.matches);
-    onChange();
-    mql.addEventListener("change", onChange);
-    return () => mql.removeEventListener("change", onChange);
-  }, []);
-
-  const { scrollYProgress: mobileProgress } = useScroll({
-    target: mobileSectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  const { scrollYProgress: desktopProgress } = useScroll({
-    target: desktopSectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  useMotionValueEvent(isDesktop ? desktopProgress : mobileProgress, "change", (latest) => {
-    const stepIndex = Math.min(
-      showcaseItems.length - 1,
-      Math.floor(latest * showcaseItems.length)
-    );
-    setActiveShowcase(stepIndex);
-  });
-
-  const showcaseCard = (
-    <div className="overflow-hidden rounded-2xl bg-foreground p-5 sm:p-6 lg:p-8">
-      <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
-        {/* Image */}
-        <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-background/10">
-          <AnimatePresence initial={false} mode="wait">
-            <motion.img
-              key={activeShowcase}
-              src={showcaseItems[activeShowcase].image}
-              alt={showcaseItems[activeShowcase].label}
-              className="absolute inset-0 h-full w-full object-cover opacity-90"
-              draggable={false}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0 }}
-            />
-          </AnimatePresence>
+function HowItWorksSection() {
+  return (
+    <section className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        {/* Header */}
+        <div className="mb-12 lg:mb-16">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-chart-2 mb-3">The Process</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+            From concept to clarity
+            <br className="hidden sm:block" />
+            <span className="sm:hidden"> </span>in five sharp steps.
+          </h2>
+          <p className="text-muted-foreground mt-4 text-base lg:text-lg">Under two minutes. Zero guesswork.</p>
         </div>
 
-        <div className="flex flex-col">
-          {/* Mobile: horizontal step indicators + active content */}
-          <div className="lg:hidden">
-            <div className="mb-3 grid grid-cols-5 gap-2">
-              {showcaseItems.map((item, i) => {
-                const Icon = item.icon;
-                const isActive = activeShowcase === i;
-                return (
-                  <button
-                    key={item.label}
-                    onClick={() => setActiveShowcase(i)}
-                    className={`flex h-10 items-center justify-center rounded-xl transition-all duration-300 ${
-                      isActive
-                        ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/30"
-                        : "bg-background/20 text-background/80"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </button>
-                );
-              })}
-            </div>
-            <div className="px-0.5">
-              <p className="text-base font-bold text-background">
-                {showcaseItems[activeShowcase].label}
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-background/70">
-                {showcaseItems[activeShowcase].description}
-              </p>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-chart-2/15 px-3 py-1.5">
-                <span className="text-sm font-bold text-chart-2">{showcaseItems[activeShowcase].stat}</span>
-                <span className="text-xs text-background/60">{showcaseItems[activeShowcase].statLabel}</span>
+        {/* Grid - Desktop: 5 cols, Tablet: 3+2, Mobile: stacked */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px rounded-xl overflow-hidden border border-border bg-border">
+          {showcaseItems.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.label} className="bg-card p-6 sm:p-7 lg:p-8 flex flex-col gap-5">
+                <span className="font-mono text-3xl lg:text-4xl font-light text-muted-foreground/30">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="w-12 h-12 rounded-lg bg-chart-2/10 border border-chart-2/20 flex items-center justify-center">
+                  <Icon className="w-6 h-6 text-chart-2" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground">{item.label}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                <div className="mt-auto pt-4 border-t border-border">
+                  <div className="text-chart-2 font-mono text-lg font-bold">{item.stat}</div>
+                  <div className="text-xs text-muted-foreground">{item.statLabel}</div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Desktop: vertical timeline */}
-          <div className="hidden lg:block">
-            <div className="relative">
-              {/* Vertical line */}
-              <div className="absolute left-[19px] top-2 bottom-2 w-px bg-background/10" />
-              <motion.div
-                className="absolute left-[19px] top-2 w-px bg-chart-2"
-                animate={{ height: `${((activeShowcase) / (showcaseItems.length - 1)) * 100}%` }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              />
-
-              <div className="flex flex-col gap-0.5">
-                {showcaseItems.map((item, i) => {
-                  const Icon = item.icon;
-                  const isActive = activeShowcase === i;
-                  const isPast = i < activeShowcase;
-                  return (
-                    <button
-                      key={item.label}
-                      onClick={() => setActiveShowcase(i)}
-                      className="relative flex items-start gap-4 rounded-xl px-2 py-3 text-left transition-all duration-300 hover:bg-background/5"
-                    >
-                      {/* Icon dot */}
-                       <div
-                        className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
-                          isActive
-                            ? "bg-chart-2 text-foreground shadow-lg shadow-chart-2/20"
-                            : isPast
-                            ? "bg-chart-2/25 text-chart-2"
-                            : "bg-background/10 text-background/50"
-                        }`}
-                      >
-                        <Icon className="h-4 w-4" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="pt-1.5 min-w-0">
-                        <p
-                          className={`text-sm font-semibold tracking-tight transition-colors duration-300 ${
-                            isActive ? "text-background" : isPast ? "text-background/70" : "text-background/45"
-                          }`}
-                        >
-                          {item.label}
-                        </p>
-                        <AnimatePresence initial={false}>
-                          {isActive && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: "auto" }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.25, ease: "easeOut" }}
-                              className="overflow-hidden"
-                            >
-                              <p className="mt-1 text-xs leading-relaxed text-background/65">
-                                {item.description}
-                              </p>
-                              <div className="mt-2 inline-flex items-center gap-2 rounded-md bg-chart-2/15 px-2.5 py-1">
-                                <span className="text-xs font-bold text-chart-2">{item.stat}</span>
-                                <span className="text-[10px] text-background/55">{item.statLabel}</span>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Progress bar */}
-          <div className="mt-4 lg:mt-5">
-            <div className="h-1 w-full overflow-hidden rounded-full bg-background/15">
-              <motion.div
-                className="h-full rounded-full bg-chart-2"
-                animate={{ width: `${((activeShowcase + 1) / showcaseItems.length) * 100}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
-            <p className="mt-3 hidden max-w-md text-xs leading-relaxed text-background/50 lg:block">
-              Five steps. Under two minutes. From raw idea to validated business opportunity.
-            </p>
-          </div>
+            );
+          })}
         </div>
       </div>
-    </div>
-  );
-
-  return (
-    <>
-      <section
-        ref={mobileSectionRef}
-        style={{ height: `${showcaseItems.length * 45}vh` }}
-        className="relative lg:hidden"
-      >
-        <div className="sticky top-16 flex min-h-[calc(100svh-4rem)] flex-col justify-center px-4 py-6">
-          <div className="mb-4 text-center">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-primary">Simple Process</p>
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">How It Works</h2>
-            <p className="mx-auto mt-1.5 max-w-sm text-sm text-muted-foreground">Go from raw idea to validated opportunity in under two minutes.</p>
-          </div>
-          <div className="w-full">{showcaseCard}</div>
-        </div>
-      </section>
-
-      <section
-        ref={desktopSectionRef}
-        style={{ height: `${showcaseItems.length * 80}vh` }}
-        className="relative hidden lg:block"
-      >
-        <div className="sticky top-0 flex h-screen flex-col items-center justify-center">
-          <div className="mb-8 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-primary">Simple Process</p>
-            <h2 className="text-4xl font-bold tracking-tight text-foreground">How It Works</h2>
-            <p className="mx-auto mt-3 max-w-lg text-base text-muted-foreground">Five steps to transform a rough idea into a validated, investor-ready business opportunity.</p>
-          </div>
-          <div className="mx-auto w-full max-w-7xl px-10">
-            {showcaseCard}
-          </div>
-        </div>
-      </section>
-    </>
+    </section>
   );
 }
-
 export default function Index() {
   const navigate = useNavigate();
   const [activeShowcase, setActiveShowcase] = useState(0);
