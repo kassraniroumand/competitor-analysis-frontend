@@ -575,7 +575,7 @@ function ShowcaseScrollSection({
 
       <section
         ref={desktopSectionRef}
-        style={{ height: `${showcaseItems.length * 100}vh` }}
+        style={{ height: `${showcaseItems.length * 80}vh` }}
         className="relative hidden lg:block"
       >
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center">
