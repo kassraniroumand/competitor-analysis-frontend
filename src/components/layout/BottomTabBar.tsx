@@ -1,6 +1,6 @@
 import { CheckCircle, AlertTriangle, Users, FileText } from "lucide-react";
-import { useLocation, useNavigate, useParams, matchPath } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { useLocation, useNavigate, matchPath } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   { title: "Validation", icon: CheckCircle, getPath: () => "/validation" },
@@ -13,7 +13,6 @@ export function BottomTabBar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Try to extract an idea id from common detail routes
   const match =
     matchPath("/ideas/:id/*", location.pathname) ||
     matchPath("/ideas/:id", location.pathname) ||
@@ -21,26 +20,23 @@ export function BottomTabBar() {
   const ideaId = (match?.params as { id?: string } | undefined)?.id;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur-sm safe-area-bottom">
-      <div className="grid grid-cols-4 gap-1 px-2 py-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur-md safe-area-bottom">
+      <div className="grid grid-cols-2 gap-2 px-3 py-3">
         {navItems.map((item) => {
           const path = item.getPath(ideaId);
           const isActive = location.pathname === path || location.pathname.startsWith(path + "/");
           const Icon = item.icon;
           return (
-            <button
+            <Button
               key={item.title}
+              variant={isActive ? "default" : "outline"}
+              size="sm"
               onClick={() => navigate(path)}
-              className={cn(
-                "flex flex-col items-center justify-center gap-1 rounded-lg py-2 px-1 transition-colors",
-                isActive
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
+              className="h-11 justify-start gap-2 font-semibold shadow-sm"
             >
-              <Icon className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">{item.title}</span>
-            </button>
+              <Icon className="h-4 w-4 shrink-0" />
+              <span className="text-sm truncate">{item.title}</span>
+            </Button>
           );
         })}
       </div>
