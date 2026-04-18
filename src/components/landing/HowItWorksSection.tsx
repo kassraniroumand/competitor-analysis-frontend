@@ -85,42 +85,31 @@ export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionPr
             </div>
           </div>
 
-          {/* Right: step list */}
-          <ol className="space-y-2" aria-label="How it works steps">
+          {/* Right: scrollable step list — active step driven by scroll position */}
+          <ol className="space-y-24 py-[20vh]" aria-label="How it works steps">
             {items.map((item, i) => {
               const isActive = i === activeIndex;
               return (
-                <li key={item.label}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveIndex(i)}
-                    onMouseEnter={() => setActiveIndex(i)}
-                    className={cn(
-                      "w-full text-left p-4 rounded-lg border transition-all",
-                      isActive
-                        ? "bg-chart-2/5 border-l-4 border-l-chart-2 border-y-chart-2/20 border-r-chart-2/20"
-                        : "bg-card border-border hover:border-chart-2/30"
-                    )}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={cn(
-                          "font-mono text-xs font-bold",
-                          isActive ? "text-chart-2" : "text-muted-foreground/60"
-                        )}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <h4
-                        className={cn(
-                          "text-sm font-semibold",
-                          isActive ? "text-foreground" : "text-muted-foreground"
-                        )}
-                      >
-                        {item.label}
-                      </h4>
-                    </div>
-                  </button>
+                <li
+                  key={item.label}
+                  ref={(el) => (stepRefs.current[i] = el)}
+                  data-index={i}
+                  className={cn(
+                    "transition-opacity duration-500",
+                    isActive ? "opacity-100" : "opacity-30"
+                  )}
+                >
+                  <span className="font-mono text-xs font-bold text-chart-2">
+                    STEP {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="mt-2 text-2xl font-bold text-foreground">{item.label}</h4>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                  <div className="mt-4 flex items-baseline gap-2">
+                    <span className="font-mono text-lg font-bold text-chart-2">{item.stat}</span>
+                    <span className="text-xs text-muted-foreground">{item.statLabel}</span>
+                  </div>
                 </li>
               );
             })}
