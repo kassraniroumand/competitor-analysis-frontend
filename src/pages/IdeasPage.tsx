@@ -61,26 +61,24 @@ export default function IdeasPage() {
           <NewAnalysisDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </PageHeader>
 
-        {/* Summary Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {/* Summary Stats — compact */}
+        <div className="grid grid-cols-4 gap-2">
           {isLoading
             ? Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
             : [
-                { label: "Total Ideas", value: stats.total, icon: Lightbulb, color: "bg-foreground text-background", iconBg: "bg-background/15" },
-                { label: "Completed", value: stats.completed, icon: CheckCircle2, color: "bg-primary text-primary-foreground", iconBg: "bg-primary-foreground/20" },
-                { label: "Processing", value: stats.processing, icon: Loader2, color: "bg-secondary text-foreground", iconBg: "bg-background" },
-                { label: "Avg. Score", value: stats.avgScore, icon: Target, color: "bg-accent text-accent-foreground", iconBg: "bg-background" },
+                { label: "Total", value: stats.total, icon: Lightbulb, color: "bg-foreground text-background" },
+                { label: "Done", value: stats.completed, icon: CheckCircle2, color: "bg-primary text-primary-foreground" },
+                { label: "Active", value: stats.processing, icon: Loader2, color: "bg-secondary text-foreground" },
+                { label: "Avg", value: stats.avgScore, icon: Target, color: "bg-accent text-accent-foreground" },
               ].map((stat) => (
-                <div key={stat.label} className={`rounded-2xl p-4 ${stat.color}`}>
-                  <div className="flex items-center justify-between">
-                    <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${stat.iconBg}`}>
-                      <stat.icon className="h-4 w-4" />
-                    </div>
-                    <span className="text-2xl font-bold tabular-nums">{stat.value}</span>
+                <div key={stat.label} className={`rounded-xl px-2.5 py-2 ${stat.color}`}>
+                  <div className="flex items-center gap-1.5">
+                    <stat.icon className="h-3 w-3 opacity-70" />
+                    <span className="text-[10px] font-medium opacity-70 uppercase tracking-wide truncate">
+                      {stat.label}
+                    </span>
                   </div>
-                  <p className="mt-3 text-xs font-medium opacity-70 uppercase tracking-wider">
-                    {stat.label}
-                  </p>
+                  <span className="block mt-0.5 text-lg font-bold tabular-nums leading-none">{stat.value}</span>
                 </div>
               ))}
         </div>
