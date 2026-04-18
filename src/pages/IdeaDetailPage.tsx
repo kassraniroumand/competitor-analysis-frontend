@@ -72,19 +72,38 @@ export default function IdeaDetailPage() {
           </div>
 
           {/* ── Quick Nav ── */}
-          <div className="flex flex-wrap gap-2 pt-1">
-            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate("/validation")}>
-              <CheckCircle className="h-3.5 w-3.5" /> Validation
-            </Button>
-            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate("/pain-points")}>
-              <AlertTriangle className="h-3.5 w-3.5" /> Pain Points
-            </Button>
-            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate(`/ideas/${report.id}/competitors`)}>
-              <Users className="h-3.5 w-3.5" /> Competitors
-            </Button>
-            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate(`/reports/${report.id}`)}>
-              <FileText className="h-3.5 w-3.5" /> Report
-            </Button>
+          <div className="space-y-2 pt-2">
+            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Explore this idea</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => navigate("/validation")}>
+                <span className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold">Validation</span>
+                </span>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              </Button>
+              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => navigate("/pain-points")}>
+                <span className="flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold">Pain Points</span>
+                </span>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              </Button>
+              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => navigate(`/ideas/${report.id}/competitors`)}>
+                <span className="flex items-center gap-2">
+                  <Users className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold">Competitors</span>
+                </span>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              </Button>
+              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => navigate(`/reports/${report.id}`)}>
+                <span className="flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold">Report</span>
+                </span>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              </Button>
+            </div>
           </div>
         </header>
 
