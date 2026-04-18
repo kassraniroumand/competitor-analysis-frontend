@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { showcaseItems } from "./data";
 import type { HowItWorksSectionProps } from "./HowItWorksSection.types";
 import type { ShowcaseItem } from "./types";
@@ -6,8 +6,27 @@ import { cn } from "@/lib/utils";
 
 export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
   const active = items[activeIndex];
   const ActiveIcon = active.icon;
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the entry closest to the top trigger line that is intersecting
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) {
+          const idx = Number((visible[0].target as HTMLElement).dataset.index);
+          if (!Number.isNaN(idx)) setActiveIndex(idx);
+        }
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+    );
+    stepRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [items.length]);
 
   return (
     <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8">
