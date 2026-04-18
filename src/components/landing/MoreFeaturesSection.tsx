@@ -17,19 +17,35 @@ export function MoreFeaturesSection({ items = moreFeaturesData }: MoreFeaturesSe
           {/* Left — Title + Accordion */}
           <div className="flex flex-col justify-center p-8 lg:p-14">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">More features</h2>
+            <p className="mt-3 text-sm text-background/60">
+              Tap any feature below to explore →
+            </p>
 
-            <div className="mt-10 space-y-0 divide-y divide-background/10">
+            <div className="mt-8 space-y-2">
               {items.map((item, i) => {
                 const isOpen = openIndex === i;
                 return (
                   <button
                     key={item.title}
-                    className={cn("w-full text-left py-5 px-4 rounded-xl transition-colors", isOpen && "bg-background")}
+                    aria-expanded={isOpen}
+                    className={cn(
+                      "group relative w-full text-left py-4 px-4 rounded-xl transition-all duration-200",
+                      isOpen
+                        ? "bg-background shadow-lg"
+                        : "bg-background/5 hover:bg-background/10 hover:translate-x-1 cursor-pointer"
+                    )}
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                   >
+                    {isOpen && (
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full bg-primary" />
+                    )}
                     <div className="flex items-center gap-3">
-                      {isOpen ? <Minus className="h-4 w-4 shrink-0 text-black" /> : <Plus className="h-4 w-4 shrink-0 text-background/60" />}
-                      <span className={cn("text-base font-semibold transition-colors", isOpen ? "text-black" : "text-background/60")}>
+                      {isOpen ? (
+                        <Minus className="h-4 w-4 shrink-0 text-black" />
+                      ) : (
+                        <Plus className="h-4 w-4 shrink-0 text-background/60 transition-transform group-hover:rotate-90 group-hover:text-primary" />
+                      )}
+                      <span className={cn("text-base font-semibold transition-colors", isOpen ? "text-black" : "text-background/70 group-hover:text-background")}>
                         {item.title}
                       </span>
                     </div>
