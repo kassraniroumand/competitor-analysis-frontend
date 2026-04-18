@@ -37,9 +37,9 @@ export function UseCasesShowcase(_: UseCasesShowcaseProps) {
           navigation={{ prevEl: ".usecases-prev", nextEl: ".usecases-next" }}
           pagination={{ clickable: true }}
           breakpoints={{ 1024: { slidesPerView: 2, freeMode: false } }}
-          className="use-cases-swiper"
+          className="use-cases-swiper !pb-12 [&_.swiper-wrapper]:items-stretch"
         >
-          <SwiperSlide>
+          <SwiperSlide className="!h-auto">
             <Card className="h-full flex flex-col overflow-hidden">
               <CardHeader className="pb-2">
                 <CardDescription className="text-xs font-medium uppercase tracking-wider">Market Analysis</CardDescription>
@@ -70,7 +70,7 @@ export function UseCasesShowcase(_: UseCasesShowcaseProps) {
             </Card>
           </SwiperSlide>
 
-          <SwiperSlide>
+          <SwiperSlide className="!h-auto">
             <Card className="h-full flex flex-col overflow-hidden">
               <CardHeader className="pb-2">
                 <CardDescription className="text-xs font-medium uppercase tracking-wider">Competitor Intel</CardDescription>
