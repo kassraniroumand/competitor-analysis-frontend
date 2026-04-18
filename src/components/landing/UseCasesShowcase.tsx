@@ -1,6 +1,14 @@
 import { Check, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";
+// @ts-expect-error - swiper css side-effect import
+import "swiper/css";
+// @ts-expect-error - swiper css side-effect import
+import "swiper/css/free-mode";
+// @ts-expect-error - swiper css side-effect import
+import "swiper/css/navigation";
+// @ts-expect-error - swiper css side-effect import
+import "swiper/css/pagination";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import type { UseCasesShowcaseProps } from "./UseCasesShowcase.types";
 
