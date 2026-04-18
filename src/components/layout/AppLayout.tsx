@@ -1,4 +1,5 @@
 import { useRef, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { TopBar } from "./TopBar";
