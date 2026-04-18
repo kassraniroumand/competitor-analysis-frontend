@@ -70,7 +70,7 @@ export function UseCasesShowcase(_: UseCasesShowcaseProps) {
             </Card>
           </SwiperSlide>
 
-          <SwiperSlide>
+          <SwiperSlide className="!h-auto">
             <Card className="h-full flex flex-col overflow-hidden">
               <CardHeader className="pb-2">
                 <CardDescription className="text-xs font-medium uppercase tracking-wider">Competitor Intel</CardDescription>
