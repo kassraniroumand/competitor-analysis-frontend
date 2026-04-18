@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Users, CheckCircle2, AlertTriangle, Eye, Calendar, Tag, FileText } from "lucide-react";
+import { Users, CheckCircle2, AlertTriangle, Calendar, Tag, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -74,52 +74,24 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
       </CardContent>
 
       <CardFooter className="px-4 pb-4 pt-2">
-        <div className="inline-flex items-center rounded-lg border border-border divide-x divide-border overflow-hidden">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
-            onClick={() => navigate(`/ideas/${report.id}`)}
-          >
-            <FileText className="h-3.5 w-3.5" />
-            Detail
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
-            onClick={() => onQuickView?.(report)}
-          >
-            <Eye className="h-3.5 w-3.5" />
-            Preview
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
-            onClick={() => navigate(`/competitors?idea=${report.id}`)}
-          >
-            <Users className="h-3.5 w-3.5" />
-            Competitor
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
-            onClick={() => navigate(`/validation?idea=${report.id}`)}
-          >
-            <CheckCircle2 className="h-3.5 w-3.5" />
-            Validation
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="rounded-none text-xs text-muted-foreground hover:text-primary hover:bg-accent h-8 gap-1.5 px-3"
-            onClick={() => navigate(`/pain-points?idea=${report.id}`)}
-          >
-            <AlertTriangle className="h-3.5 w-3.5" />
-            Pain
-          </Button>
+        <div className="flex flex-wrap items-center gap-1.5 w-full">
+          {[
+            { label: "Validation", icon: CheckCircle2, path: `/validation?idea=${report.id}` },
+            { label: "Pain Points", icon: AlertTriangle, path: `/pain-points?idea=${report.id}` },
+            { label: "Competitors", icon: Users, path: `/ideas/${report.id}/competitors` },
+            { label: "Report", icon: FileText, path: `/reports/${report.id}` },
+          ].map((action) => (
+            <Button
+              key={action.label}
+              variant="outline"
+              size="sm"
+              className="h-8 rounded-full px-3 gap-1.5 text-xs font-medium"
+              onClick={() => navigate(action.path)}
+            >
+              <action.icon className="h-3.5 w-3.5" />
+              {action.label}
+            </Button>
+          ))}
         </div>
       </CardFooter>
     </Card>
