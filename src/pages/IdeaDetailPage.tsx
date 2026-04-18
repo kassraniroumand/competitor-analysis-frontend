@@ -4,7 +4,7 @@ import {
   TrendingUp, AlertTriangle, Zap, DollarSign, Lightbulb,
   Shield, Rocket, CheckCircle, MessageSquare, Search,
   ThumbsUp, ThumbsDown, ChevronRight, HelpCircle,
-  Target, BarChart3, Globe, Layers, ArrowLeft
+  Target, BarChart3, Globe, Layers, ArrowLeft, FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -69,6 +69,22 @@ export default function IdeaDetailPage() {
               <Button variant="outline" size="sm" className="gap-1.5"><Download className="h-3.5 w-3.5" /> Export Report</Button>
               <Button size="sm" className="gap-1.5"><ExternalLink className="h-3.5 w-3.5" /> View Related Competitor</Button>
             </div>
+          </div>
+
+          {/* ── Quick Nav ── */}
+          <div className="flex flex-wrap gap-2 pt-1">
+            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate("/validation")}>
+              <CheckCircle className="h-3.5 w-3.5" /> Validation
+            </Button>
+            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate("/pain-points")}>
+              <AlertTriangle className="h-3.5 w-3.5" /> Pain Points
+            </Button>
+            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate(`/ideas/${report.id}/competitors`)}>
+              <Users className="h-3.5 w-3.5" /> Competitors
+            </Button>
+            <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => navigate(`/reports/${report.id}`)}>
+              <FileText className="h-3.5 w-3.5" /> Report
+            </Button>
           </div>
         </header>
 
