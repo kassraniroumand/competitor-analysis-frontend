@@ -1,4 +1,5 @@
 import { useRef, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { TopBar } from "./TopBar";
@@ -42,6 +43,8 @@ function SwipeDetector({ children }: { children: React.ReactNode }) {
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
+  const location = useLocation();
+  const hideBottomBar = location.pathname === "/ideas" || location.pathname === "/dashboard/idea";
 
   return (
     <SidebarProvider>
@@ -49,10 +52,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
           <TopBar />
-          <main className="flex-1 overflow-auto pb-16 lg:pb-0">
+          <main className={`flex-1 overflow-auto ${isMobile && !hideBottomBar ? "pb-16" : ""} lg:pb-0`}>
             {children}
           </main>
-          {isMobile && <BottomTabBar />}
+          {isMobile && !hideBottomBar && <BottomTabBar />}
         </div>
       </SwipeDetector>
     </SidebarProvider>
