@@ -37,7 +37,7 @@ export function UseCasesShowcase(_: UseCasesShowcaseProps) {
           navigation={{ prevEl: ".usecases-prev", nextEl: ".usecases-next" }}
           pagination={{ clickable: true }}
           breakpoints={{ 1024: { slidesPerView: 2, freeMode: false } }}
-          className="use-cases-swiper"
+          className="use-cases-swiper !pb-12 [&_.swiper-wrapper]:items-stretch"
         >
           <SwiperSlide>
             <Card className="h-full flex flex-col overflow-hidden">
