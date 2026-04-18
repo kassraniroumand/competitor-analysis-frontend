@@ -11,21 +11,29 @@ export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionPr
   const ActiveIcon = active.icon;
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find the entry closest to the top trigger line that is intersecting
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) {
-          const idx = Number((visible[0].target as HTMLElement).dataset.index);
-          if (!Number.isNaN(idx)) setActiveIndex(idx);
+    const handleScroll = () => {
+      const triggerY = window.innerHeight * 0.4;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      stepRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const dist = Math.abs(center - triggerY);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
         }
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
-    );
-    stepRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+      });
+      setActiveIndex(bestIdx);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, [items.length]);
 
   return (
