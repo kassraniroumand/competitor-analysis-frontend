@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { showcaseItems } from "./data";
 import type { HowItWorksSectionProps } from "./HowItWorksSection.types";
 import type { ShowcaseItem } from "./types";
+import { cn } from "@/lib/utils";
 
 export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = items[activeIndex];
+  const ActiveIcon = active.icon;
+
   return (
     <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -22,7 +28,7 @@ export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionPr
         </div>
 
         {/* Mobile: horizontal swipe carousel */}
-        <div className="sm:hidden -mx-4">
+        <div className="lg:hidden -mx-4">
           <ol
             className="flex gap-3 overflow-x-auto px-4 pb-4 snap-x snap-mandatory scroll-px-4 scrollbar-hide"
             aria-label="How it works"
@@ -31,44 +37,75 @@ export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionPr
               <StepCardMobile key={item.label} item={item} index={i} />
             ))}
           </ol>
-          <div className="mt-1 flex justify-center gap-1.5 px-4">
-            {items.map((_, i) => (
-              <span
-                key={i}
-                className="h-1 w-1 rounded-full bg-muted-foreground/30"
-                aria-hidden="true"
-              />
-            ))}
-          </div>
           <p className="mt-3 text-center text-[11px] text-muted-foreground">
             Swipe to see all {items.length} steps →
           </p>
         </div>
 
-        {/* Tablet + Desktop: grid */}
-        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-5 gap-px rounded-xl overflow-hidden border border-border bg-border">
-          {items.map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.label}
-                className="bg-card p-6 sm:p-7 lg:p-8 flex flex-col gap-5"
-              >
-                <span className="font-mono text-3xl lg:text-4xl font-light text-muted-foreground/30">
-                  {String(i + 1).padStart(2, "0")}
+        {/* Desktop: split — sticky preview + step list */}
+        <div className="hidden lg:grid grid-cols-2 gap-8">
+          {/* Left: sticky preview of active step */}
+          <div className="sticky top-24 self-start">
+            <div className="rounded-2xl border-2 border-chart-2/40 bg-card p-8 aspect-square flex flex-col justify-between shadow-sm">
+              <div>
+                <span className="font-mono text-6xl font-light text-muted-foreground/20">
+                  {String(activeIndex + 1).padStart(2, "0")}
                 </span>
-                <div className="w-12 h-12 rounded-lg bg-chart-2/10 border border-chart-2/20 flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-chart-2" />
+                <div className="mt-6 w-14 h-14 rounded-lg bg-chart-2/10 border border-chart-2/20 flex items-center justify-center">
+                  <ActiveIcon className="w-7 h-7 text-chart-2" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">{item.label}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-                <div className="mt-auto pt-4 border-t border-border">
-                  <div className="text-chart-2 font-mono text-lg font-bold">{item.stat}</div>
-                  <div className="text-xs text-muted-foreground">{item.statLabel}</div>
-                </div>
+                <h3 className="mt-6 text-2xl font-bold text-foreground">{active.label}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  {active.description}
+                </p>
               </div>
-            );
-          })}
+              <div className="border-t border-border pt-4">
+                <div className="font-mono text-2xl font-bold text-chart-2">{active.stat}</div>
+                <div className="text-xs text-muted-foreground">{active.statLabel}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: step list */}
+          <ol className="space-y-2" aria-label="How it works steps">
+            {items.map((item, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <li key={item.label}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    onMouseEnter={() => setActiveIndex(i)}
+                    className={cn(
+                      "w-full text-left p-4 rounded-lg border transition-all",
+                      isActive
+                        ? "bg-chart-2/5 border-l-4 border-l-chart-2 border-y-chart-2/20 border-r-chart-2/20"
+                        : "bg-card border-border hover:border-chart-2/30"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={cn(
+                          "font-mono text-xs font-bold",
+                          isActive ? "text-chart-2" : "text-muted-foreground/60"
+                        )}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h4
+                        className={cn(
+                          "text-sm font-semibold",
+                          isActive ? "text-foreground" : "text-muted-foreground"
+                        )}
+                      >
+                        {item.label}
+                      </h4>
+                    </div>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>
