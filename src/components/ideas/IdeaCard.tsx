@@ -73,8 +73,8 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
         )}
       </CardContent>
 
-      <CardFooter className="px-4 pb-4 pt-2">
-        <div className="flex flex-wrap items-center gap-1.5 w-full">
+      <CardFooter className="px-4 pb-4 pt-3 border-t bg-muted/30">
+        <div className="grid grid-cols-2 gap-2 w-full">
           {[
             { label: "Validation", icon: CheckCircle2, path: `/validation?idea=${report.id}` },
             { label: "Pain Points", icon: AlertTriangle, path: `/pain-points?idea=${report.id}` },
@@ -83,9 +83,9 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
           ].map((action) => (
             <Button
               key={action.label}
-              variant="outline"
+              variant="secondary"
               size="sm"
-              className="h-8 rounded-full px-3 gap-1.5 text-xs font-medium"
+              className="h-9 justify-start gap-2 text-xs font-semibold shadow-sm hover:shadow hover:bg-primary hover:text-primary-foreground transition-all"
               onClick={() => navigate(action.path)}
             >
               <action.icon className="h-3.5 w-3.5" />
