@@ -62,42 +62,56 @@ export default function IdeasPage() {
           <NewAnalysisDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </PageHeader>
 
-        {/* Editorial stat tiles */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {isLoading ? (
-            Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
-          ) : (
-            <>
-              <EditorialStatTile
-                label="Total Ideas"
-                value={stats.total}
-                meta={<span className="text-primary">+{stats.processing}</span>}
-                sub={`${stats.completed} done · ${stats.processing} active`}
-                visual={<MiniSparkline points={[1, 2, 2, 3, 3, 4, 4, 5, stats.total]} />}
-              />
-              <EditorialStatTile
-                label="Completed"
-                value={stats.completed}
-                meta="ready"
-                sub={`${Math.round((stats.completed / Math.max(stats.total, 1)) * 100)}% of total`}
-                visual={<MiniBars values={[2, 3, 4, 3, 5, 4, 6, 5, 7, stats.completed]} />}
-              />
-              <EditorialStatTile
-                label="In Progress"
-                value={stats.processing}
-                meta="live"
-                sub="avg 12 min to result"
-                visual={<MiniDots values={[3, 4, 5, 6, 4, 5, 7, 5, 6, 4]} />}
-              />
-              <EditorialStatTile
-                label="Avg Score"
-                value={stats.avgScore}
-                meta={<span className="text-primary">↑ trending</span>}
-                sub="across all completed ideas"
-                visual={<MiniSparkline points={[55, 60, 62, 68, 70, 72, 75, 78, stats.avgScore]} />}
-              />
-            </>
-          )}
+        {/* Editorial stat tiles — scrollable on mobile, grid on desktop */}
+        <div className="-mx-6 lg:mx-0 px-6 lg:px-0 overflow-x-auto lg:overflow-visible scrollbar-hide">
+          <div className="flex lg:grid lg:grid-cols-4 gap-4 min-w-max lg:min-w-0">
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                  <MetricCardSkeleton />
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                  <EditorialStatTile
+                    label="Total Ideas"
+                    value={stats.total}
+                    meta={<span className="text-primary">+{stats.processing}</span>}
+                    sub={`${stats.completed} done · ${stats.processing} active`}
+                    visual={<MiniSparkline points={[1, 2, 2, 3, 3, 4, 4, 5, stats.total]} />}
+                  />
+                </div>
+                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                  <EditorialStatTile
+                    label="Completed"
+                    value={stats.completed}
+                    meta="ready"
+                    sub={`${Math.round((stats.completed / Math.max(stats.total, 1)) * 100)}% of total`}
+                    visual={<MiniBars values={[2, 3, 4, 3, 5, 4, 6, 5, 7, stats.completed]} />}
+                  />
+                </div>
+                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                  <EditorialStatTile
+                    label="In Progress"
+                    value={stats.processing}
+                    meta="live"
+                    sub="avg 12 min to result"
+                    visual={<MiniDots values={[3, 4, 5, 6, 4, 5, 7, 5, 6, 4]} />}
+                  />
+                </div>
+                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                  <EditorialStatTile
+                    label="Avg Score"
+                    value={stats.avgScore}
+                    meta={<span className="text-primary">↑ trending</span>}
+                    sub="across all completed ideas"
+                    visual={<MiniSparkline points={[55, 60, 62, 68, 70, 72, 75, 78, stats.avgScore]} />}
+                  />
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
         {/* Filters */}
