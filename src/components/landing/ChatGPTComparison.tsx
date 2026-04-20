@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, Check, X, ArrowRight } from "lucide-react";
+import { Sparkles, Check, X, ArrowRight, ChevronsRight } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 const features = [
@@ -38,14 +38,21 @@ export default function ChatGPTComparison() {
 
       <Separator className="my-8 bg-border" />
 
+      {/* Mobile swipe hint */}
+      <div className="mb-3 flex items-center gap-1.5 text-xs text-muted-foreground sm:hidden">
+        <ChevronsRight className="h-3.5 w-3.5 animate-pulse" />
+        <span>Swipe to see all columns</span>
+      </div>
+
       {/* Comparison Table */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="overflow-x-auto rounded-2xl border border-border"
+        className="relative rounded-2xl border border-border"
       >
+        <div className="overflow-x-auto rounded-2xl">
         <table className="w-full min-w-[480px] text-center">
           <thead>
             <tr className="bg-muted/50">
@@ -98,6 +105,9 @@ export default function ChatGPTComparison() {
             ))}
           </tbody>
         </table>
+        </div>
+        {/* Right-edge fade hint that the table scrolls (mobile only) */}
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 rounded-r-2xl bg-gradient-to-l from-background to-transparent sm:hidden" />
       </motion.div>
 
       {/* CTA */}
