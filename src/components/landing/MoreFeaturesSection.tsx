@@ -131,6 +131,7 @@ export function MoreFeaturesSection({ items = moreFeaturesData }: MoreFeaturesSe
             )}
           </div>
         </div>
+        </div>
       </div>
     </section>
   );
