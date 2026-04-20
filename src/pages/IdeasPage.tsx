@@ -67,13 +67,13 @@ export default function IdeasPage() {
           <div className="flex lg:grid lg:grid-cols-4 gap-4 min-w-max lg:min-w-0">
             {isLoading ? (
               Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                <div key={i} className="w-[55vw] sm:w-[32vw] lg:w-auto shrink-0 lg:shrink">
                   <MetricCardSkeleton />
                 </div>
               ))
             ) : (
               <>
-                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                <div className="w-[55vw] sm:w-[32vw] lg:w-auto shrink-0 lg:shrink">
                   <EditorialStatTile
                     label="Total Ideas"
                     value={stats.total}
@@ -82,7 +82,7 @@ export default function IdeasPage() {
                     visual={<MiniSparkline points={[1, 2, 2, 3, 3, 4, 4, 5, stats.total]} />}
                   />
                 </div>
-                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                <div className="w-[55vw] sm:w-[32vw] lg:w-auto shrink-0 lg:shrink">
                   <EditorialStatTile
                     label="Completed"
                     value={stats.completed}
@@ -91,7 +91,7 @@ export default function IdeasPage() {
                     visual={<MiniBars values={[2, 3, 4, 3, 5, 4, 6, 5, 7, stats.completed]} />}
                   />
                 </div>
-                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                <div className="w-[55vw] sm:w-[32vw] lg:w-auto shrink-0 lg:shrink">
                   <EditorialStatTile
                     label="In Progress"
                     value={stats.processing}
@@ -100,7 +100,7 @@ export default function IdeasPage() {
                     visual={<MiniDots values={[3, 4, 5, 6, 4, 5, 7, 5, 6, 4]} />}
                   />
                 </div>
-                <div className="w-[78vw] sm:w-[42vw] lg:w-auto shrink-0 lg:shrink">
+                <div className="w-[55vw] sm:w-[32vw] lg:w-auto shrink-0 lg:shrink">
                   <EditorialStatTile
                     label="Avg Score"
                     value={stats.avgScore}
