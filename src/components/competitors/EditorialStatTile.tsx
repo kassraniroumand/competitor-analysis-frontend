@@ -10,27 +10,27 @@ interface EditorialStatTileProps {
 
 export function EditorialStatTile({ label, value, meta, sub, visual }: EditorialStatTileProps) {
   return (
-    <div className="rounded-2xl border bg-card px-6 pt-5 pb-4 flex flex-col min-h-[180px]">
-      <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground font-medium">
+    <div className="rounded-xl border bg-card px-4 pt-3 pb-3 flex flex-col min-h-[120px]">
+      <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground font-medium">
         {label}
       </p>
-      <div className="mt-3 flex items-baseline justify-between gap-3">
+      <div className="mt-1.5 flex items-baseline justify-between gap-2">
         <span
-          className="text-5xl leading-none text-foreground"
+          className="text-3xl leading-none text-foreground"
           style={{ fontFamily: '"Cormorant Garamond", "Times New Roman", Georgia, serif', fontWeight: 500 }}
         >
           {value}
         </span>
         {meta && (
-          <span className="text-xs text-muted-foreground font-mono whitespace-nowrap">
+          <span className="text-[11px] text-muted-foreground font-mono whitespace-nowrap">
             {meta}
           </span>
         )}
       </div>
       {sub && (
-        <p className="mt-2 text-xs text-muted-foreground font-mono">{sub}</p>
+        <p className="mt-1 text-[11px] text-muted-foreground font-mono truncate">{sub}</p>
       )}
-      <div className="mt-auto pt-4">{visual}</div>
+      <div className="mt-auto pt-2">{visual}</div>
     </div>
   );
 }
