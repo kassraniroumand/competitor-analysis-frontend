@@ -1,6 +1,8 @@
+"use client";
+
 import { LayoutDashboard, Lightbulb, FileText, Settings, ChevronDown } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Sidebar,
@@ -36,13 +38,13 @@ const accountItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const location = useLocation();
+  const pathname = usePathname();
 
   const renderItem = (item: { title: string; url: string; icon: typeof LayoutDashboard }) => {
     const isActive =
       item.url === "/ideas"
-        ? location.pathname === "/ideas" || location.pathname.startsWith("/ideas/")
-        : location.pathname.startsWith(item.url);
+        ? pathname === "/ideas" || pathname.startsWith("/ideas/")
+        : pathname.startsWith(item.url);
     return (
       <SidebarMenuItem key={item.title}>
         <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>

@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lightbulb, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,7 +8,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import type { MobileMenuProps } from "./MobileMenu.types";
 
 export function MobileMenu({ open, onClose }: MobileMenuProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const isMobile = useIsMobile();
 
   return (
@@ -43,12 +45,12 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             <nav className="mt-10 flex flex-col gap-1">
               <a href="#features" onClick={onClose} className="rounded-lg px-3 py-3 text-base font-medium text-foreground transition-colors hover:bg-muted">Features</a>
               <a href="#testimonials" onClick={onClose} className="rounded-lg px-3 py-3 text-base font-medium text-foreground transition-colors hover:bg-muted">Testimonials</a>
-              <button className="rounded-lg px-3 py-3 text-left text-base font-medium text-foreground transition-colors hover:bg-muted" onClick={() => { onClose(); navigate("/pricing"); }}>Pricing</button>
+              <button className="rounded-lg px-3 py-3 text-left text-base font-medium text-foreground transition-colors hover:bg-muted" onClick={() => { onClose(); router.push("/pricing"); }}>Pricing</button>
             </nav>
 
             <div className="mt-auto flex flex-col gap-3 border-t border-border pt-6 pb-8">
-              <Button variant="outline" size="lg" className="w-full text-sm font-medium" onClick={() => { onClose(); navigate("/dashboard"); }}>Log in</Button>
-              <Button size="lg" className="w-full rounded-full text-sm font-medium" onClick={() => { onClose(); navigate("/ideas"); }}>Get started for free</Button>
+              <Button variant="outline" size="lg" className="w-full text-sm font-medium" onClick={() => { onClose(); router.push("/dashboard"); }}>Log in</Button>
+              <Button size="lg" className="w-full rounded-full text-sm font-medium" onClick={() => { onClose(); router.push("/ideas"); }}>Get started for free</Button>
             </div>
           </motion.div>
         </>

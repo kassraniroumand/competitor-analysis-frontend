@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import type { BottomCTAProps } from "./BottomCTA.types";
 
 export function BottomCTA({ ctaPath = "/ideas" }: BottomCTAProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">
       <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -12,7 +14,7 @@ export function BottomCTA({ ctaPath = "/ideas" }: BottomCTAProps) {
       <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
         Start validating your ideas and getting market insights right away
       </p>
-      <Button size="lg" className="mt-8 rounded-full px-8 text-sm font-medium" onClick={() => navigate(ctaPath)}>
+      <Button size="lg" className="mt-8 rounded-full px-8 text-sm font-medium" onClick={() => router.push(ctaPath)}>
         Get started for free
       </Button>
     </section>

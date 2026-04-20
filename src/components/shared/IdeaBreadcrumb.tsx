@@ -1,4 +1,6 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import { mockReports } from "@/data/mock-data";
 import {
   Breadcrumb,
@@ -14,8 +16,8 @@ interface IdeaBreadcrumbProps {
 }
 
 export function IdeaBreadcrumb({ currentPage }: IdeaBreadcrumbProps) {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const ideaId = searchParams.get("idea");
   const idea = ideaId ? mockReports.find((r) => r.id === ideaId) : null;
 
@@ -23,13 +25,13 @@ export function IdeaBreadcrumb({ currentPage }: IdeaBreadcrumbProps) {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" onClick={(e) => { e.preventDefault(); navigate("/"); }}>
+          <BreadcrumbLink href="/" onClick={(e) => { e.preventDefault(); router.push("/"); }}>
             Dashboard
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/ideas" onClick={(e) => { e.preventDefault(); navigate("/ideas"); }}>
+          <BreadcrumbLink href="/ideas" onClick={(e) => { e.preventDefault(); router.push("/ideas"); }}>
             Ideas
           </BreadcrumbLink>
         </BreadcrumbItem>
@@ -39,7 +41,7 @@ export function IdeaBreadcrumb({ currentPage }: IdeaBreadcrumbProps) {
             <BreadcrumbItem>
               <BreadcrumbLink
                 href={`/ideas/${idea.id}`}
-                onClick={(e) => { e.preventDefault(); navigate(`/ideas/${idea.id}`); }}
+                onClick={(e) => { e.preventDefault(); router.push(`/ideas/${idea.id}`); }}
                 className="max-w-[200px] truncate"
               >
                 {idea.title}

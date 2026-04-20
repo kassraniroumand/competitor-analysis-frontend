@@ -1,10 +1,12 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Lightbulb, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { LandingNavbarProps } from "./LandingNavbar.types";
 
 export function LandingNavbar({ mobileMenuOpen, onMobileMenuToggle }: LandingNavbarProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
@@ -21,12 +23,12 @@ export function LandingNavbar({ mobileMenuOpen, onMobileMenuToggle }: LandingNav
           <a href="#use-cases" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">Resources</a>
           <a href="#use-cases" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">Solutions</a>
           <a href="#testimonials" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">Templates</a>
-          <button className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" onClick={() => navigate("/pricing")}>Pricing</button>
+          <button className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" onClick={() => router.push("/pricing")}>Pricing</button>
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" className="text-sm font-semibold" onClick={() => navigate("/dashboard")}>Login</Button>
-          <Button size="sm" className="rounded-full bg-foreground px-5 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => navigate("/ideas")}>Try for free</Button>
+          <Button variant="ghost" size="sm" className="text-sm font-semibold" onClick={() => router.push("/dashboard")}>Login</Button>
+          <Button size="sm" className="rounded-full bg-foreground px-5 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => router.push("/ideas")}>Try for free</Button>
         </div>
 
         <button className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground md:hidden" onClick={onMobileMenuToggle}>

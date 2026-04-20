@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { ArrowUpRight, Bookmark, Target, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Competitor } from "@/data/mock-data";
@@ -8,9 +10,8 @@ interface CompetitorCardProps {
 }
 
 export function CompetitorCard({ competitor: comp }: CompetitorCardProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  // Mock supplemental data derived from competitor
   const matchPct = comp.relevanceScore;
   const overlapPct = Math.min(95, Math.max(20, comp.relevanceScore - 10 + (comp.id.length * 3) % 25));
   const mau = ["420K", "1.6M", "210K", "85K", "3.2M"][Number(comp.id) % 5] || "120K";
@@ -20,7 +21,6 @@ export function CompetitorCard({ competitor: comp }: CompetitorCardProps) {
 
   return (
     <div className="rounded-2xl border bg-card p-6 flex flex-col gap-5 hover:shadow-md transition-all">
-      {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-accent-foreground text-lg font-semibold shrink-0">
@@ -50,10 +50,8 @@ export function CompetitorCard({ competitor: comp }: CompetitorCardProps) {
         </div>
       </div>
 
-      {/* Description */}
       <p className="text-sm text-foreground/80 leading-relaxed line-clamp-2">{comp.description}</p>
 
-      {/* Feature Overlap bar */}
       <div className="border-b border-dashed pb-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-[10px] uppercase tracking-[0.18em] font-medium text-muted-foreground">
@@ -71,7 +69,6 @@ export function CompetitorCard({ competitor: comp }: CompetitorCardProps) {
         </div>
       </div>
 
-      {/* Stats row */}
       <div className="grid grid-cols-3 gap-4 border-b border-dashed pb-4">
         <Stat label="Pricing" value={comp.pricingSummary} mono />
         <Stat label="MAU" value={mau} mono />
@@ -83,7 +80,6 @@ export function CompetitorCard({ competitor: comp }: CompetitorCardProps) {
         />
       </div>
 
-      {/* Actions */}
       <div className="grid grid-cols-4 gap-2">
         <ActionBtn icon={<Bookmark className="h-3.5 w-3.5" />} label="Watch" />
         <ActionBtn icon={<Target className="h-3.5 w-3.5" />} label="Compare" />
@@ -91,7 +87,7 @@ export function CompetitorCard({ competitor: comp }: CompetitorCardProps) {
         <ActionBtn
           icon={<ArrowUpRight className="h-3.5 w-3.5" />}
           label="Visit"
-          onClick={() => navigate(`/competitors/${comp.id}`)}
+          onClick={() => router.push(`/competitors/${comp.id}`)}
         />
       </div>
     </div>

@@ -1,5 +1,7 @@
+"use client";
+
 import { useRef, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { TopBar } from "./TopBar";
@@ -22,11 +24,11 @@ function SwipeDetector({ children }: { children: React.ReactNode }) {
     const touch = e.changedTouches[0];
     const dx = touch.clientX - touchStart.current.x;
     const dy = Math.abs(touch.clientY - touchStart.current.y);
-    
+
     if (!openMobile && touchStart.current.x < 30 && dx > 60 && dy < 100) {
       setOpenMobile(true);
     }
-    
+
     touchStart.current = null;
   }, [isMobile, openMobile, setOpenMobile]);
 
@@ -43,8 +45,8 @@ function SwipeDetector({ children }: { children: React.ReactNode }) {
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
-  const location = useLocation();
-  const hideBottomBar = location.pathname === "/ideas" || location.pathname === "/dashboard/idea";
+  const pathname = usePathname();
+  const hideBottomBar = pathname === "/ideas" || pathname === "/dashboard/idea";
 
   return (
     <SidebarProvider>

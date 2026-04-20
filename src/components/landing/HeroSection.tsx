@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { ArrowRight, Play, Sparkles, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +8,7 @@ import HeroCanvas from "@/components/HeroCanvas";
 import type { HeroSectionProps } from "./HeroSection.types";
 
 export function HeroSection(_: HeroSectionProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <section className="relative overflow-hidden px-6 pt-16 pb-12 sm:pt-24 sm:pb-16 lg:px-10 lg:pt-32 lg:pb-24">
@@ -28,11 +30,11 @@ export function HeroSection(_: HeroSectionProps) {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button size="lg" className="rounded-full bg-foreground px-8 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => navigate("/ideas")}>
+            <Button size="lg" className="rounded-full bg-foreground px-8 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => router.push("/ideas")}>
               Start for free
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="rounded-full px-6 text-sm font-medium" onClick={() => navigate("/ideas")}>
+            <Button variant="outline" size="lg" className="rounded-full px-6 text-sm font-medium" onClick={() => router.push("/ideas")}>
               <Play className="mr-2 h-3.5 w-3.5" />
               Watch demo
             </Button>
