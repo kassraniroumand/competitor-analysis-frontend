@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BookOpen, CheckCircle, AlertTriangle, Users, FileText, Menu,
+  BookOpen, CheckCircle, AlertTriangle, Users, FileText, Menu, ArrowLeft,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -60,19 +60,40 @@ function SidebarBody({
   idea,
   items,
   onNavigate,
+  size = "default",
 }: {
   idea: IdeaReport;
   items: ReturnType<typeof useNavItems>;
   onNavigate?: () => void;
+  size?: "default" | "lg";
 }) {
+  const isLg = size === "lg";
+
   return (
     <>
       <div className="p-4 space-y-4">
+        <Link
+          href="/ideas"
+          onClick={onNavigate}
+          className={cn(
+            "inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors",
+            isLg ? "text-sm font-medium" : "text-xs font-medium",
+          )}
+        >
+          <ArrowLeft className={cn("shrink-0", isLg ? "h-4 w-4" : "h-3.5 w-3.5")} />
+          Back to Ideas
+        </Link>
+
         <div className="space-y-2">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
             Current Idea
           </p>
-          <h2 className="text-sm font-bold text-foreground leading-snug line-clamp-3">
+          <h2
+            className={cn(
+              "font-bold text-foreground leading-snug line-clamp-3",
+              isLg ? "text-lg" : "text-sm",
+            )}
+          >
             {idea.title}
           </h2>
           <div className="flex flex-wrap gap-1">
@@ -83,13 +104,13 @@ function SidebarBody({
         </div>
 
         <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/60 border border-border">
-          <ScoreGauge score={idea.opportunityScore} size={52} />
+          <ScoreGauge score={idea.opportunityScore} size={isLg ? 72 : 52} />
         </div>
       </div>
 
       <Separator />
 
-      <nav className="p-3 space-y-0.5">
+      <nav className={cn("space-y-1", isLg ? "p-3" : "p-3 space-y-0.5")}>
         <p className="px-2 pb-1.5 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
           Sections
         </p>
@@ -99,13 +120,16 @@ function SidebarBody({
             href={item.href}
             onClick={onNavigate}
             className={cn(
-              "flex items-center gap-2.5 px-2 py-2 rounded-md text-sm font-medium transition-colors",
+              "flex items-center rounded-lg font-medium transition-colors",
+              isLg
+                ? "gap-3.5 px-3 py-3 text-base"
+                : "gap-2.5 px-2 py-2 text-sm",
               item.isActive
                 ? "bg-primary/10 text-primary"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
           >
-            <item.icon className="h-4 w-4 shrink-0" />
+            <item.icon className={cn("shrink-0", isLg ? "h-5 w-5" : "h-4 w-4")} />
             <span>{item.label}</span>
           </Link>
         ))}
@@ -144,9 +168,14 @@ export function IdeaDetailMobileNav({ idea }: IdeaDetailSidebarProps) {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 w-72 sm:max-w-xs overflow-y-auto">
+      <SheetContent side="left" className="p-0 w-[85vw] max-w-sm sm:max-w-sm overflow-y-auto">
         <SheetTitle className="sr-only">Idea sections</SheetTitle>
-        <SidebarBody idea={idea} items={items} onNavigate={() => setOpen(false)} />
+        <SidebarBody
+          idea={idea}
+          items={items}
+          onNavigate={() => setOpen(false)}
+          size="lg"
+        />
       </SheetContent>
     </Sheet>
   );

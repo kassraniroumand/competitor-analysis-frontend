@@ -64,6 +64,7 @@ export default function Page() {
         <PageHeader
           title="Dashboard"
           subtitle="Overview of your idea validation pipeline"
+          className="sticky top-0 z-20 -mx-6 -mt-6 px-6 pt-6 pb-4 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70 border-b border-border lg:static lg:mx-0 lg:mt-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:backdrop-blur-none lg:border-b-0"
         >
           <Button className="gap-2" onClick={() => router.push("/ideas")}>
             <Sparkles className="h-4 w-4" />
