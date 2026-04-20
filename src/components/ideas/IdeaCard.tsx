@@ -74,23 +74,35 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
       </CardContent>
 
       <CardFooter className="px-4 pb-4 pt-3 border-t bg-muted/30">
-        <div className="grid grid-cols-2 gap-2.5 w-full">
-          {[
-            { label: "Validation", icon: CheckCircle2, path: `/validation?idea=${report.id}`, color: "bg-emerald-500 hover:bg-emerald-600 border-emerald-700" },
-            { label: "Pain Points", icon: AlertTriangle, path: `/pain-points?idea=${report.id}`, color: "bg-rose-500 hover:bg-rose-600 border-rose-700" },
-            { label: "Competitors", icon: Users, path: `/ideas/${report.id}/competitors`, color: "bg-blue-500 hover:bg-blue-600 border-blue-700" },
-            { label: "Report", icon: FileText, path: `/reports/${report.id}`, color: "bg-violet-500 hover:bg-violet-600 border-violet-700" },
-          ].map((action) => (
-            <button
-              key={action.label}
-              type="button"
-              onClick={() => navigate(action.path)}
-              className={`${action.color} text-white inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg text-xs font-bold uppercase tracking-wide border-b-4 shadow-md hover:shadow-lg active:translate-y-0.5 active:border-b-2 transition-all`}
-            >
-              <action.icon className="h-4 w-4" />
-              {action.label}
-            </button>
-          ))}
+        <div className="w-full space-y-2">
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            Quick actions · tap a button
+          </p>
+          <div className="grid grid-cols-2 gap-2 w-full">
+            {[
+              { label: "Validation", icon: CheckCircle2, path: `/validation?idea=${report.id}` },
+              { label: "Pain Points", icon: AlertTriangle, path: `/pain-points?idea=${report.id}` },
+              { label: "Competitors", icon: Users, path: `/ideas/${report.id}/competitors` },
+              { label: "Report", icon: FileText, path: `/reports/${report.id}` },
+            ].map((action) => (
+              <Button
+                key={action.label}
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => navigate(action.path)}
+                className="h-auto min-h-11 flex-col items-start justify-center gap-0.5 rounded-lg border-2 px-3 py-2 text-left shadow-sm hover:shadow-md"
+              >
+                <span className="flex items-center gap-2 text-xs font-semibold text-foreground">
+                  <action.icon className="h-4 w-4" />
+                  {action.label}
+                </span>
+                <span className="pl-6 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                  Tap to open
+                </span>
+              </Button>
+            ))}
+          </div>
         </div>
       </CardFooter>
     </Card>
