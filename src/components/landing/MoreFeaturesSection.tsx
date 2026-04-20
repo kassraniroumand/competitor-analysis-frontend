@@ -17,15 +17,15 @@ export function MoreFeaturesSection({ items = moreFeaturesData }: MoreFeaturesSe
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const viewportH = window.innerHeight;
-      // Only activate scroll-driven tab when the section is in view
       if (rect.bottom < 0 || rect.top > viewportH) return;
 
-      // Compute progress from when the section's top reaches viewport top
-      // until the section's bottom reaches viewport bottom.
+      // Wrapper is (items.length) viewports tall, inner card sticks at top.
+      // Progress = how far the wrapper's top has scrolled past viewport top,
+      // normalized over (wrapperHeight - viewportH).
       const total = Math.max(1, el.offsetHeight - viewportH);
       const scrolled = Math.min(Math.max(-rect.top, 0), total);
       const progress = scrolled / total;
-      const idx = Math.min(items.length - 1, Math.max(0, Math.floor(progress * items.length)));
+      const idx = Math.min(items.length - 1, Math.max(0, Math.floor(progress * items.length * 0.999)));
       setOpenIndex((prev) => (prev === idx ? prev : idx));
     };
 
@@ -39,8 +39,13 @@ export function MoreFeaturesSection({ items = moreFeaturesData }: MoreFeaturesSe
   }, [items.length]);
 
   return (
-    <section ref={sectionRef} className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-      <div className="overflow-hidden rounded-3xl bg-foreground text-background">
+    <section
+      ref={sectionRef}
+      className="relative mx-auto max-w-7xl px-6 lg:px-10"
+      style={{ height: `${items.length * 100}vh` }}
+    >
+      <div className="sticky top-0 flex h-screen items-center py-10 lg:py-16">
+        <div className="w-full overflow-hidden rounded-3xl bg-foreground text-background">
         <div className="grid lg:grid-cols-2">
           {/* Left — Title + Accordion */}
           <div className="flex flex-col justify-center p-8 lg:p-14">
@@ -125,6 +130,7 @@ export function MoreFeaturesSection({ items = moreFeaturesData }: MoreFeaturesSe
               </AnimatePresence>
             )}
           </div>
+        </div>
         </div>
       </div>
     </section>
