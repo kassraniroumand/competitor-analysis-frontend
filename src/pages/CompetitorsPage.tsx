@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 import {
-  Search, Plus, SlidersHorizontal,
+  Search, Users, Plus, SlidersHorizontal,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
