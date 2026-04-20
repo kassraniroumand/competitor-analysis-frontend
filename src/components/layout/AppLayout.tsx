@@ -4,7 +4,6 @@ import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { TopBar } from "./TopBar";
 import { BottomTabBar } from "./BottomTabBar";
-import { IdeaContextTabs } from "./IdeaContextTabs";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 function SwipeDetector({ children }: { children: React.ReactNode }) {
@@ -53,7 +52,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
           <TopBar />
-          <IdeaContextTabs />
           <main className={`flex-1 overflow-auto ${isMobile && !hideBottomBar ? "pb-16" : ""} lg:pb-0`}>
             {children}
           </main>
