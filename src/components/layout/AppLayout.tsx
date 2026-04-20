@@ -1,11 +1,9 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { usePathname } from "next/navigation";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { TopBar } from "./TopBar";
-import { BottomTabBar } from "./BottomTabBar";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 function SwipeDetector({ children }: { children: React.ReactNode }) {
@@ -34,7 +32,7 @@ function SwipeDetector({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="min-h-screen flex w-full"
+      className="h-screen flex w-full overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -44,20 +42,15 @@ function SwipeDetector({ children }: { children: React.ReactNode }) {
 }
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const isMobile = useIsMobile();
-  const pathname = usePathname();
-  const hideBottomBar = pathname === "/ideas" || pathname === "/dashboard/idea";
-
   return (
     <SidebarProvider>
       <SwipeDetector>
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
           <TopBar />
-          <main className={`flex-1 overflow-auto ${isMobile && !hideBottomBar ? "pb-16" : ""} lg:pb-0`}>
+          <main className="flex-1 overflow-auto">
             {children}
           </main>
-          {isMobile && !hideBottomBar && <BottomTabBar />}
         </div>
       </SwipeDetector>
     </SidebarProvider>

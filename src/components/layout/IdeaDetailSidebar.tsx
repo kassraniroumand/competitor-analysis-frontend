@@ -1,12 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
-  ArrowLeft, BookOpen, CheckCircle, AlertTriangle, Users, FileText,
+  BookOpen, CheckCircle, AlertTriangle, Users, FileText, Menu,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet, SheetContent, SheetTitle, SheetTrigger,
+} from "@/components/ui/sheet";
 import { ScoreGauge } from "@/components/shared/ScoreGauge";
 import { cn } from "@/lib/utils";
 import type { IdeaReport } from "@/data/mock-data";
@@ -15,12 +20,9 @@ interface IdeaDetailSidebarProps {
   idea: IdeaReport;
 }
 
-export function IdeaDetailSidebar({ idea }: IdeaDetailSidebarProps) {
+function useNavItems(idea: IdeaReport) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentIdeaParam = searchParams.get("idea");
-
-  const items = [
+  return [
     {
       label: "Overview",
       href: `/ideas/${idea.id}`,
@@ -29,15 +31,15 @@ export function IdeaDetailSidebar({ idea }: IdeaDetailSidebarProps) {
     },
     {
       label: "Validation",
-      href: `/validation?idea=${idea.id}`,
+      href: `/ideas/${idea.id}/validation`,
       icon: CheckCircle,
-      isActive: pathname === "/validation" && currentIdeaParam === idea.id,
+      isActive: pathname.startsWith(`/ideas/${idea.id}/validation`),
     },
     {
       label: "Pain Points",
-      href: `/pain-points?idea=${idea.id}`,
+      href: `/ideas/${idea.id}/pain-points`,
       icon: AlertTriangle,
-      isActive: pathname === "/pain-points" && currentIdeaParam === idea.id,
+      isActive: pathname.startsWith(`/ideas/${idea.id}/pain-points`),
     },
     {
       label: "Competitors",
@@ -47,23 +49,25 @@ export function IdeaDetailSidebar({ idea }: IdeaDetailSidebarProps) {
     },
     {
       label: "Report",
-      href: `/reports/${idea.id}`,
+      href: `/ideas/${idea.id}/report`,
       icon: FileText,
-      isActive: pathname === `/reports/${idea.id}`,
+      isActive: pathname.startsWith(`/ideas/${idea.id}/report`),
     },
   ];
+}
 
+function SidebarBody({
+  idea,
+  items,
+  onNavigate,
+}: {
+  idea: IdeaReport;
+  items: ReturnType<typeof useNavItems>;
+  onNavigate?: () => void;
+}) {
   return (
-    <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-border bg-card/40 sticky top-14 self-start h-[calc(100svh-3.5rem)] overflow-y-auto">
+    <>
       <div className="p-4 space-y-4">
-        <Link
-          href="/ideas"
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Back to Ideas
-        </Link>
-
         <div className="space-y-2">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
             Current Idea
@@ -80,15 +84,6 @@ export function IdeaDetailSidebar({ idea }: IdeaDetailSidebarProps) {
 
         <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/60 border border-border">
           <ScoreGauge score={idea.opportunityScore} size={52} />
-          <div>
-            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-              Opportunity
-            </p>
-            <p className="text-lg font-extrabold text-foreground leading-none">
-              {idea.opportunityScore}
-              <span className="text-xs font-normal text-muted-foreground">/100</span>
-            </p>
-          </div>
         </div>
       </div>
 
@@ -102,6 +97,7 @@ export function IdeaDetailSidebar({ idea }: IdeaDetailSidebarProps) {
           <Link
             key={item.label}
             href={item.href}
+            onClick={onNavigate}
             className={cn(
               "flex items-center gap-2.5 px-2 py-2 rounded-md text-sm font-medium transition-colors",
               item.isActive
@@ -114,6 +110,44 @@ export function IdeaDetailSidebar({ idea }: IdeaDetailSidebarProps) {
           </Link>
         ))}
       </nav>
+    </>
+  );
+}
+
+export function IdeaDetailSidebar({ idea }: IdeaDetailSidebarProps) {
+  const items = useNavItems(idea);
+
+  return (
+    <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-border bg-card/40 sticky top-0 self-start h-[calc(100svh-3.5rem)] overflow-y-auto">
+      <SidebarBody idea={idea} items={items} />
     </aside>
+  );
+}
+
+export function IdeaDetailMobileNav({ idea }: IdeaDetailSidebarProps) {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const items = useNavItems(idea);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button
+          size="icon"
+          className="lg:hidden fixed bottom-5 right-5 z-40 h-12 w-12 rounded-full shadow-lg"
+          aria-label="Open idea sections"
+        >
+          <Menu className="h-5 w-5" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="p-0 w-72 sm:max-w-xs overflow-y-auto">
+        <SheetTitle className="sr-only">Idea sections</SheetTitle>
+        <SidebarBody idea={idea} items={items} onNavigate={() => setOpen(false)} />
+      </SheetContent>
+    </Sheet>
   );
 }

@@ -5,18 +5,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { title: "Validation", icon: CheckCircle, getPath: () => "/validation" },
-  { title: "Pain Points", icon: AlertTriangle, getPath: () => "/pain-points" },
-  { title: "Competitors", icon: Users, getPath: (id?: string) => (id ? `/ideas/${id}/competitors` : "/competitors") },
-  { title: "Report", icon: FileText, getPath: (id?: string) => (id ? `/reports/${id}` : "/reports/1") },
+  { title: "Validation", icon: CheckCircle, slug: "validation" },
+  { title: "Pain Points", icon: AlertTriangle, slug: "pain-points" },
+  { title: "Competitors", icon: Users, slug: "competitors" },
+  { title: "Report", icon: FileText, slug: "report" },
 ];
 
 function extractIdeaId(pathname: string): string | undefined {
   const ideaMatch = pathname.match(/^\/ideas\/([^/]+)/);
-  if (ideaMatch) return ideaMatch[1];
-  const reportMatch = pathname.match(/^\/reports\/([^/]+)/);
-  if (reportMatch) return reportMatch[1];
-  return undefined;
+  return ideaMatch?.[1];
 }
 
 export function BottomTabBar() {
@@ -24,12 +21,13 @@ export function BottomTabBar() {
   const router = useRouter();
 
   const ideaId = extractIdeaId(pathname);
+  if (!ideaId) return null;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur-md safe-area-bottom">
       <div className="flex items-center gap-2 px-3 py-3 overflow-x-auto scrollbar-hide">
         {navItems.map((item) => {
-          const path = item.getPath(ideaId);
+          const path = `/ideas/${ideaId}/${item.slug}`;
           const isActive = pathname === path || pathname.startsWith(path + "/");
           const Icon = item.icon;
           return (

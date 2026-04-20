@@ -1,26 +1,28 @@
 "use client";
 
-import { Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   Download, Pencil, ExternalLink, Users, Briefcase,
   TrendingUp, AlertTriangle, Zap, DollarSign, Lightbulb,
   Shield, Rocket, CheckCircle, MessageSquare, Search,
   ChevronRight, HelpCircle,
-  Target, BarChart3, Globe, Layers, ArrowLeft, FileText
+  Target, BarChart3, Globe, Layers, FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { AppLayout } from "@/components/layout/AppLayout";
-import { IdeaDetailSidebar } from "@/components/layout/IdeaDetailSidebar";
 import { ScoreGauge } from "@/components/shared/ScoreGauge";
 import { mockReports, scoreBreakdown, painPoints, marketGaps } from "@/data/mock-data";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {PageHeader} from "@/components/shared/PageHeader";
+import {IdeaBreadcrumb} from "@/components/shared/IdeaBreadcrumb";
 
 export default function Page() {
   const params = useParams<{ id: string }>();
@@ -36,85 +38,10 @@ export default function Page() {
   ];
 
   return (
-    <AppLayout>
-      <div className="flex">
-        <Suspense fallback={null}>
-          <IdeaDetailSidebar idea={report} />
-        </Suspense>
-        <div className="flex-1 min-w-0">
-      <div className="p-6 lg:p-10 max-w-5xl mx-auto space-y-8">
+    <div className="p-4 lg:p-8 max-w-7xl mx-auto space-y-4 lg:space-y-6">
 
-        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => router.push("/ideas")}>
-          <ArrowLeft className="h-4 w-4" />
-          Back to Ideas
-        </Button>
-
-        <header className="space-y-4">
-          <div className="flex items-center gap-2 text-xs">
-            <Badge variant="outline" className="font-medium uppercase tracking-wider">In Review</Badge>
-            <Badge variant="outline" className="font-medium uppercase tracking-wider">Client-Confidential</Badge>
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-tight">
-                {report.title}
-              </h1>
-              <p className="text-sm text-muted-foreground mt-2 flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">AI</span>
-                  Product Analyst
-                </span>
-                <span>·</span>
-                <span>Updated {report.updatedAt}</span>
-              </p>
-            </div>
-
-            <div className="flex gap-2 shrink-0 flex-wrap">
-              <Button variant="outline" size="sm" className="gap-1.5"><Pencil className="h-3.5 w-3.5" /> Edit Idea</Button>
-              <Button variant="outline" size="sm" className="gap-1.5"><Download className="h-3.5 w-3.5" /> Export Report</Button>
-              <Button size="sm" className="gap-1.5"><ExternalLink className="h-3.5 w-3.5" /> View Related Competitor</Button>
-            </div>
-          </div>
-
-          <div className="space-y-2 pt-2">
-            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Explore this idea</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => router.push("/validation")}>
-                <span className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">Validation</span>
-                </span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-              </Button>
-              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => router.push("/pain-points")}>
-                <span className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">Pain Points</span>
-                </span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-              </Button>
-              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => router.push(`/ideas/${report.id}/competitors`)}>
-                <span className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">Competitors</span>
-                </span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-              </Button>
-              <Button variant="outline" className="h-auto py-3 px-3 justify-between gap-2 hover:border-primary hover:bg-primary/5 group" onClick={() => router.push(`/reports/${report.id}`)}>
-                <span className="flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">Report</span>
-                </span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-              </Button>
-            </div>
-          </div>
-        </header>
-
-        <Separator />
-
-        <section className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <IdeaBreadcrumb currentPage="Validation" />
+      <section className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           <div className="lg:col-span-3 space-y-3">
             <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
               <Briefcase className="h-5 w-5 text-primary" /> Executive Summary
@@ -449,9 +376,6 @@ export default function Page() {
           </CardContent>
         </Card>
 
-      </div>
-        </div>
-      </div>
-    </AppLayout>
+    </div>
   );
 }

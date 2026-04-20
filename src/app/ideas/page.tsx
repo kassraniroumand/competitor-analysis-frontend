@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { IdeaCard } from "@/components/ideas/IdeaCard";
 import { NewAnalysisDialog } from "@/components/ideas/NewAnalysisDialog";
@@ -55,8 +54,7 @@ export default function Page() {
   }, []);
 
   return (
-    <AppLayout>
-      <div className="p-6 lg:p-8 max-w-6xl mx-auto space-y-8">
+    <div className="p-6 lg:p-8 max-w-6xl mx-auto space-y-8">
         <PageHeader
           title="Ideas"
           subtitle="Submit startup ideas and explore validation reports"
@@ -243,7 +241,6 @@ export default function Page() {
           open={!!quickViewReport}
           onOpenChange={(open) => { if (!open) setQuickViewReport(null); }}
         />
-      </div>
-    </AppLayout>
+    </div>
   );
 }

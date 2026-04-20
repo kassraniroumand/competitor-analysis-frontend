@@ -96,7 +96,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
         <ActionBtn
           icon={<ArrowUpRight className="h-3.5 w-3.5" />}
           label="Report"
-          onClick={() => router.push(`/reports/${report.id}`)}
+          onClick={() => router.push(`/ideas/${report.id}`)}
         />
       </div>
     </div>

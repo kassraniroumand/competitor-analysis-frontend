@@ -182,7 +182,7 @@ export function generatePRDData(idea: {
           title: "Technology Stack",
           keyValue: [
             { key: "Frontend", value: "React + TypeScript, Tailwind CSS, Vite" },
-            { key: "Backend", value: "Supabase (Auth, Database, Edge Functions)" },
+            { key: "Backend", value: "Node.js + PostgreSQL (Auth, Database, Serverless Functions)" },
             { key: "AI/ML", value: "Python (scikit-learn, Prophet) for forecasting models" },
             { key: "Data Sources", value: "OpenWeatherMap API, Google Events API, POS integrations" },
           ],

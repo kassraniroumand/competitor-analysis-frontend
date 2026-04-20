@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { mockReports } from "@/data/mock-data";
 import {
   Breadcrumb,
@@ -18,12 +18,14 @@ interface IdeaBreadcrumbProps {
 export function IdeaBreadcrumb({ currentPage }: IdeaBreadcrumbProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const ideaId = searchParams.get("idea");
+  const pathname = usePathname();
+  const pathIdeaId = pathname.match(/^\/ideas\/([^/]+)/)?.[1];
+  const ideaId = pathIdeaId || searchParams.get("idea");
   const idea = ideaId ? mockReports.find((r) => r.id === ideaId) : null;
 
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
+    <Breadcrumb className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+      <BreadcrumbList className="flex-nowrap whitespace-nowrap">
         <BreadcrumbItem>
           <BreadcrumbLink href="/" onClick={(e) => { e.preventDefault(); router.push("/"); }}>
             Dashboard

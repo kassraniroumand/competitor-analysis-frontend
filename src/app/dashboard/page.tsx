@@ -174,7 +174,7 @@ export default function Page() {
                 {[
                   { label: "Analyze New Idea", icon: Sparkles, to: "/ideas" },
                   { label: "Browse All Ideas", icon: Lightbulb, to: "/ideas" },
-                  { label: "View Reports", icon: FileText, to: "/reports/1" },
+                  { label: "View Reports", icon: FileText, to: "/ideas" },
                 ].map((action) => (
                   <Button
                     key={action.label}

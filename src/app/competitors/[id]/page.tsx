@@ -33,15 +33,15 @@ export default function Page() {
   return (
     <AppLayout>
       <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
-        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => router.push("/competitors")}>
+        <Button variant="ghost" size="sm" className="gap-1.5 -ml-2 text-muted-foreground" onClick={() => router.push("/ideas")}>
           <ArrowLeft className="h-4 w-4" />
-          Back to Competitors
+          Back to Ideas
         </Button>
 
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/competitors" onClick={(e) => { e.preventDefault(); router.push("/competitors"); }}>Competitors</BreadcrumbLink>
+              <BreadcrumbLink href="/ideas" onClick={(e) => { e.preventDefault(); router.push("/ideas"); }}>Ideas</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem><BreadcrumbPage>{comp.name}</BreadcrumbPage></BreadcrumbItem>
