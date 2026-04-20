@@ -30,9 +30,9 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 172 66% 30%;
+    --border: 40 15% 84%;
+    --input: 40 15% 84%;
+    --ring: 155 35% 28%;
 
     --radius: 0.625rem;
 
@@ -41,25 +41,25 @@
     --hero-fg: 0 0% 8%;
 
     /* Custom tokens */
-    --success: 142 71% 35%;
-    --success-foreground: 0 0% 100%;
+    --success: 155 35% 28%;
+    --success-foreground: 40 35% 97%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
     --info: 210 92% 45%;
     --info-foreground: 0 0% 100%;
 
-    --score-high: 142 71% 35%;
+    --score-high: 155 35% 28%;
     --score-moderate: 38 92% 50%;
     --score-low: 0 72% 51%;
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 15% 30%;
-    --sidebar-primary: 172 66% 30%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 172 40% 94%;
-    --sidebar-accent-foreground: 172 66% 22%;
-    --sidebar-border: 214 20% 92%;
-    --sidebar-ring: 172 66% 30%;
+    --sidebar-background: 40 35% 97%;
+    --sidebar-foreground: 60 8% 25%;
+    --sidebar-primary: 155 35% 28%;
+    --sidebar-primary-foreground: 40 35% 97%;
+    --sidebar-accent: 155 30% 88%;
+    --sidebar-accent-foreground: 155 35% 22%;
+    --sidebar-border: 40 15% 86%;
+    --sidebar-ring: 155 35% 28%;
 
     --chart-1: 172 66% 30%;
     --chart-2: 210 92% 45%;
