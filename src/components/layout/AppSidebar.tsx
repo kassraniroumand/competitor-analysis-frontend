@@ -30,9 +30,12 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Button } from "@/components/ui/button";
 import { mockReports } from "@/data/mock-data";
 
-const navItems = [
+const workspaceItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Ideas", url: "/ideas", icon: Lightbulb },
+];
+
+const accountItems = [
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 
