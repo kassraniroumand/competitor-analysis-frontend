@@ -62,26 +62,42 @@ export default function IdeasPage() {
           <NewAnalysisDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </PageHeader>
 
-        {/* Summary Stats — compact */}
-        <div className="grid grid-cols-4 gap-2">
-          {isLoading
-            ? Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
-            : [
-                { label: "Total", value: stats.total, icon: Lightbulb, color: "bg-foreground text-background" },
-                { label: "Done", value: stats.completed, icon: CheckCircle2, color: "bg-primary text-primary-foreground" },
-                { label: "Active", value: stats.processing, icon: Loader2, color: "bg-secondary text-foreground" },
-                { label: "Avg", value: stats.avgScore, icon: Target, color: "bg-accent text-accent-foreground" },
-              ].map((stat) => (
-                <div key={stat.label} className={`rounded-xl px-2.5 py-2 ${stat.color}`}>
-                  <div className="flex items-center gap-1.5">
-                    <stat.icon className="h-3 w-3 opacity-70" />
-                    <span className="text-[10px] font-medium opacity-70 uppercase tracking-wide truncate">
-                      {stat.label}
-                    </span>
-                  </div>
-                  <span className="block mt-0.5 text-lg font-bold tabular-nums leading-none">{stat.value}</span>
-                </div>
-              ))}
+        {/* Editorial stat tiles */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {isLoading ? (
+            Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
+          ) : (
+            <>
+              <EditorialStatTile
+                label="Total Ideas"
+                value={stats.total}
+                meta={<span className="text-primary">+{stats.processing}</span>}
+                sub={`${stats.completed} done · ${stats.processing} active`}
+                visual={<MiniSparkline points={[1, 2, 2, 3, 3, 4, 4, 5, stats.total]} />}
+              />
+              <EditorialStatTile
+                label="Completed"
+                value={stats.completed}
+                meta="ready"
+                sub={`${Math.round((stats.completed / Math.max(stats.total, 1)) * 100)}% of total`}
+                visual={<MiniBars values={[2, 3, 4, 3, 5, 4, 6, 5, 7, stats.completed]} />}
+              />
+              <EditorialStatTile
+                label="In Progress"
+                value={stats.processing}
+                meta="live"
+                sub="avg 12 min to result"
+                visual={<MiniDots values={[3, 4, 5, 6, 4, 5, 7, 5, 6, 4]} />}
+              />
+              <EditorialStatTile
+                label="Avg Score"
+                value={stats.avgScore}
+                meta={<span className="text-primary">↑ trending</span>}
+                sub="across all completed ideas"
+                visual={<MiniSparkline points={[55, 60, 62, 68, 70, 72, 75, 78, stats.avgScore]} />}
+              />
+            </>
+          )}
         </div>
 
         {/* Filters */}
