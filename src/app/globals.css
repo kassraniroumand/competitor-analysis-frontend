@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Cormorant+Garamond:wght@400;500;600&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: hsl(40 30% 94%);
+  --foreground: hsl(60 8% 12%);
+
+  --card: hsl(40 35% 97%);
+  --card-foreground: hsl(60 8% 12%);
+
+  --popover: hsl(40 35% 97%);
+  --popover-foreground: hsl(60 8% 12%);
+
+  --primary: hsl(155 35% 28%);
+  --primary-foreground: hsl(40 35% 97%);
+
+  --secondary: hsl(40 20% 88%);
+  --secondary-foreground: hsl(60 8% 12%);
+
+  --muted: hsl(40 20% 90%);
+  --muted-foreground: hsl(60 6% 40%);
+
+  --accent: hsl(155 30% 88%);
+  --accent-foreground: hsl(155 35% 22%);
+
+  --destructive: hsl(0 72% 51%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(40 15% 84%);
+  --input: hsl(40 15% 84%);
+  --ring: hsl(155 35% 28%);
+
+  --radius: 0.625rem;
+
+  --hero-bg: hsl(45 95% 58%);
+  --hero-fg: hsl(0 0% 8%);
+
+  --success: hsl(155 35% 28%);
+  --success-foreground: hsl(40 35% 97%);
+  --warning: hsl(38 92% 50%);
+  --warning-foreground: hsl(0 0% 100%);
+  --info: hsl(210 92% 45%);
+  --info-foreground: hsl(0 0% 100%);
+
+  --score-high: hsl(155 35% 28%);
+  --score-moderate: hsl(38 92% 50%);
+  --score-low: hsl(0 72% 51%);
+
+  --sidebar-background: hsl(40 35% 97%);
+  --sidebar-foreground: hsl(60 8% 25%);
+  --sidebar-primary: hsl(155 35% 28%);
+  --sidebar-primary-foreground: hsl(40 35% 97%);
+  --sidebar-accent: hsl(155 30% 88%);
+  --sidebar-accent-foreground: hsl(155 35% 22%);
+  --sidebar-border: hsl(40 15% 86%);
+  --sidebar-ring: hsl(155 35% 28%);
+
+  --chart-1: hsl(172 66% 30%);
+  --chart-2: hsl(210 92% 45%);
+  --chart-3: hsl(38 92% 50%);
+  --chart-4: hsl(280 65% 50%);
+  --chart-5: hsl(0 72% 51%);
+}
+
+@theme inline {
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-sidebar: var(--sidebar-background);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.4s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    @apply tracking-tight;
+  }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.use-cases-swiper .swiper-wrapper,
+.testimonials-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.use-cases-swiper .swiper-slide,
+.testimonials-swiper .swiper-slide {
+  height: auto;
+}
+
+.use-cases-swiper .swiper-button-prev,
+.use-cases-swiper .swiper-button-next,
+.testimonials-swiper .swiper-button-prev,
+.testimonials-swiper .swiper-button-next {
+  display: none;
+}
+
+.use-cases-swiper .swiper-pagination,
+.testimonials-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.use-cases-swiper .swiper-pagination-bullet,
+.testimonials-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--muted-foreground) 25%, transparent);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.use-cases-swiper .swiper-pagination-bullet-active,
+.testimonials-swiper .swiper-pagination-bullet-active {
+  width: 28px;
+  background: var(--foreground);
+}
+
+.use-cases-swiper .swiper-wrapper,
+.testimonials-swiper .swiper-wrapper,
+.hero-canvas-swiper .swiper-wrapper {
+  touch-action: pan-y;
+}
+
+.use-cases-swiper,
+.testimonials-swiper,
+.hero-canvas-swiper {
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero-canvas-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.hero-canvas-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--muted-foreground) 25%, transparent);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.hero-canvas-swiper .swiper-pagination-bullet-active {
+  width: 28px;
+  background: var(--foreground);
+}
