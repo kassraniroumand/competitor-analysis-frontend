@@ -99,10 +99,10 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => {
+              {workspaceItems.map((item) => {
                 const isActive =
                   item.url === "/ideas"
                     ? location.pathname === "/ideas"
@@ -173,6 +173,27 @@ export function AppSidebar() {
                         className="flex items-center gap-3"
                         activeClassName=""
                       >
+                        <item.icon className="h-4 w-4 shrink-0" />
+                        <span>{item.title}</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Account</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {accountItems.map((item) => {
+                const isActive = location.pathname.startsWith(item.url);
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
+                      <NavLink to={item.url} className="flex items-center gap-3" activeClassName="">
                         <item.icon className="h-4 w-4 shrink-0" />
                         <span>{item.title}</span>
                       </NavLink>
