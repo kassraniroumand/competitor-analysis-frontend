@@ -56,7 +56,7 @@ export default function ChatGPTComparison() {
         <table className="w-full min-w-[480px] text-center">
           <thead>
             <tr className="bg-muted/50">
-              <th className="p-3 sm:p-4 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <th className="sticky left-0 z-20 bg-muted p-3 sm:p-4 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Feature
               </th>
               <th className="p-3 sm:p-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground border-l border-border">
@@ -83,7 +83,7 @@ export default function ChatGPTComparison() {
                 transition={{ delay: i * 0.04 }}
                 className="border-t border-border"
               >
-                <td className="p-3 sm:p-4 text-left text-sm font-medium text-foreground">
+                <td className="sticky left-0 z-10 bg-background p-3 sm:p-4 text-left text-sm font-medium text-foreground shadow-[1px_0_0_0_hsl(var(--border))]">
                   {f.category}
                 </td>
                 <td className="p-3 sm:p-4 border-l border-border">
