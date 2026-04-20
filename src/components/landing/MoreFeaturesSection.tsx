@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Minus, Plus, TrendingUp, Users, Target, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,9 +9,37 @@ import type { MoreFeaturesSectionProps } from "./MoreFeaturesSection.types";
 export function MoreFeaturesSection({ items = moreFeaturesData }: MoreFeaturesSectionProps) {
   const [openIndex, setOpenIndex] = useState(0);
   const isMobile = useIsMobile();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const viewportH = window.innerHeight;
+      // Only activate scroll-driven tab when the section is in view
+      if (rect.bottom < 0 || rect.top > viewportH) return;
+
+      // Compute progress from when the section's top reaches viewport top
+      // until the section's bottom reaches viewport bottom.
+      const total = Math.max(1, el.offsetHeight - viewportH);
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      const progress = scrolled / total;
+      const idx = Math.min(items.length - 1, Math.max(0, Math.floor(progress * items.length)));
+      setOpenIndex((prev) => (prev === idx ? prev : idx));
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [items.length]);
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+    <section ref={sectionRef} className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
       <div className="overflow-hidden rounded-3xl bg-foreground text-background">
         <div className="grid lg:grid-cols-2">
           {/* Left — Title + Accordion */}
