@@ -44,7 +44,7 @@ export function MoreFeaturesSection({ items = moreFeaturesData }: MoreFeaturesSe
       className="relative mx-auto max-w-7xl px-6 lg:px-10"
       style={{ height: `${items.length * 100}vh` }}
     >
-      <div className="sticky top-0 flex h-screen items-center py-10 lg:py-16">
+      <div className="sticky top-0 flex h-screen items-center py-2">
         <div className="w-full overflow-hidden rounded-3xl bg-foreground text-background">
         <div className="grid lg:grid-cols-2">
           {/* Left — Title + Accordion */}
