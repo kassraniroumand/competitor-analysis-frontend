@@ -43,7 +43,7 @@ export function NewAnalysisDialog({ open, onOpenChange, triggerButton = true }: 
           </Button>
         </SheetTrigger>
       )}
-      <SheetContent side="right" className="w-[66vw] sm:max-w-none p-6 overflow-y-auto">
+      <SheetContent side="right" className="w-screen max-w-none sm:max-w-none p-6 overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2 text-lg">
             <Sparkles className="h-5 w-5 text-primary" />
