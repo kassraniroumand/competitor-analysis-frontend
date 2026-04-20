@@ -2,8 +2,7 @@ import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 import {
-  Search, Users, Plus, SlidersHorizontal, Crown, ArrowRightLeft,
-  DollarSign, Layers, TrendingUp
+  Search, Plus, SlidersHorizontal,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,6 +13,9 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { CompetitorCard } from "@/components/competitors/CompetitorCard";
 import { CompetitorsStatBar } from "@/components/competitors/CompetitorsStatBar";
+import {
+  EditorialStatTile, MiniSparkline, MiniBars, MiniDots,
+} from "@/components/competitors/EditorialStatTile";
 import { CompetitorCardSkeleton } from "@/components/skeletons/CompetitorCardSkeleton";
 import { useLoadingState } from "@/hooks/use-loading";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -78,57 +80,34 @@ export default function CompetitorsPage() {
         {/* Desktop: stat cards row */}
         {!isMobile && (
           <div className="grid grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-                  <Users className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Total Found</p>
-                  <p className="text-2xl font-extrabold text-foreground">{filtered.length}</p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-                  <ArrowRightLeft className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Direct / Indirect</p>
-                  <p className="text-2xl font-extrabold text-foreground">
-                    <span className="text-primary">{directCount}</span>
-                    <span className="text-muted-foreground mx-1">/</span>
-                    {indirectCount}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-                  <DollarSign className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Avg Pricing</p>
-                  <p className="text-2xl font-extrabold text-foreground">$49<span className="text-sm text-muted-foreground font-normal">/mo</span></p>
-                </div>
-              </CardContent>
-            </Card>
-            {strongest && (
-              <Card className="bg-primary text-primary-foreground">
-                <CardContent className="p-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-foreground/15">
-                    <Crown className="h-5 w-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest opacity-70 font-medium">Strongest Player</p>
-                    <p className="text-lg font-bold">{strongest.name}</p>
-                    <p className="text-[10px] opacity-70">★ {strongest.relevanceScore} Relevance</p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            <EditorialStatTile
+              label="Tracked"
+              value={filtered.length}
+              meta={<span className="text-primary">+3</span>}
+              sub={`${directCount} direct · ${indirectCount} indirect`}
+              visual={<MiniSparkline points={[3, 4, 5, 5, 6, 7, 7, 9, 11]} />}
+            />
+            <EditorialStatTile
+              label="Avg Overlap"
+              value="56%"
+              meta="stable"
+              sub="range 22 – 86%"
+              visual={<MiniBars values={[3, 4, 6, 8, 4, 3, 5, 6, 4, 2]} />}
+            />
+            <EditorialStatTile
+              label="Pricing"
+              value="$0…"
+              meta="med $12"
+              sub="your band $9 – $14"
+              visual={<MiniDots values={[2, 4, 9, 8, 7, 6, 8, 5, 4, 3]} />}
+            />
+            <EditorialStatTile
+              label="Momentum 90d"
+              value="4"
+              meta={<span className="text-primary">↑ heating</span>}
+              sub={strongest ? `${strongest.name} +31%` : "Foodvisor +31%"}
+              visual={<MiniSparkline points={[2, 3, 3, 4, 3, 4, 5, 6, 8]} />}
+            />
           </div>
         )}
 
