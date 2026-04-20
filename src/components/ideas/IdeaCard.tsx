@@ -83,12 +83,12 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
           ].map((action) => (
             <Button
               key={action.label}
-              variant="secondary"
+              variant="default"
               size="sm"
-              className="h-9 justify-start gap-2 text-xs font-semibold shadow-sm hover:shadow hover:bg-primary hover:text-primary-foreground transition-all"
+              className="h-10 justify-center gap-2 text-xs font-semibold shadow-md hover:shadow-lg active:scale-[0.97] transition-all"
               onClick={() => navigate(action.path)}
             >
-              <action.icon className="h-3.5 w-3.5" />
+              <action.icon className="h-4 w-4" />
               {action.label}
             </Button>
           ))}
