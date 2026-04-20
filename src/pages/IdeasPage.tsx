@@ -10,6 +10,7 @@ import { IdeaCard } from "@/components/ideas/IdeaCard";
 import { NewAnalysisDialog } from "@/components/ideas/NewAnalysisDialog";
 import { IdeaQuickView } from "@/components/ideas/IdeaQuickView";
 import { MetricCardSkeleton } from "@/components/skeletons/MetricCardSkeleton";
+import { EditorialStatTile, MiniSparkline, MiniBars, MiniDots } from "@/components/competitors/EditorialStatTile";
 import { IdeaCardSkeleton } from "@/components/skeletons/IdeaCardSkeleton";
 import { useLoadingState } from "@/hooks/use-loading";
 import { mockReports, type IdeaReport } from "@/data/mock-data";
