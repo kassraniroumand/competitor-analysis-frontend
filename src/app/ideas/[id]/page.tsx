@@ -1,150 +1,79 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import {
-  Download, Pencil, ExternalLink, Users, Briefcase,
-  TrendingUp, AlertTriangle, Zap, DollarSign, Lightbulb,
+  Briefcase,
+  AlertTriangle, Zap, Lightbulb,
   Shield, Rocket, CheckCircle, MessageSquare, Search,
-  ChevronRight, HelpCircle,
-  Target, BarChart3, Globe, Layers, FileText
+  HelpCircle,
+  Target, BarChart3, Globe, Layers,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { ScoreGauge } from "@/components/shared/ScoreGauge";
-import { mockReports, scoreBreakdown, painPoints, marketGaps } from "@/data/mock-data";
+import { mockReports, painPoints, marketGaps } from "@/data/mock-data";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {PageHeader} from "@/components/shared/PageHeader";
-import {IdeaBreadcrumb} from "@/components/shared/IdeaBreadcrumb";
+import { IdeaBreadcrumb } from "@/components/shared/IdeaBreadcrumb";
 
 export default function Page() {
   const params = useParams<{ id: string }>();
-  const router = useRouter();
   const report = mockReports.find((r) => r.id === params.id) || mockReports[0];
-
-  const breakdownItems = [
-    { label: "Demand", score: scoreBreakdown.demand, icon: TrendingUp },
-    { label: "Pain Severity", score: scoreBreakdown.painPoint, icon: AlertTriangle },
-    { label: "Monetization", score: scoreBreakdown.monetization, icon: DollarSign },
-    { label: "Differentiation", score: scoreBreakdown.differentiation, icon: Zap },
-    { label: "Competition", score: scoreBreakdown.competition, icon: Users },
-  ];
 
   return (
     <div className="p-4 lg:p-8 max-w-7xl mx-auto space-y-4 lg:space-y-6">
 
       <IdeaBreadcrumb currentPage="Validation" />
-      <section className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          <div className="lg:col-span-3 space-y-3">
+      <section className="space-y-3">
+        <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+          <Briefcase className="h-5 w-5 text-primary" /> Executive Summary
+        </h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {report.description}
+        </p>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          By targeting underserved independent businesses, this solution can capture significant market share before larger players adapt. The combination of AI-driven insights with domain-specific data provides a defensible competitive advantage.
+        </p>
+      </section>
+
+        <Card>
+          <CardContent className="p-5 space-y-4">
             <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-              <Briefcase className="h-5 w-5 text-primary" /> Executive Summary
+              <Lightbulb className="h-5 w-5 text-primary" /> Idea Strategic Summary
             </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {report.description}
-            </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              By targeting underserved independent businesses, this solution can capture significant market share before larger players adapt. The combination of AI-driven insights with domain-specific data provides a defensible competitive advantage.
-            </p>
-          </div>
 
-          <Card className="lg:col-span-2 bg-foreground text-background border-0">
-            <CardContent className="p-5 space-y-4">
-              <p className="text-[10px] font-semibold uppercase tracking-widest opacity-60">Potential Revenue</p>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold">$2.4M</span>
-                <span className="text-sm opacity-60">/yr</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Original Idea Text</p>
+                <p className="text-sm text-foreground italic leading-relaxed">&quot;{report.description.slice(0, 120)}…&quot;</p>
               </div>
-              <p className="text-xs opacity-70 leading-relaxed">
-                Estimated efficiency gain and increased market volume output.
-              </p>
-              <div className="space-y-2.5 pt-2">
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span className="opacity-70">Current Efficiency</span><span className="font-semibold">42%</span></div>
-                  <Progress value={42} className="h-1.5 [&>div]:bg-primary" />
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs"><span className="opacity-70">Projected w/ Solution</span><span className="font-semibold">89%</span></div>
-                  <Progress value={89} className="h-1.5 [&>div]:bg-primary" />
-                </div>
+              <div className="space-y-1">
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Rewritten Positioning</p>
+                <p className="text-sm text-foreground leading-relaxed">
+                  &quot;An AI-powered co-pilot that transforms raw data into actionable insights in real-time, bridging the gap between manual effort and intelligent automation.&quot;
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        </section>
+            </div>
 
-        <section className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          <Card className="lg:col-span-3">
-            <CardContent className="p-5 space-y-4">
-              <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-                <Lightbulb className="h-5 w-5 text-primary" /> Idea Strategic Summary
-              </h2>
+            <Separator />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Original Idea Text</p>
-                  <p className="text-sm text-foreground italic leading-relaxed">&quot;{report.description.slice(0, 120)}…&quot;</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Rewritten Positioning</p>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    &quot;An AI-powered co-pilot that transforms raw data into actionable insights in real-time, bridging the gap between manual effort and intelligent automation.&quot;
-                  </p>
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Target Customer</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{report.targetAudience || "—"}</p>
               </div>
-
-              <Separator />
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Target Customer</p>
-                  <p className="text-sm font-semibold text-foreground mt-0.5">{report.targetAudience || "—"}</p>
-                </div>
-                <div>
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Problem Solved</p>
-                  <p className="text-sm text-foreground mt-0.5">High manual overhead and inconsistency in operations across large-scale portfolios.</p>
-                </div>
-                <div>
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Market Category</p>
-                  <p className="text-sm font-semibold text-foreground mt-0.5">{report.category}</p>
-                </div>
+              <div>
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Problem Solved</p>
+                <p className="text-sm text-foreground mt-0.5">High manual overhead and inconsistency in operations across large-scale portfolios.</p>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="lg:col-span-2">
-            <CardContent className="p-5 space-y-4">
-              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Opportunity Score</p>
-              <div className="flex items-center gap-4">
-                <ScoreGauge score={report.opportunityScore} size={80} />
-                <div>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-extrabold text-foreground">{report.opportunityScore}</span>
-                    <span className="text-sm text-muted-foreground">/100</span>
-                  </div>
-                  <p className="text-xs font-semibold text-primary uppercase tracking-wider">
-                    {report.opportunityScore >= 75 ? "High Potential" : report.opportunityScore >= 50 ? "Moderate" : "Needs Work"}
-                  </p>
-                </div>
+              <div>
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Market Category</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{report.category}</p>
               </div>
-              <Separator />
-              <div className="space-y-2.5">
-                {breakdownItems.map((item) => (
-                  <div key={item.label} className="flex items-center gap-2">
-                    <span className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider w-28 shrink-0">{item.label}</span>
-                    <div className="flex-1"><Progress value={item.score} className="h-1.5" /></div>
-                    <span className="text-xs font-semibold text-foreground w-12 text-right">{item.score}/100</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+            </div>
+          </CardContent>
+        </Card>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
@@ -184,18 +113,11 @@ export default function Page() {
                 <Badge variant="secondary" className="text-[10px] uppercase tracking-wider">SaaS Vertical</Badge>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Target Sector Gap</p>
-                  <p className="text-3xl font-extrabold text-foreground">$14.2B</p>
-                  <p className="text-xs text-primary font-medium flex items-center gap-1"><TrendingUp className="h-3 w-3" /> +12.4% YoY Growth</p>
-                </div>
-                <div>
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Competitor Gap</p>
-                  <p className="text-3xl font-extrabold text-foreground">38%</p>
-                  <p className="text-xs text-muted-foreground">Underserved automation</p>
-                </div>
-              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                The target sector shows meaningful year-over-year growth with a persistent
+                automation gap among established incumbents, leaving room for a more focused,
+                AI-native alternative.
+              </p>
 
               <div className="p-3 rounded-lg bg-muted/50 border border-border">
                 <p className="text-xs text-muted-foreground italic leading-relaxed">
@@ -223,10 +145,9 @@ export default function Page() {
                 <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-1.5">
                   <Search className="h-3 w-3" /> Search & Trends
                 </p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-extrabold text-foreground">+412%</span>
-                  <Badge className="bg-primary/10 text-primary border-0 text-[10px] font-semibold uppercase">YoY Demand</Badge>
-                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Rising search interest across core keywords suggests growing top-of-funnel demand.
+                </p>
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {(report.keywords || ["AI", "automation", "optimization"]).slice(0, 3).map((kw) => (
                     <Badge key={kw} variant="secondary" className="text-xs">#{kw}</Badge>
@@ -296,7 +217,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-3">
                 <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-1.5">
                   <CheckCircle className="h-3 w-3 text-primary" /> Core Features
@@ -325,17 +246,6 @@ export default function Page() {
                     Compliance audit for data retention policies.
                   </li>
                 </ul>
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Key Performance Indicator</p>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold text-foreground">85%</span>
-                  <span className="text-xs text-muted-foreground font-semibold uppercase">Accuracy Threshold</span>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Required acceptance rate for automated outputs before Phase 2 expansion.
-                </p>
               </div>
             </div>
           </CardContent>

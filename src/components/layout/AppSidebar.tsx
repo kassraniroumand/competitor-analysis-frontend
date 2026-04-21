@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, Lightbulb, FileText, Settings, ChevronDown } from "lucide-react";
+import { Compass, LayoutDashboard, Lightbulb, Newspaper, Settings, ChevronDown } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -29,6 +29,11 @@ import { Button } from "@/components/ui/button";
 const workspaceItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Ideas", url: "/ideas", icon: Lightbulb },
+];
+
+const exploreItems = [
+  { title: "Discover", url: "/discover", icon: Compass },
+  { title: "News", url: "/news", icon: Newspaper },
 ];
 
 const accountItems = [
@@ -82,6 +87,13 @@ export function AppSidebar() {
           <SidebarGroupLabel>Workspace</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{workspaceItems.map(renderItem)}</SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Explore</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>{exploreItems.map(renderItem)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 

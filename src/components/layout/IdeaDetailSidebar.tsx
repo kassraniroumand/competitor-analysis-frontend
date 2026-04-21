@@ -71,19 +71,19 @@ function SidebarBody({
 
   return (
     <>
-      <div className="p-4 space-y-4">
-        <Link
-          href="/ideas"
-          onClick={onNavigate}
-          className={cn(
-            "inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors",
-            isLg ? "text-sm font-medium" : "text-xs font-medium",
-          )}
-        >
-          <ArrowLeft className={cn("shrink-0", isLg ? "h-4 w-4" : "h-3.5 w-3.5")} />
-          Back to Ideas
-        </Link>
+      <Link
+        href="/ideas"
+        onClick={onNavigate}
+        className={cn(
+          "flex items-center gap-2 border-b border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors",
+          isLg ? "px-4 h-12 text-sm font-medium" : "px-4 h-10 text-xs font-medium",
+        )}
+      >
+        <ArrowLeft className={cn("shrink-0", isLg ? "h-4 w-4" : "h-3.5 w-3.5")} />
+        <span className="uppercase tracking-wider text-[11px]">Ideas</span>
+      </Link>
 
+      <div className="p-4 space-y-4">
         <div className="space-y-2">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
             Current Idea

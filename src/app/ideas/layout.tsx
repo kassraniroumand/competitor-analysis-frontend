@@ -4,6 +4,7 @@ import { Suspense, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { IdeaDetailMobileNav, IdeaDetailSidebar } from "@/components/layout/IdeaDetailSidebar";
+import { IdeaListMobileNav, IdeaListSidebar } from "@/components/layout/IdeaListSidebar";
 import { mockReports } from "@/data/mock-data";
 
 export default function IdeasLayout({ children }: { children: ReactNode }) {
@@ -15,18 +16,14 @@ export default function IdeasLayout({ children }: { children: ReactNode }) {
   return (
     <AppLayout>
       <div className="flex">
-        {idea && (
-          <Suspense fallback={null}>
-            <IdeaDetailSidebar idea={idea} />
-          </Suspense>
-        )}
+        <Suspense fallback={null}>
+          {idea ? <IdeaDetailSidebar idea={idea} /> : <IdeaListSidebar />}
+        </Suspense>
         <div className="flex-1 min-w-0">{children}</div>
       </div>
-      {idea && (
-        <Suspense fallback={null}>
-          <IdeaDetailMobileNav idea={idea} />
-        </Suspense>
-      )}
+      <Suspense fallback={null}>
+        {idea ? <IdeaDetailMobileNav idea={idea} /> : <IdeaListMobileNav />}
+      </Suspense>
     </AppLayout>
   );
 }

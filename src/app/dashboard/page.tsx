@@ -1,258 +1,520 @@
 "use client";
 
+import { useMemo } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  Lightbulb, Users, AlertTriangle, Sparkles,
-  ArrowRight, Clock, Trophy, BarChart3, FileText, Target, Loader2,
+  Activity,
+  AlertCircle,
+  ArrowUpRight,
+  CheckCircle2,
+  Clock,
+  Compass,
+  Flame,
+  Lightbulb,
+  Newspaper,
+  Sparkles,
+  Target,
+  Users,
+  Zap,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { ScoreBadge } from "@/components/shared/ScoreBadge";
-import { StatusBadge } from "@/components/shared/StatusBadge";
-import { MetricCardSkeleton } from "@/components/skeletons/MetricCardSkeleton";
-import { InsightCardSkeleton } from "@/components/skeletons/InsightCardSkeleton";
-import { useLoadingState } from "@/hooks/use-loading";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { mockReports, mockCompetitors } from "@/data/mock-data";
+import { discoveredIdeas, SOURCE_META } from "@/data/discover-data";
+import { mockNews } from "@/data/news-data";
+
+const monoFont = {
+  fontFamily: '"JetBrains Mono", "SF Mono", ui-monospace, monospace',
+};
 
 export default function Page() {
   const router = useRouter();
-  const isLoading = useLoadingState();
 
-  const completedReports = mockReports.filter((r) => r.status === "completed");
-  const processingReports = mockReports.filter((r) => r.status === "processing");
-  const topIdeas = completedReports
-    .sort((a, b) => b.opportunityScore - a.opportunityScore)
-    .slice(0, 3);
-  const recentReports = [...mockReports]
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 4);
-  const totalCompetitors = mockCompetitors.length;
-  const avgScore =
-    completedReports.length > 0
-      ? Math.round(
-          completedReports.reduce((s, r) => s + r.opportunityScore, 0) /
-            completedReports.length
-        )
-      : 0;
+  const completed = useMemo(
+    () => mockReports.filter((r) => r.status === "completed"),
+    []
+  );
+  const processing = useMemo(
+    () => mockReports.filter((r) => r.status === "processing"),
+    []
+  );
+  const failed = useMemo(
+    () => mockReports.filter((r) => r.status === "failed"),
+    []
+  );
 
-  const alerts = [
-    {
-      type: "processing" as const,
-      message: `${processingReports.length} idea${processingReports.length !== 1 ? "s" : ""} currently being analyzed`,
-      show: processingReports.length > 0,
-    },
-    {
-      type: "insight" as const,
-      message: `"${topIdeas[0]?.title}" scored ${topIdeas[0]?.opportunityScore}/100 — highest opportunity`,
-      show: topIdeas.length > 0,
-    },
-    {
-      type: "competitor" as const,
-      message: `${totalCompetitors} competitors tracked across ${completedReports.length} ideas`,
-      show: true,
-    },
-  ].filter((a) => a.show);
+  const topIdeas = useMemo(
+    () => [...completed].sort((a, b) => b.opportunityScore - a.opportunityScore),
+    [completed]
+  );
+  const topIdea = topIdeas[0];
+  const avgScore = completed.length
+    ? Math.round(
+        completed.reduce((s, r) => s + r.opportunityScore, 0) / completed.length
+      )
+    : 0;
+
+  const topSignals = useMemo(
+    () =>
+      [...discoveredIdeas]
+        .sort((a, b) => b.trendingScore - a.trendingScore)
+        .slice(0, 3),
+    []
+  );
+  const latestNews = useMemo(
+    () =>
+      [...mockNews]
+        .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+        .slice(0, 3),
+    []
+  );
+
+  const actions = useMemo(() => {
+    const validated = topIdeas
+      .filter((r) => r.opportunityScore >= 70)
+      .map((r) => ({
+        icon: CheckCircle2,
+        tint: "text-primary",
+        bg: "bg-primary/10",
+        title: r.title,
+        detail: `Validated · score ${r.opportunityScore}/100`,
+        cta: "Draft PRD",
+        to: `/ideas/${r.id}`,
+      }));
+    const inProgress = processing.map((r) => ({
+      icon: Clock,
+      tint: "text-warning",
+      bg: "bg-warning/10",
+      title: r.title,
+      detail: "Analysis in progress",
+      cta: "Check status",
+      to: `/ideas/${r.id}`,
+    }));
+    const failures = failed.map((r) => ({
+      icon: AlertCircle,
+      tint: "text-destructive",
+      bg: "bg-destructive/10",
+      title: r.title,
+      detail: "Analysis failed — retry or refine",
+      cta: "Retry",
+      to: `/ideas/${r.id}`,
+    }));
+    return [...validated, ...inProgress, ...failures].slice(0, 5);
+  }, [topIdeas, processing, failed]);
+
+  const topIdeaCompetitors = topIdea
+    ? mockCompetitors.filter((c) => c.ideaId === topIdea.id).length
+    : 0;
 
   return (
     <AppLayout>
-      <div className="p-6 lg:p-8 max-w-6xl mx-auto space-y-8">
+      <div className="p-4 lg:p-8 max-w-6xl mx-auto space-y-6">
         <PageHeader
           title="Dashboard"
-          subtitle="Overview of your idea validation pipeline"
-          className="sticky top-0 z-20 -mx-6 -mt-6 px-6 pt-6 pb-4 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70 border-b border-border lg:static lg:mx-0 lg:mt-0 lg:px-0 lg:pt-0 lg:pb-0 lg:bg-transparent lg:backdrop-blur-none lg:border-b-0"
+          subtitle="Your idea validation command center"
         >
+          <Button
+            variant="outline"
+            className="gap-2"
+            onClick={() => router.push("/discover")}
+          >
+            <Compass className="h-4 w-4" />
+            Discover
+          </Button>
           <Button className="gap-2" onClick={() => router.push("/ideas")}>
             <Sparkles className="h-4 w-4" />
             New Analysis
           </Button>
         </PageHeader>
 
+        {topIdea && (
+          <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/5 via-card to-card p-5 lg:p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Zap className="h-3.5 w-3.5 text-primary" />
+              <span
+                className="text-[10px] uppercase tracking-[0.22em] font-semibold text-primary"
+                style={monoFont}
+              >
+                Focus today
+              </span>
+            </div>
+            <div className="flex items-start gap-4 lg:gap-6">
+              <div className="flex-1 min-w-0 space-y-2">
+                <h2 className="text-xl lg:text-2xl font-bold leading-tight tracking-tight">
+                  {topIdea.title}
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                  {topIdea.description}
+                </p>
+                <div
+                  className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-2 text-xs text-muted-foreground"
+                  style={monoFont}
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Target className="h-3.5 w-3.5 text-primary" />
+                    Score {topIdea.opportunityScore}/100
+                  </span>
+                  <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
+                  <span className="flex items-center gap-1.5">
+                    <Users className="h-3.5 w-3.5" />
+                    {topIdeaCompetitors} competitors mapped
+                  </span>
+                  <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
+                  <span>{topIdea.category}</span>
+                </div>
+              </div>
+              <div className="hidden sm:flex flex-col items-center justify-center rounded-2xl bg-primary/10 px-5 py-4 shrink-0">
+                <span
+                  className="text-3xl lg:text-4xl font-bold text-primary tabular-nums leading-none"
+                  style={monoFont}
+                >
+                  {topIdea.opportunityScore}
+                </span>
+                <span className="text-[10px] uppercase tracking-wider text-primary/70 mt-1.5">
+                  / 100
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 pt-4 mt-5 border-t border-border">
+              <Button
+                onClick={() => router.push(`/ideas/${topIdea.id}`)}
+                className="gap-1.5"
+              >
+                Open validation
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push(`/ideas/${topIdea.id}`)}
+                className="gap-1.5"
+              >
+                Draft PRD
+              </Button>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          {isLoading ? (
-            Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
-          ) : (
-            [
-              { label: "Total Ideas", value: mockReports.length, sub: `${completedReports.length} completed`, icon: Lightbulb, color: "bg-foreground text-background", iconBg: "bg-background/15" },
-              { label: "Avg. Score", value: `${avgScore}/100`, sub: "Across completed ideas", icon: Target, color: "bg-primary text-primary-foreground", iconBg: "bg-primary-foreground/20" },
-              { label: "Competitors", value: totalCompetitors, sub: `Across ${new Set(mockCompetitors.map((c) => c.ideaId)).size} ideas`, icon: Users, color: "bg-secondary text-foreground", iconBg: "bg-background" },
-              { label: "Processing", value: processingReports.length, sub: "Currently analyzing", icon: Loader2, color: "bg-accent text-accent-foreground", iconBg: "bg-background" },
-            ].map((stat) => (
-              <div key={stat.label} className={`rounded-2xl p-4 ${stat.color}`}>
-                <div className="flex items-center justify-between">
-                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${stat.iconBg}`}>
-                    <stat.icon className="h-4 w-4" />
-                  </div>
-                  <span className="text-2xl font-bold tabular-nums">{stat.value}</span>
-                </div>
-                <p className="mt-3 text-xs font-medium opacity-70 uppercase tracking-wider">{stat.label}</p>
-                <p className="mt-0.5 text-[10px] opacity-50">{stat.sub}</p>
-              </div>
-            ))
-          )}
+          <MetricTile
+            label="Total ideas"
+            value={mockReports.length}
+            sub={`${completed.length} validated`}
+          />
+          <MetricTile
+            label="Avg opportunity"
+            value={avgScore}
+            sub={`Top: ${topIdeas[0]?.opportunityScore ?? 0}/100`}
+            tint="primary"
+          />
+          <MetricTile
+            label="In review"
+            value={processing.length}
+            sub="Processing now"
+            tint="warning"
+          />
+          <MetricTile
+            label="Live signals"
+            value={discoveredIdeas.length}
+            sub="Across 6 sources"
+          />
         </div>
 
-        {isLoading ? (
-          <InsightCardSkeleton lines={3} />
-        ) : alerts.length > 0 ? (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-primary" />
-                Alerts & Updates
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {alerts.map((alert, i) => (
-                <Alert key={i} variant="default" className="bg-accent/50 border-accent">
-                  <div className="flex items-center gap-3">
-                    {alert.type === "processing" && <Clock className="h-4 w-4 text-warning shrink-0" />}
-                    {alert.type === "insight" && <Trophy className="h-4 w-4 text-primary shrink-0" />}
-                    {alert.type === "competitor" && <Users className="h-4 w-4 text-muted-foreground shrink-0" />}
-                    <AlertDescription className="text-foreground">{alert.message}</AlertDescription>
-                  </div>
-                </Alert>
-              ))}
-            </CardContent>
-          </Card>
-        ) : null}
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {isLoading ? (
-            <InsightCardSkeleton lines={6} />
-          ) : (
-            <Card className="lg:col-span-2">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Trophy className="h-4 w-4 text-primary" />
-                    Top Scoring Ideas
-                  </CardTitle>
-                  <Button variant="ghost" size="sm" className="text-xs" onClick={() => router.push("/ideas")}>
-                    View all <ArrowRight className="h-3 w-3 ml-1" />
-                  </Button>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <Card className="lg:col-span-2">
+            <CardContent className="p-5 lg:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-primary" />
+                  <h3 className="font-semibold text-base">Action queue</h3>
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {topIdeas.map((idea, idx) => (
-                  <div
-                    key={idea.id}
-                    className="flex items-center gap-4 rounded-lg border p-4 cursor-pointer hover:bg-accent/40 transition-colors"
-                    onClick={() => router.push(`/ideas/${idea.id}`)}
-                  >
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
-                      {idx + 1}
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm text-foreground truncate">{idea.title}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Badge variant="secondary" className="text-xs font-normal">{idea.category}</Badge>
-                        <span className="text-xs text-muted-foreground">{idea.createdAt}</span>
+                <span
+                  className="text-[10px] uppercase tracking-wider font-medium text-muted-foreground"
+                  style={monoFont}
+                >
+                  {actions.length} {actions.length === 1 ? "item" : "items"}
+                </span>
+              </div>
+              {actions.length > 0 ? (
+                <div className="space-y-2">
+                  {actions.map((a, i) => (
+                    <button
+                      key={i}
+                      onClick={() => router.push(a.to)}
+                      className="group w-full flex items-center gap-3 rounded-lg border p-3 text-left hover:bg-accent/40 transition-colors"
+                    >
+                      <div
+                        className={`flex h-9 w-9 items-center justify-center rounded-lg ${a.bg} shrink-0`}
+                      >
+                        <a.icon className={`h-4 w-4 ${a.tint}`} />
                       </div>
-                    </div>
-                    <ScoreBadge score={idea.opportunityScore} />
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground truncate">
+                          {a.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {a.detail}
+                        </p>
+                      </div>
+                      <span className="hidden sm:flex text-xs text-muted-foreground shrink-0 items-center gap-1 group-hover:text-foreground transition-colors">
+                        {a.cta}
+                        <ArrowUpRight className="h-3 w-3" />
+                      </span>
+                      <ArrowUpRight className="sm:hidden h-4 w-4 text-muted-foreground shrink-0" />
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-10 text-center space-y-2">
+                  <CheckCircle2 className="h-8 w-8 text-primary" />
+                  <p className="text-sm font-medium">You&apos;re all caught up</p>
+                  <p className="text-xs text-muted-foreground">
+                    No pending validations or analyses.
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
-          {isLoading ? (
-            <InsightCardSkeleton lines={3} />
-          ) : (
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <BarChart3 className="h-4 w-4 text-primary" />
-                  Quick Actions
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {[
-                  { label: "Analyze New Idea", icon: Sparkles, to: "/ideas" },
-                  { label: "Browse All Ideas", icon: Lightbulb, to: "/ideas" },
-                  { label: "View Reports", icon: FileText, to: "/ideas" },
-                ].map((action) => (
-                  <Button
-                    key={action.label}
-                    variant="ghost"
-                    className="w-full justify-start gap-3 text-sm font-medium text-muted-foreground"
-                    onClick={() => router.push(action.to)}
-                  >
-                    <action.icon className="h-4 w-4 shrink-0" />
-                    {action.label}
-                    <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100" />
-                  </Button>
-                ))}
-              </CardContent>
-            </Card>
-          )}
+          <Card>
+            <CardContent className="p-5 lg:p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Lightbulb className="h-4 w-4 text-primary" />
+                <h3 className="font-semibold text-base">Pipeline</h3>
+              </div>
+              <div className="space-y-4">
+                <PipelineRow
+                  label="Validated"
+                  count={completed.length}
+                  total={mockReports.length}
+                  color="bg-primary"
+                />
+                <PipelineRow
+                  label="Processing"
+                  count={processing.length}
+                  total={mockReports.length}
+                  color="bg-warning"
+                />
+                <PipelineRow
+                  label="Failed"
+                  count={failed.length}
+                  total={mockReports.length}
+                  color="bg-destructive"
+                />
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full mt-5 text-xs gap-1"
+                onClick={() => router.push("/ideas")}
+              >
+                View all ideas
+                <ArrowUpRight className="h-3 w-3" />
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
-        {isLoading ? (
-          <InsightCardSkeleton lines={5} />
-        ) : (
-          <Card>
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-primary" />
-                  Recent Reports
-                </CardTitle>
-                <Button variant="ghost" size="sm" className="text-xs" onClick={() => router.push("/ideas")}>
-                  View all <ArrowRight className="h-3 w-3 ml-1" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {recentReports.map((report) => (
-                  <div
-                    key={report.id}
-                    className="rounded-lg border p-4 cursor-pointer hover:bg-accent/40 transition-colors space-y-2"
-                    onClick={() => router.push(`/ideas/${report.id}`)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <StatusBadge status={report.status} />
-                      {report.status === "completed" && <ScoreBadge score={report.opportunityScore} size="sm" />}
-                    </div>
-                    <p className="text-sm font-medium text-foreground line-clamp-2 leading-snug">{report.title}</p>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="secondary" className="text-xs font-normal">{report.category}</Badge>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{report.createdAt}</p>
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Flame className="h-4 w-4 text-primary" />
+              <h3 className="font-semibold text-base">Trending signals</h3>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-xs gap-1"
+              onClick={() => router.push("/discover")}
+            >
+              View all
+              <ArrowUpRight className="h-3 w-3" />
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {topSignals.map((s) => {
+              const meta = SOURCE_META[s.source];
+              return (
+                <div
+                  key={s.id}
+                  className="rounded-xl border bg-card p-4 flex flex-col gap-2 hover:shadow-md transition-all"
+                >
+                  <div className="flex items-center gap-2 text-xs">
+                    <span
+                      className={`font-bold ${meta.color}`}
+                      style={monoFont}
+                    >
+                      {meta.badge}
+                    </span>
+                    <span
+                      className="text-muted-foreground truncate"
+                      style={monoFont}
+                    >
+                      {s.sourceHandle}
+                    </span>
+                    <span className="ml-auto flex items-center gap-1 text-primary shrink-0">
+                      <Flame className="h-3 w-3" />
+                      <span
+                        className="tabular-nums text-[11px]"
+                        style={monoFont}
+                      >
+                        {s.trendingScore}
+                      </span>
+                    </span>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {isLoading ? (
-          <InsightCardSkeleton lines={4} />
-        ) : (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">Opportunity Score Distribution</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {completedReports.map((r) => (
-                <div key={r.id} className="space-y-1.5">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-foreground font-medium truncate max-w-[70%]">{r.title}</span>
-                    <span className="text-muted-foreground text-xs">{r.opportunityScore}/100</span>
+                  <h4 className="text-sm font-bold leading-snug line-clamp-2">
+                    {s.title}
+                  </h4>
+                  <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                    {s.summary}
+                  </p>
+                  <div className="flex items-center justify-between pt-2 mt-auto">
+                    <span
+                      className="text-[10px] text-muted-foreground"
+                      style={monoFont}
+                    >
+                      {s.postedAt}
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-7 text-[11px] gap-1"
+                      onClick={() => router.push(`/ideas?from=${s.id}`)}
+                    >
+                      Analyze
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Button>
                   </div>
-                  <Progress value={r.opportunityScore} className="h-2" />
                 </div>
-              ))}
-            </CardContent>
-          </Card>
-        )}
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Newspaper className="h-4 w-4 text-primary" />
+              <h3 className="font-semibold text-base">News brief</h3>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-xs gap-1"
+              onClick={() => router.push("/news")}
+            >
+              View all
+              <ArrowUpRight className="h-3 w-3" />
+            </Button>
+          </div>
+          <div className="rounded-2xl border bg-card divide-y divide-border overflow-hidden">
+            {latestNews.map((n) => (
+              <Link
+                key={n.id}
+                href={n.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 sm:gap-4 p-4 hover:bg-accent/40 transition-colors group"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-xl shrink-0">
+                  {n.imageEmoji}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium line-clamp-1 group-hover:text-primary transition-colors">
+                    {n.title}
+                  </p>
+                  <div
+                    className="flex items-center gap-1.5 mt-0.5 text-[11px] text-muted-foreground"
+                    style={monoFont}
+                  >
+                    <span className="truncate">{n.source}</span>
+                    <span>·</span>
+                    <span className="shrink-0">{n.publishedAt}</span>
+                    <span className="hidden sm:inline">·</span>
+                    <span className="hidden sm:inline shrink-0">
+                      {n.readTimeMin} min
+                    </span>
+                  </div>
+                </div>
+                <Badge
+                  variant="secondary"
+                  className="text-[10px] shrink-0 hidden sm:inline-flex"
+                >
+                  {n.category}
+                </Badge>
+                <ArrowUpRight className="h-4 w-4 text-muted-foreground shrink-0 group-hover:text-foreground transition-colors" />
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </AppLayout>
+  );
+}
+
+function MetricTile({
+  label,
+  value,
+  sub,
+  tint,
+}: {
+  label: string;
+  value: number | string;
+  sub: string;
+  tint?: "primary" | "warning";
+}) {
+  const valueColor =
+    tint === "primary"
+      ? "text-primary"
+      : tint === "warning"
+      ? "text-warning"
+      : "text-foreground";
+  return (
+    <div className="rounded-xl border bg-card p-4">
+      <p className="text-[10px] uppercase tracking-[0.18em] font-semibold text-muted-foreground">
+        {label}
+      </p>
+      <p
+        className={`mt-2 text-3xl font-bold tabular-nums leading-none ${valueColor}`}
+        style={monoFont}
+      >
+        {value}
+      </p>
+      <p className="mt-2 text-[11px] text-muted-foreground">{sub}</p>
+    </div>
+  );
+}
+
+function PipelineRow({
+  label,
+  count,
+  total,
+  color,
+}: {
+  label: string;
+  count: number;
+  total: number;
+  color: string;
+}) {
+  const pct = total > 0 ? (count / total) * 100 : 0;
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between text-sm">
+        <span className="text-muted-foreground">{label}</span>
+        <span className="font-semibold tabular-nums text-foreground" style={monoFont}>
+          {count}
+          <span className="text-muted-foreground font-normal">/{total}</span>
+        </span>
+      </div>
+      <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+        <div
+          className={`h-full rounded-full ${color} transition-all`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </div>
   );
 }
