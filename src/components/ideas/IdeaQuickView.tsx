@@ -166,7 +166,7 @@ export function IdeaQuickView({ report, open, onOpenChange }: IdeaQuickViewProps
               className="w-full gap-2"
               onClick={() => {
                 onOpenChange(false);
-                router.push(`/ideas/${report.id}`);
+                router.push(`/dashboard/ideas/${report.id}`);
               }}
             >
               <ExternalLink className="h-4 w-4" />

@@ -4,12 +4,11 @@ import { useParams } from "next/navigation";
 import {
   Briefcase, AlertTriangle, Zap, Lightbulb, Shield, Rocket, CheckCircle,
   MessageSquare, Search, HelpCircle, Target, BarChart3, Globe, Layers,
-  Download, RotateCcw, TrendingUp, Users, ShieldAlert,
+  TrendingUp, Users, ShieldAlert,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
@@ -48,16 +47,10 @@ export default function Page() {
       <IdeaBreadcrumb currentPage="Overview" />
 
       <PageHeader
-        title="Validation Report"
-        subtitle={`${report.title} · Generated ${report.createdAt}`}
+        title={report.title}
+        subtitle={`Validation Report · Generated ${report.createdAt}`}
       >
         <StatusBadge status="completed" />
-        <Button variant="outline" size="sm" className="gap-1.5">
-          <RotateCcw className="h-3.5 w-3.5" /> Regenerate
-        </Button>
-        <Button size="sm" className="gap-1.5">
-          <Download className="h-3.5 w-3.5" /> Export Report
-        </Button>
       </PageHeader>
 
       <Card className="border-primary/20">

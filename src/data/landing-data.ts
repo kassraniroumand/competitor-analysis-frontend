@@ -2,12 +2,44 @@ import {
   Lightbulb, Search, BarChart3, Target, Zap,
   TrendingUp, Users, Shield, Star,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import showcaseScreen from "@/assets/showcase-screen.jpg";
 import showcaseCompetitors from "@/assets/showcase-competitors.jpg";
 import showcaseScoring from "@/assets/showcase-scoring.jpg";
 import showcasePainpoints from "@/assets/showcase-painpoints.jpg";
 import showcaseReports from "@/assets/showcase-reports.jpg";
-import type { ShowcaseItem, FeatureItem, Testimonial, MoreFeatureItem, ValuePropItem } from "./types";
+
+export interface ShowcaseItem {
+  label: string;
+  description: string;
+  image: string;
+  icon: LucideIcon;
+  stat: string;
+  statLabel: string;
+}
+
+export interface FeatureItem {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+}
+
+export interface MoreFeatureItem {
+  title: string;
+  description: string;
+}
+
+export interface ValuePropItem {
+  title: string;
+  desc: string;
+}
 
 export const showcaseItems: ShowcaseItem[] = [
   { label: "Submit your idea", description: "Describe your startup concept in a few sentences — our AI takes it from there.", image: showcaseScreen, icon: Lightbulb, stat: "30 sec", statLabel: "avg. input time" },

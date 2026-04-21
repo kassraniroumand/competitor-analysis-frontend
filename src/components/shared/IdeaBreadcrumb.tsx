@@ -19,7 +19,7 @@ export function IdeaBreadcrumb({ currentPage }: IdeaBreadcrumbProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const pathIdeaId = pathname.match(/^\/ideas\/([^/]+)/)?.[1];
+  const pathIdeaId = pathname.match(/^\/dashboard\/ideas\/([^/]+)/)?.[1];
   const ideaId = pathIdeaId || searchParams.get("idea");
   const idea = ideaId ? mockReports.find((r) => r.id === ideaId) : null;
 
@@ -27,13 +27,13 @@ export function IdeaBreadcrumb({ currentPage }: IdeaBreadcrumbProps) {
     <Breadcrumb className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
       <BreadcrumbList className="flex-nowrap whitespace-nowrap">
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" onClick={(e) => { e.preventDefault(); router.push("/"); }}>
+          <BreadcrumbLink href="/dashboard" onClick={(e) => { e.preventDefault(); router.push("/dashboard"); }}>
             Dashboard
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/ideas" onClick={(e) => { e.preventDefault(); router.push("/ideas"); }}>
+          <BreadcrumbLink href="/dashboard/ideas" onClick={(e) => { e.preventDefault(); router.push("/dashboard/ideas"); }}>
             Ideas
           </BreadcrumbLink>
         </BreadcrumbItem>
@@ -42,8 +42,8 @@ export function IdeaBreadcrumb({ currentPage }: IdeaBreadcrumbProps) {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink
-                href={`/ideas/${idea.id}`}
-                onClick={(e) => { e.preventDefault(); router.push(`/ideas/${idea.id}`); }}
+                href={`/dashboard/ideas/${idea.id}`}
+                onClick={(e) => { e.preventDefault(); router.push(`/dashboard/ideas/${idea.id}`); }}
                 className="max-w-[200px] truncate"
               >
                 {idea.title}

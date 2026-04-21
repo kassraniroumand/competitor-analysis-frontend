@@ -113,7 +113,7 @@ export default function ChatGPTComparison() {
       {/* CTA */}
       <div className="flex justify-center pt-10">
         <a
-          href="/ideas"
+          href="/dashboard/ideas"
           className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-[1.02]"
         >
           Try IdeaProbe free

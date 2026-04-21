@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { valuePropItems } from "./data";
+import { valuePropItems } from "@/data/landing-data";
 import type { ValuePropBannerProps } from "./ValuePropBanner.types";
 
 export function ValuePropBanner({

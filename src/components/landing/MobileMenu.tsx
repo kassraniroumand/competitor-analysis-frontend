@@ -50,7 +50,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
 
             <div className="mt-auto flex flex-col gap-3 border-t border-border pt-6 pb-8">
               <Button variant="outline" size="lg" className="w-full text-sm font-medium" onClick={() => { onClose(); router.push("/dashboard"); }}>Log in</Button>
-              <Button size="lg" className="w-full rounded-full text-sm font-medium" onClick={() => { onClose(); router.push("/ideas"); }}>Get started for free</Button>
+              <Button size="lg" className="w-full rounded-full text-sm font-medium" onClick={() => { onClose(); router.push("/dashboard/ideas"); }}>Get started for free</Button>
             </div>
           </motion.div>
         </>

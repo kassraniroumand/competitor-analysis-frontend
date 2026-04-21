@@ -1,4 +1,4 @@
-import type { ShowcaseItem } from "./types";
+import type { ShowcaseItem } from "@/data/landing-data";
 
 export interface HowItWorksSectionProps {
   items?: ShowcaseItem[];

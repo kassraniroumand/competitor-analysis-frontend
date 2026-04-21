@@ -182,7 +182,7 @@ export default function Page() {
             <Button
               size="sm"
               className="rounded-full px-5 text-sm font-medium"
-              onClick={() => router.push("/ideas")}
+              onClick={() => router.push("/dashboard/ideas")}
             >
               Try for free
             </Button>
@@ -252,7 +252,7 @@ export default function Page() {
                 <Button variant="outline" size="lg" className="w-full text-sm font-medium" onClick={() => { setMobileMenuOpen(false); router.push("/dashboard"); }}>
                   Log in
                 </Button>
-                <Button size="lg" className="w-full rounded-full text-sm font-medium" onClick={() => { setMobileMenuOpen(false); router.push("/ideas"); }}>
+                <Button size="lg" className="w-full rounded-full text-sm font-medium" onClick={() => { setMobileMenuOpen(false); router.push("/dashboard/ideas"); }}>
                   Try for free
                 </Button>
               </div>
@@ -339,7 +339,7 @@ export default function Page() {
               <Button
                 variant={plan.variant === "default" ? "default" : "outline"}
                 className="mt-8 w-full rounded-lg text-sm font-medium"
-                onClick={() => router.push("/ideas")}
+                onClick={() => router.push("/dashboard/ideas")}
               >
                 {plan.cta}
               </Button>
@@ -402,7 +402,7 @@ export default function Page() {
         <Button
           size="lg"
           className="mt-6 rounded-full px-8 text-sm font-medium"
-          onClick={() => router.push("/ideas")}
+          onClick={() => router.push("/dashboard/ideas")}
         >
           Try IdeaProbe
         </Button>

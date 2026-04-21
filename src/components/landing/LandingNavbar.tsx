@@ -28,7 +28,7 @@ export function LandingNavbar({ mobileMenuOpen, onMobileMenuToggle }: LandingNav
 
         <div className="hidden items-center gap-3 md:flex">
           <Button variant="ghost" size="sm" className="text-sm font-semibold" onClick={() => router.push("/dashboard")}>Login</Button>
-          <Button size="sm" className="rounded-full bg-foreground px-5 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => router.push("/ideas")}>Try for free</Button>
+          <Button size="sm" className="rounded-full bg-foreground px-5 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => router.push("/dashboard/ideas")}>Try for free</Button>
         </div>
 
         <button className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground md:hidden" onClick={onMobileMenuToggle}>

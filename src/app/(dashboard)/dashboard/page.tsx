@@ -83,7 +83,7 @@ export default function Page() {
         title: r.title,
         detail: `Validated · score ${r.opportunityScore}/100`,
         cta: "Draft PRD",
-        to: `/ideas/${r.id}`,
+        to: `/dashboard/ideas/${r.id}`,
       }));
     const inProgress = processing.map((r) => ({
       icon: Clock,
@@ -92,7 +92,7 @@ export default function Page() {
       title: r.title,
       detail: "Analysis in progress",
       cta: "Check status",
-      to: `/ideas/${r.id}`,
+      to: `/dashboard/ideas/${r.id}`,
     }));
     const failures = failed.map((r) => ({
       icon: AlertCircle,
@@ -101,7 +101,7 @@ export default function Page() {
       title: r.title,
       detail: "Analysis failed — retry or refine",
       cta: "Retry",
-      to: `/ideas/${r.id}`,
+      to: `/dashboard/ideas/${r.id}`,
     }));
     return [...validated, ...inProgress, ...failures].slice(0, 5);
   }, [topIdeas, processing, failed]);
@@ -120,12 +120,12 @@ export default function Page() {
           <Button
             variant="outline"
             className="gap-2"
-            onClick={() => router.push("/discover")}
+            onClick={() => router.push("/dashboard/discover")}
           >
             <Compass className="h-4 w-4" />
             Discover
           </Button>
-          <Button className="gap-2" onClick={() => router.push("/ideas")}>
+          <Button className="gap-2" onClick={() => router.push("/dashboard/ideas")}>
             <Sparkles className="h-4 w-4" />
             New Analysis
           </Button>
@@ -181,7 +181,7 @@ export default function Page() {
             </div>
             <div className="flex flex-col sm:flex-row gap-2 pt-4 mt-5 border-t border-border">
               <Button
-                onClick={() => router.push(`/ideas/${topIdea.id}`)}
+                onClick={() => router.push(`/dashboard/ideas/${topIdea.id}`)}
                 className="gap-1.5"
               >
                 Open validation
@@ -189,7 +189,7 @@ export default function Page() {
               </Button>
               <Button
                 variant="outline"
-                onClick={() => router.push(`/ideas/${topIdea.id}`)}
+                onClick={() => router.push(`/dashboard/ideas/${topIdea.id}`)}
                 className="gap-1.5"
               >
                 Draft PRD
@@ -309,7 +309,7 @@ export default function Page() {
                 variant="ghost"
                 size="sm"
                 className="w-full mt-5 text-xs gap-1"
-                onClick={() => router.push("/ideas")}
+                onClick={() => router.push("/dashboard/ideas")}
               >
                 View all ideas
                 <ArrowUpRight className="h-3 w-3" />
@@ -328,7 +328,7 @@ export default function Page() {
               variant="ghost"
               size="sm"
               className="text-xs gap-1"
-              onClick={() => router.push("/discover")}
+              onClick={() => router.push("/dashboard/discover")}
             >
               View all
               <ArrowUpRight className="h-3 w-3" />
@@ -382,7 +382,7 @@ export default function Page() {
                       size="sm"
                       variant="outline"
                       className="h-7 text-[11px] gap-1"
-                      onClick={() => router.push(`/ideas?from=${s.id}`)}
+                      onClick={() => router.push(`/dashboard/ideas?from=${s.id}`)}
                     >
                       Analyze
                       <ArrowUpRight className="h-3 w-3" />
@@ -404,7 +404,7 @@ export default function Page() {
               variant="ghost"
               size="sm"
               className="text-xs gap-1"
-              onClick={() => router.push("/news")}
+              onClick={() => router.push("/dashboard/news")}
             >
               View all
               <ArrowUpRight className="h-3 w-3" />

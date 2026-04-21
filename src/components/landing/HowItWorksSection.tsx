@@ -1,18 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { showcaseItems } from "./data";
+import { showcaseItems } from "@/data/landing-data";
 import type { HowItWorksSectionProps } from "./HowItWorksSection.types";
-import type { ShowcaseItem } from "./types";
 import { cn } from "@/lib/utils";
 
 export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
-  const active = items[activeIndex];
-  const ActiveIcon = active.icon;
 
   useEffect(() => {
     const handleScroll = () => {
-      const triggerY = window.innerHeight * 0.4;
+      const triggerY = window.innerHeight * 0.45;
       let bestIdx = 0;
       let bestDist = Infinity;
       stepRefs.current.forEach((el, i) => {
@@ -36,121 +33,168 @@ export function HowItWorksSection({ items = showcaseItems }: HowItWorksSectionPr
     };
   }, [items.length]);
 
+  const progressPct =
+    items.length > 1 ? (activeIndex / (items.length - 1)) * 100 : 0;
+
   return (
     <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-4xl">
         {/* Header */}
-        <div className="mb-8 sm:mb-12 lg:mb-16">
-          <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-chart-2 mb-2 sm:mb-3">
+        <div className="mb-12 sm:mb-16 lg:mb-20 max-w-2xl">
+          <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] text-chart-2 mb-3">
             The Process
           </p>
-          <h2 className="text-[26px] leading-[1.15] sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+          <h2 className="text-[28px] leading-[1.1] sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             From concept to clarity
             <br className="hidden sm:block" />
-            <span className="sm:hidden"> </span>in five sharp steps.
+            <span className="sm:hidden"> </span>
+            in five sharp steps.
           </h2>
-          <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base lg:text-lg">
+          <p className="text-muted-foreground mt-4 text-sm sm:text-base lg:text-lg">
             Under two minutes. Zero guesswork.
           </p>
         </div>
 
-        {/* Mobile: horizontal swipe carousel */}
-        <div className="lg:hidden -mx-4">
-          <ol
-            className="flex gap-3 overflow-x-auto px-4 pb-4 snap-x snap-mandatory scroll-px-4 scrollbar-hide"
-            aria-label="How it works"
-          >
-            {items.map((item, i) => (
-              <StepCardMobile key={item.label} item={item} index={i} />
-            ))}
-          </ol>
-          <p className="mt-3 text-center text-[11px] text-muted-foreground">
-            Swipe to see all {items.length} steps →
-          </p>
-        </div>
+        {/* Timeline */}
+        <ol className="relative" aria-label="How it works steps">
+          {/* Rail background */}
+          <div
+            className="absolute left-5 sm:left-6 top-3 bottom-3 w-px bg-border"
+            aria-hidden
+          />
+          {/* Rail progress — occupies the same box, scales from top */}
+          <div
+            className="absolute left-5 sm:left-6 top-3 bottom-3 w-px bg-chart-2 origin-top transition-transform duration-500 ease-out"
+            style={{ transform: `scaleY(${progressPct / 100})` }}
+            aria-hidden
+          />
 
-        {/* Desktop: split — sticky preview + step list */}
-        <div className="hidden lg:grid grid-cols-2 gap-8">
-          {/* Left: sticky preview of active step */}
-          <div className="sticky top-24 self-start">
-            <div className="rounded-2xl border-2 border-chart-2/40 bg-card p-8 aspect-square flex flex-col justify-between shadow-sm">
-              <div>
-                <span className="font-mono text-6xl font-light text-muted-foreground/20">
-                  {String(activeIndex + 1).padStart(2, "0")}
-                </span>
-                <div className="mt-6 w-14 h-14 rounded-lg bg-chart-2/10 border border-chart-2/20 flex items-center justify-center">
-                  <ActiveIcon className="w-7 h-7 text-chart-2" />
-                </div>
-                <h3 className="mt-6 text-2xl font-bold text-foreground">{active.label}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  {active.description}
-                </p>
-              </div>
-              <div className="border-t border-border pt-4">
-                <div className="font-mono text-2xl font-bold text-chart-2">{active.stat}</div>
-                <div className="text-xs text-muted-foreground">{active.statLabel}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: scrollable step list — active step driven by scroll position */}
-          <ol className="space-y-24 py-[20vh]" aria-label="How it works steps">
-            {items.map((item, i) => {
-              const isActive = i === activeIndex;
-              return (
-                <li
-                  key={item.label}
-                  ref={(el) => (stepRefs.current[i] = el)}
-                  data-index={i}
+          {items.map((item, i) => {
+            const Icon = item.icon;
+            const isActive = i === activeIndex;
+            const isPast = i < activeIndex;
+            const isReached = isActive || isPast;
+            return (
+              <li
+                key={item.label}
+                ref={(el) => (stepRefs.current[i] = el)}
+                data-index={i}
+                className="relative pl-14 sm:pl-20 pb-10 sm:pb-14 last:pb-0"
+              >
+                {/* Rail node */}
+                <div
                   className={cn(
-                    "transition-opacity duration-500",
-                    isActive ? "opacity-100" : "opacity-30"
+                    "absolute left-0 top-0 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 bg-background transition-all duration-500",
+                    isActive
+                      ? "border-chart-2 ring-4 ring-chart-2/15"
+                      : isPast
+                        ? "border-chart-2"
+                        : "border-border"
                   )}
                 >
-                  <span className="font-mono text-xs font-bold text-chart-2">
-                    STEP {String(i + 1).padStart(2, "0")}
+                  <span
+                    className={cn(
+                      "font-mono text-xs sm:text-sm font-bold tabular-nums transition-colors",
+                      isReached ? "text-chart-2" : "text-muted-foreground"
+                    )}
+                  >
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h4 className="mt-2 text-2xl font-bold text-foreground">{item.label}</h4>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
-                  <div className="mt-4 flex items-baseline gap-2">
-                    <span className="font-mono text-lg font-bold text-chart-2">{item.stat}</span>
-                    <span className="text-xs text-muted-foreground">{item.statLabel}</span>
+                </div>
+
+                {/* Content card — dossier panel */}
+                <div
+                  className={cn(
+                    "group relative overflow-hidden rounded-xl border bg-card transition-all duration-500",
+                    isActive
+                      ? "border-chart-2/50 shadow-md -translate-y-0.5"
+                      : "border-border/70 hover:border-border"
+                  )}
+                >
+                  {/* Header strip: eyebrow + stat metadata */}
+                  <div
+                    className={cn(
+                      "flex items-center justify-between gap-3 px-5 sm:px-6 py-3 border-b transition-colors duration-500",
+                      isActive
+                        ? "bg-chart-2 border-chart-2"
+                        : "bg-muted/50 border-border/60"
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "font-mono text-[10px] sm:text-[11px] font-bold tracking-[0.25em] uppercase transition-colors duration-500",
+                        isActive ? "text-white" : "text-muted-foreground"
+                      )}
+                    >
+                      Step {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span
+                        className={cn(
+                          "font-mono text-sm font-bold tabular-nums transition-colors duration-500",
+                          isActive ? "text-white" : "text-foreground"
+                        )}
+                      >
+                        {item.stat}
+                      </span>
+                      <span
+                        aria-hidden
+                        className={cn(
+                          "h-3 w-px transition-colors duration-500",
+                          isActive ? "bg-white/40" : "bg-border"
+                        )}
+                      />
+                      <span
+                        className={cn(
+                          "text-[10px] sm:text-[11px] uppercase tracking-[0.15em] transition-colors duration-500",
+                          isActive ? "text-white/80" : "text-muted-foreground"
+                        )}
+                      >
+                        {item.statLabel}
+                      </span>
+                    </div>
                   </div>
-                </li>
-              );
-            })}
-          </ol>
+
+                  {/* Body */}
+                  <div className="relative p-5 sm:p-7">
+                    <Icon
+                      strokeWidth={1.75}
+                      className={cn(
+                        "absolute top-5 sm:top-7 right-5 sm:right-7 w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-500",
+                        isActive ? "text-chart-2" : "text-muted-foreground/45"
+                      )}
+                    />
+                    <h3 className="pr-10 text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                      {item.label}
+                    </h3>
+                    <p className="mt-2.5 text-sm sm:text-[15px] text-muted-foreground leading-relaxed max-w-prose">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+
+        {/* Outcome footer */}
+        <div className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl border border-chart-2/30 bg-chart-2/5 p-5 sm:p-6">
+          <div>
+            <p className="font-mono text-[11px] font-bold tracking-[0.25em] uppercase text-chart-2">
+              Outcome
+            </p>
+            <p className="mt-1.5 text-sm sm:text-base font-semibold text-foreground">
+              A validated, investor-ready report — without the guesswork.
+            </p>
+          </div>
+          <div className="flex items-baseline gap-2 shrink-0">
+            <span className="font-mono text-2xl sm:text-3xl font-bold text-chart-2 tabular-nums">
+              ~2m
+            </span>
+            <span className="text-xs text-muted-foreground">end-to-end</span>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-interface StepCardMobileProps {
-  item: ShowcaseItem;
-  index: number;
-}
-
-function StepCardMobile({ item, index }: StepCardMobileProps) {
-  const Icon = item.icon;
-  return (
-    <li className="snap-start shrink-0 w-[78%] max-w-[300px] rounded-xl border border-border bg-card p-5 flex flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-2xl font-light text-muted-foreground/40">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <div className="w-9 h-9 rounded-lg bg-chart-2/10 border border-chart-2/20 flex items-center justify-center">
-          <Icon className="w-4 h-4 text-chart-2" />
-        </div>
-      </div>
-      <h3 className="text-base font-semibold text-foreground">{item.label}</h3>
-      <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
-      <div className="mt-auto pt-3 border-t border-border flex items-baseline justify-between gap-2">
-        <span className="text-chart-2 font-mono text-sm font-bold">{item.stat}</span>
-        <span className="text-[10px] text-muted-foreground text-right">{item.statLabel}</span>
-      </div>
-    </li>
   );
 }

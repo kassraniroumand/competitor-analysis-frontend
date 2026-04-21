@@ -30,11 +30,11 @@ export function HeroSection(_: HeroSectionProps) {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button size="lg" className="rounded-full bg-foreground px-8 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => router.push("/ideas")}>
+            <Button size="lg" className="rounded-full bg-foreground px-8 text-sm font-medium text-background hover:bg-foreground/90" onClick={() => router.push("/dashboard/ideas")}>
               Start for free
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="rounded-full px-6 text-sm font-medium" onClick={() => router.push("/ideas")}>
+            <Button variant="outline" size="lg" className="rounded-full px-6 text-sm font-medium" onClick={() => router.push("/dashboard/ideas")}>
               <Play className="mr-2 h-3.5 w-3.5" />
               Watch demo
             </Button>

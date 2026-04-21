@@ -29,7 +29,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
   return (
     <div
       className="rounded-2xl border bg-card p-4 sm:p-6 flex flex-col gap-4 hover:shadow-md transition-all cursor-pointer"
-      onClick={() => router.push(`/ideas/${report.id}`)}
+      onClick={() => router.push(`/dashboard/ideas/${report.id}`)}
     >
       <div className="flex items-start gap-3">
         <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-accent text-accent-foreground text-base sm:text-lg font-semibold shrink-0">
@@ -104,7 +104,7 @@ export function IdeaCard({ report, onQuickView }: IdeaCardProps) {
           className="flex-1 gap-1.5 text-xs"
           onClick={(e) => {
             e.stopPropagation();
-            router.push(`/ideas/${report.id}`);
+            router.push(`/dashboard/ideas/${report.id}`);
           }}
         >
           Open

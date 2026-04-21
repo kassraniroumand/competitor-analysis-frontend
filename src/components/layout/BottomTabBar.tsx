@@ -11,7 +11,7 @@ const navItems = [
 ];
 
 function extractIdeaId(pathname: string): string | undefined {
-  const ideaMatch = pathname.match(/^\/ideas\/([^/]+)/);
+  const ideaMatch = pathname.match(/^\/dashboard\/ideas\/([^/]+)/);
   return ideaMatch?.[1];
 }
 
@@ -26,7 +26,7 @@ export function BottomTabBar() {
     <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur-md safe-area-bottom">
       <div className="flex items-center gap-2 px-3 py-3 overflow-x-auto scrollbar-hide">
         {navItems.map((item) => {
-          const path = `/ideas/${ideaId}/${item.slug}`;
+          const path = `/dashboard/ideas/${ideaId}/${item.slug}`;
           const isActive = pathname === path || pathname.startsWith(path + "/");
           const Icon = item.icon;
           return (

@@ -9,7 +9,7 @@ import { mockReports } from "@/data/mock-data";
 
 export default function IdeasLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const match = pathname.match(/^\/ideas\/([^/]+)/);
+  const match = pathname.match(/^\/dashboard\/ideas\/([^/]+)/);
   const ideaId = match?.[1];
   const idea = ideaId ? mockReports.find((r) => r.id === ideaId) : undefined;
 

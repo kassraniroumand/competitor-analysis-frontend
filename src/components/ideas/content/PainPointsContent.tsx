@@ -176,7 +176,7 @@ export function PainPointsPageContent({ ideaId }: { ideaId?: string } = {}) {
                           <Lightbulb className="h-5 w-5 text-primary" />
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/ideas/${idea.id}`} className="font-semibold text-foreground hover:text-primary transition-colors text-base">
+                          <Link href={`/dashboard/ideas/${idea.id}`} className="font-semibold text-foreground hover:text-primary transition-colors text-base">
                             {idea.title}
                           </Link>
                           <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{idea.description}</p>

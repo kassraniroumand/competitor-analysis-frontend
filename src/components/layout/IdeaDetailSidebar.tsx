@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BookOpen, CheckCircle, AlertTriangle, Users, Menu, ArrowLeft,
+  BookOpen, CheckCircle, AlertTriangle, Users, Menu, ArrowLeft, Download,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -25,27 +25,27 @@ function useNavItems(idea: IdeaReport) {
   return [
     {
       label: "Overview",
-      href: `/ideas/${idea.id}`,
+      href: `/dashboard/ideas/${idea.id}`,
       icon: BookOpen,
-      isActive: pathname === `/ideas/${idea.id}`,
+      isActive: pathname === `/dashboard/ideas/${idea.id}`,
     },
     {
       label: "Validation",
-      href: `/ideas/${idea.id}/validation`,
+      href: `/dashboard/ideas/${idea.id}/validation`,
       icon: CheckCircle,
-      isActive: pathname.startsWith(`/ideas/${idea.id}/validation`),
+      isActive: pathname.startsWith(`/dashboard/ideas/${idea.id}/validation`),
     },
     {
       label: "Pain Points",
-      href: `/ideas/${idea.id}/pain-points`,
+      href: `/dashboard/ideas/${idea.id}/pain-points`,
       icon: AlertTriangle,
-      isActive: pathname.startsWith(`/ideas/${idea.id}/pain-points`),
+      isActive: pathname.startsWith(`/dashboard/ideas/${idea.id}/pain-points`),
     },
     {
       label: "Competitors",
-      href: `/ideas/${idea.id}/competitors`,
+      href: `/dashboard/ideas/${idea.id}/competitors`,
       icon: Users,
-      isActive: pathname.startsWith(`/ideas/${idea.id}/competitors`),
+      isActive: pathname.startsWith(`/dashboard/ideas/${idea.id}/competitors`),
     },
   ];
 }
@@ -66,7 +66,7 @@ function SidebarBody({
   return (
     <>
       <Link
-        href="/ideas"
+        href="/dashboard/ideas"
         onClick={onNavigate}
         className={cn(
           "flex items-center gap-2 border-b border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors",
@@ -128,6 +128,19 @@ function SidebarBody({
           </Link>
         ))}
       </nav>
+
+      <Separator />
+
+      <div className={cn(isLg ? "p-3" : "p-3")}>
+        <Button
+          size={isLg ? "default" : "sm"}
+          className="w-full gap-1.5"
+          onClick={onNavigate}
+        >
+          <Download className={cn(isLg ? "h-4 w-4" : "h-3.5 w-3.5")} />
+          Export Report
+        </Button>
+      </div>
     </>
   );
 }

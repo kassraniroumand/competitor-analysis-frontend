@@ -160,7 +160,7 @@ function SidebarBody({
         {stats.top.map((idea) => (
           <Link
             key={idea.id}
-            href={`/ideas/${idea.id}`}
+            href={`/dashboard/ideas/${idea.id}`}
             onClick={onNavigate}
             className={cn(
               "flex items-center rounded-lg transition-colors text-muted-foreground hover:bg-muted hover:text-foreground",
@@ -197,7 +197,7 @@ function SidebarBody({
           {stats.recent.map((r) => (
             <Link
               key={r.id}
-              href={`/ideas/${r.id}`}
+              href={`/dashboard/ideas/${r.id}`}
               onClick={onNavigate}
               className="block group"
             >

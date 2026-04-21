@@ -86,7 +86,7 @@ export default function DiscoverPage() {
           <Button
             variant="outline"
             className="gap-2"
-            onClick={() => router.push("/ideas")}
+            onClick={() => router.push("/dashboard/ideas")}
           >
             <Sparkles className="h-4 w-4" />
             Back to Ideas
@@ -316,7 +316,7 @@ function SignalCard({ idea }: { idea: DiscoveredIdea }) {
           </Link>
         </Button>
         <Button size="sm" className="flex-1 gap-1.5 text-xs" asChild>
-          <Link href={`/ideas?from=${idea.id}`}>
+          <Link href={`/dashboard/ideas?from=${idea.id}`}>
             Analyze
             <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>

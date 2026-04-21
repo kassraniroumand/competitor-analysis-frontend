@@ -1,4 +1,4 @@
-import type { ValuePropItem } from "./types";
+import type { ValuePropItem } from "@/data/landing-data";
 
 export interface ValuePropBannerProps {
   items?: ValuePropItem[];

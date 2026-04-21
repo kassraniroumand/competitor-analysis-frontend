@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import type { BottomCTAProps } from "./BottomCTA.types";
 
-export function BottomCTA({ ctaPath = "/ideas" }: BottomCTAProps) {
+export function BottomCTA({ ctaPath = "/dashboard/ideas" }: BottomCTAProps) {
   const router = useRouter();
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10 lg:py-32">

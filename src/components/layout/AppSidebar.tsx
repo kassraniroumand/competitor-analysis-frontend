@@ -28,12 +28,12 @@ import { Button } from "@/components/ui/button";
 
 const workspaceItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Ideas", url: "/ideas", icon: Lightbulb },
+  { title: "Ideas", url: "/dashboard/ideas", icon: Lightbulb },
 ];
 
 const exploreItems = [
-  { title: "Discover", url: "/discover", icon: Compass },
-  { title: "News", url: "/news", icon: Newspaper },
+  { title: "Discover", url: "/dashboard/discover", icon: Compass },
+  { title: "News", url: "/dashboard/news", icon: Newspaper },
 ];
 
 const accountItems = [
@@ -47,9 +47,11 @@ export function AppSidebar() {
 
   const renderItem = (item: { title: string; url: string; icon: typeof LayoutDashboard }) => {
     const isActive =
-      item.url === "/ideas"
-        ? pathname === "/ideas" || pathname.startsWith("/ideas/")
-        : pathname.startsWith(item.url);
+      item.url === "/dashboard/ideas"
+        ? pathname === "/dashboard/ideas" || pathname.startsWith("/dashboard/ideas/")
+        : item.url === "/dashboard"
+          ? pathname === "/dashboard"
+          : pathname.startsWith(item.url);
     return (
       <SidebarMenuItem key={item.title}>
         <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>

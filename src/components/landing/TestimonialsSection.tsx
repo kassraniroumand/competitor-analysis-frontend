@@ -1,7 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";
-import { testimonials } from "./data";
+import { testimonials } from "@/data/landing-data";
 import type { TestimonialsSectionProps } from "./TestimonialsSection.types";
 
 export function TestimonialsSection({ items = testimonials }: TestimonialsSectionProps) {
