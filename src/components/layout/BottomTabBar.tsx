@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle, AlertTriangle, Users, FileText } from "lucide-react";
+import { CheckCircle, AlertTriangle, Users } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +8,6 @@ const navItems = [
   { title: "Validation", icon: CheckCircle, slug: "validation" },
   { title: "Pain Points", icon: AlertTriangle, slug: "pain-points" },
   { title: "Competitors", icon: Users, slug: "competitors" },
-  { title: "Report", icon: FileText, slug: "report" },
 ];
 
 function extractIdeaId(pathname: string): string | undefined {

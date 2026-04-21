@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BookOpen, CheckCircle, AlertTriangle, Users, FileText, Menu, ArrowLeft,
+  BookOpen, CheckCircle, AlertTriangle, Users, Menu, ArrowLeft,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -46,12 +46,6 @@ function useNavItems(idea: IdeaReport) {
       href: `/ideas/${idea.id}/competitors`,
       icon: Users,
       isActive: pathname.startsWith(`/ideas/${idea.id}/competitors`),
-    },
-    {
-      label: "Report",
-      href: `/ideas/${idea.id}/report`,
-      icon: FileText,
-      isActive: pathname.startsWith(`/ideas/${idea.id}/report`),
     },
   ];
 }
