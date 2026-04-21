@@ -303,11 +303,11 @@ export function IdeaListMobileNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
-          size="icon"
-          className="lg:hidden fixed bottom-5 right-5 z-40 h-12 w-12 rounded-full shadow-lg"
-          aria-label="Open ideas pipeline"
+          className="lg:hidden fixed bottom-5 right-5 z-40 h-12 rounded-full px-5 gap-2 shadow-lg"
+          aria-label="View ideas"
         >
           <Menu className="h-5 w-5" />
+          <span className="text-sm font-medium">View ideas</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 w-[85vw] max-w-sm sm:max-w-sm overflow-y-auto">
